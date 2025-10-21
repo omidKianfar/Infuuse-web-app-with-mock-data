@@ -1,0 +1,8 @@
+mutation conversation_fetchOrCreateByContact($businessKey: String, $input: ConversationInput) {
+	conversation_fetchOrCreateByContact(businessKey: $businessKey, input: $input) {
+		result{
+			id
+		}
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation payment_createCustomPackage($input: CreateCustomPackageInput) {
+	payment_createCustomPackage(input: $input) {
+		status
+	}
+}

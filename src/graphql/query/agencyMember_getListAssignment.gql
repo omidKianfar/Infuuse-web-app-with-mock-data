@@ -1,0 +1,22 @@
+query agencyMember_getListAssignment($businessId: Int,$skip: Int, $take: Int, $where: AgencyMemberAssignmentFilterInput , $order: [AgencyMemberAssignmentSortInput!] ){
+  agencyMember_getListAssignment(businessId: $businessId) {
+    result(skip: $skip, take: $take, where: $where, order: $order) {
+      items{
+        id
+        createdDate
+        isDeleted
+        isOpratorAccess
+        isReportAccess
+        isSettingsManagmentAccess
+        lastModifiedDate
+        business{
+          logo
+          id
+          name
+        }
+      }
+      totalCount
+    }
+    status
+  }
+}

@@ -1,0 +1,16 @@
+mutation note_add($contactId: Int!, $input: NoteInput) {
+	note_add(contactId: $contactId, input: $input) {
+		result {
+			content
+			contact {
+				id
+				fullName
+			}
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		status
+	}
+}

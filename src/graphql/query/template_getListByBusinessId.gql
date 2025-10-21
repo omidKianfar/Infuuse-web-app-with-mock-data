@@ -1,0 +1,19 @@
+query template_getListByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: TemplateFilterInput
+	$order: [TemplateSortInput!]
+) {
+	template_getListByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				content
+				title
+				id
+			}
+			totalCount
+		}
+		status
+	}
+}

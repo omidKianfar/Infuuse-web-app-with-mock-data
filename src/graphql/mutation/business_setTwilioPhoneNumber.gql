@@ -1,0 +1,34 @@
+mutation business_setTwilioPhoneNumber($businessId: Int!, $twilioPhoneNumberId: Int!) {
+	business_setTwilioPhoneNumber(businessId: $businessId, twilioPhoneNumberId: $twilioPhoneNumberId) {
+		result {
+			name
+			logo
+			isHideAgency
+			status
+			businessKey
+			twilioPhoneNumberId
+			twilioPhoneNumber {
+				id
+				phoneNumber
+				business {
+					id
+					name
+					logo
+				}
+			}
+			# gmail
+			# gmailAuthToken
+			contacts {
+				id
+				firstName
+				photoUrl
+			}
+			# hasExistGmail
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		status
+	}
+}

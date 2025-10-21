@@ -1,0 +1,94 @@
+query supportChat_getList($skip: Int, $take: Int, $where: ConversationFilterInput, $order: [ConversationSortInput!]) {
+	supportChat_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				contact {
+					id
+					fullName
+					photoUrl
+				}
+				createdDate
+				lastModifiedDate
+				numberOfUnreadMessages
+				lastMessage {
+					id
+					conversationMember {
+						userId
+					}
+				}
+				conversationMembers {
+					id
+					user {
+						fullName
+						photoUrl
+						id
+					}
+				}
+				conversationMessages {
+					metaData
+					conversationId
+					conversation {
+						id
+					}
+					createdDate
+					id
+					isAttachment
+					isSeen
+					isDeleted
+					isSentByContact
+					message
+					typeSocialNetwork
+					conversationAttachments {
+						url
+						type
+						createdDate
+						id
+					}
+					conversationMember {
+						id
+						user {
+							id
+							fullName
+							photoUrl
+							email
+						}
+					}
+					conversationMember {
+						id
+						user {
+							id
+							fullName
+							photoUrl
+						}
+					}
+					contactNetwork {
+						contact {
+							fullName
+							id
+							photoUrl
+						}
+						url
+						value
+						typeContactNetwork
+					}
+					conversationAttachments {
+						url
+						type
+						createdDate
+						id
+					}
+				}
+				title
+				type
+				id
+				business {
+					id
+					name
+					logo
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

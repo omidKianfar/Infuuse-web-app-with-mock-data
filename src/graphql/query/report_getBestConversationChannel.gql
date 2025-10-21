@@ -1,0 +1,10 @@
+query report_getBestConversionChannel($input: MutualReportInput) {
+	report_getBestConversionChannel(input: $input) {
+		result {
+			typeSocialNetwork
+			portionPercent
+			totalRevenue
+		}
+		status
+	}
+}

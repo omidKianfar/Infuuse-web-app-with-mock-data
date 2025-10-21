@@ -1,0 +1,5 @@
+mutation payment_modifyOperatorCount($quantity: Int!) {
+	payment_modifyOperatorCount(quantity: $quantity) {
+		status
+	}
+}

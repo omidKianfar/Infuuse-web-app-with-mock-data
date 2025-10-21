@@ -1,0 +1,30 @@
+query agencyMember_getList($skip: Int, $take: Int, $where: AgencyMemberFilterInput, $order: [AgencyMemberSortInput!]) {
+	agencyMember_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				createdDate
+				lastModifiedDate
+				email
+				fullName
+				id
+				isActive
+				isDeleted
+				isOnline
+				lineStatus
+				phoneNumber
+				photoUrl
+				typeMember
+				userType
+				isManageAgencyUserAccess
+				isSubscriptionAccess
+				agency {
+					logo
+					id
+					name
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

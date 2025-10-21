@@ -1,0 +1,5 @@
+mutation internalChat_addInternalMessage($internalMessageInput: InternalMessageInput){
+  internalChat_addInternalMessage(internalMessageInput: $internalMessageInput) {  
+    status
+  }
+}

@@ -1,0 +1,12 @@
+mutation supportChat_addSupportMessageByAdmin(
+    $conversationId: Int!
+    $supportMessageInput: SupportMessageInput
+  ){
+  supportChat_addSupportMessageByAdmin(
+    conversationId: $conversationId
+    supportMessageInput: $supportMessageInput
+  ) {
+    
+    status
+  }
+}

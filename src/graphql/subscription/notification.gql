@@ -1,0 +1,13 @@
+subscription notification($userId: Int!) {
+	notification(userId: $userId) {
+		type
+		content
+		message
+		isSeen
+		userId
+		id
+		isDeleted
+		createdDate
+		lastModifiedDate
+	}
+}

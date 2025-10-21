@@ -1,0 +1,5 @@
+mutation payment_removeCustomPackage($packageId: Int!) {
+	payment_removeCustomPackage(packageId: $packageId) {
+		status
+	}
+}

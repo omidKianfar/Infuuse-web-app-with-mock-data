@@ -1,0 +1,26 @@
+query template_getListByCategoryId(
+	$categoryId: Int!
+	$skip: Int
+	$take: Int
+	$where: TemplateFilterInput
+	$order: [TemplateSortInput!]
+) {
+	template_getListByCategoryId(categoryId: $categoryId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				category {
+					id
+					name
+				}
+				content
+				createdDate
+				id
+				isDeleted
+				lastModifiedDate
+				title
+			}
+			totalCount
+		}
+		status
+	}
+}

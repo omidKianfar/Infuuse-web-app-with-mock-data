@@ -1,0 +1,5 @@
+mutation agencyMember_signUpMember($input: AgencyMemberInput) {
+	agencyMember_signUpMember(input: $input) {
+		status
+	}
+}

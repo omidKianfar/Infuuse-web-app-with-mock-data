@@ -1,0 +1,56 @@
+query user_getCurrentUser {
+	user_getCurrentUser {
+		result {
+			isAgency
+			isBusinessOwner
+			user {
+				userType
+				id
+				fullName
+				createdDate
+				email
+				externalId
+				isActive
+				isOnline
+				isDeleted
+				lastModifiedDate
+				lineStatus
+				phoneNumber
+				photoUrl
+			}
+			businessAccesses {
+				business {
+					id
+					name
+					logo
+					createdDate
+					lastModifiedDate
+					isDeleted
+					isHideAgency
+					status
+					twilioPhoneNumber {
+						id
+						phoneNumber
+					}
+					categories {
+						id
+						name
+					}
+					businessMembers {
+						id
+						typeMember
+					}
+				}
+				access {
+					isManageAgencyUserAccess
+					isManageBusinessUserAccess
+					isOpratorAccess
+					isReportAccess
+					isSettingsManagmentAccess
+					isSocialManagmentAccess
+				}
+			}
+		}
+		status
+	}
+}

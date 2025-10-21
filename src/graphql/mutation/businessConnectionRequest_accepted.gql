@@ -1,0 +1,5 @@
+mutation businessConnectionRequest_accepted($entityId: Int!) {
+	businessConnectionRequest_accepted(entityId: $entityId) {
+		status
+	}
+}

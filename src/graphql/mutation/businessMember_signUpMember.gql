@@ -1,0 +1,5 @@
+mutation businessMember_signUpMember($input: BusinessMemberInput) {
+	businessMember_signUpMember(input: $input) {
+		status
+	}
+}

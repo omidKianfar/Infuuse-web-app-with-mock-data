@@ -1,0 +1,26 @@
+query Twilio_getListPhoneNumber(
+	$skip: Int
+	$take: Int
+	$where: TwilioPhoneNumberFilterInput
+	$order: [TwilioPhoneNumberSortInput!]
+) {
+	Twilio_getListPhoneNumber {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				createdDate
+				id
+				isDeleted
+				isSold
+				lastModifiedDate
+				phoneNumber
+				business {
+					name
+					id
+					logo
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

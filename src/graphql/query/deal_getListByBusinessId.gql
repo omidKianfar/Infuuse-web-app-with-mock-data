@@ -1,0 +1,29 @@
+query deal_getListByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: DealFilterInput
+	$order: [DealSortInput!]
+) {
+	deal_getListByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				contact {
+					id
+					fullName
+					photoUrl
+					createdDate
+					firstName
+					lastName
+					company
+					jobTitle
+					isDeleted
+					# isHubSpot
+					lastModifiedDate
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

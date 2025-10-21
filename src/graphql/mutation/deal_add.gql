@@ -1,0 +1,5 @@
+mutation deal_add($contactId: Int!, $input: DealInput) {
+	deal_add(contactId: $contactId, input: $input) {
+		status
+	}
+}

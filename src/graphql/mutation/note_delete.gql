@@ -1,0 +1,5 @@
+mutation note_delete($noteId: Int!) {
+	note_delete(noteId: $noteId) {
+		status
+	}
+}

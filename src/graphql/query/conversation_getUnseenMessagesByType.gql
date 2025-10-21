@@ -1,0 +1,17 @@
+query conversation_getUnseenMessagesByType(
+	$skip: Int
+	$take: Int
+	$where: UnseenMessagesByTypeDtoFilterInput
+	$order: [UnseenMessagesByTypeDtoSortInput!]
+) {
+	conversation_getUnseenMessagesByType {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				countUnseenMessages
+				typeSocialNetwork
+			}
+			totalCount
+		}
+		status
+	}
+}

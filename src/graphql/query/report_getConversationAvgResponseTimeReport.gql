@@ -1,0 +1,10 @@
+query report_getConversationAvgResponseTimeReport($input: MutualReportInput) {
+	report_getConversationAvgResponseTimeReport(input: $input) {
+		result {
+			avgResponseTime
+			operatorFullName
+			operatorId
+		}
+		status
+	}
+}

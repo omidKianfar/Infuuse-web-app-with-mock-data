@@ -1,0 +1,6 @@
+mutation twilio_getVideoRoomToken($identity: String, $roomName: String) {
+	twilio_getVideoRoomToken(identity: $identity, roomName: $roomName) {
+		result
+		status
+	}
+}

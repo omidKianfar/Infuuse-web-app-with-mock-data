@@ -1,0 +1,51 @@
+query ticket_getListByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: TicketFilterInput
+	$order: [TicketSortInput!]
+) {
+	ticket_getListByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				assignUser {
+					id
+					fullName
+					photoUrl
+					email
+				}
+				business {
+					name
+					id
+					logo
+				}
+				contact {
+					id
+					fullName
+					photoUrl
+				}
+				creator {
+					id
+					fullName
+					photoUrl
+					email
+				}
+				meetingLink
+				metaData
+				createdDate
+				lastModifiedDate
+				description
+				endDate
+				estimate
+				id
+				isAppointment
+				isDeleted
+				startDate
+				status
+				summary
+			}
+			totalCount
+		}
+		status
+	}
+}

@@ -1,0 +1,51 @@
+query conversation_getList($skip: Int, $take: Int, $where: ConversationFilterInput, $order: [ConversationSortInput!]) {
+	conversation_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				id
+				title
+				numberOfUnreadMessages
+				lastMessage {
+					id
+					conversationMember {
+						userId
+					}
+				}
+				conversationMembers {
+					userId
+					user {
+						id
+						fullName
+						phoneNumber
+						photoUrl
+					}
+				}
+				conversationMessages {
+					message
+					id
+					isSeen
+					conversationMember {
+						userId
+					}
+				}
+				contact {
+					id
+					photoUrl
+					fullName
+				}
+				business {
+					id
+					logo
+					name
+					status
+				}
+				createdDate
+				lastModifiedDate
+				type
+			}
+
+			totalCount
+		}
+		status
+	}
+}

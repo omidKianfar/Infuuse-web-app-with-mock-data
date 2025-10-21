@@ -1,0 +1,5 @@
+mutation ticket_add($businessId: Int!, $input: TicketInput) {
+	ticket_add(businessId: $businessId, input: $input) {
+		status
+	}
+}

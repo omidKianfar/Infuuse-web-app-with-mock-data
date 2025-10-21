@@ -1,0 +1,28 @@
+query business_getTeamByBusinessId(
+	$businessId: Int!
+	$permissionType: PermissionType
+	$skip: Int
+	$take: Int
+	$where: UserFilterInput
+	$order: [UserSortInput!]
+) {
+	business_getTeamByBusinessId(businessId: $businessId, permissionType: $permissionType) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				createdDate
+				userType
+				photoUrl
+				id
+				fullName
+				lineStatus
+				isActive
+				isOnline
+				isDeleted
+				lastModifiedDate
+				email
+			}
+			totalCount
+		}
+		status
+	}
+}

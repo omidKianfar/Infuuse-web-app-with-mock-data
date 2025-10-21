@@ -1,0 +1,9 @@
+query report_getTicketReport($input: TicketReportInput) {
+	report_getTicketReport(input: $input) {
+		result {
+			ticketCount
+			timeUnit
+		}
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation payment_cancelSubscription {
+	payment_cancelSubscription {
+		status
+	}
+}

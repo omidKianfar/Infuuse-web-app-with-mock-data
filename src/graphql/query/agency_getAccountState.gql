@@ -1,0 +1,10 @@
+query agency_getAccountState {
+	agency_getAccountState {
+		result {
+			maxOperatorCount
+			activeOperatorCount
+			accountExpireDate
+		}
+		status
+	}
+}

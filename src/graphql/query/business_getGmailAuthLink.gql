@@ -1,0 +1,6 @@
+query business_getGmailAuthLink($callbackUrl: String) {
+	business_getGmailAuthLink(callbackUrl: $callbackUrl) {
+		result
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation template_delete($templateId: Int!){
+  template_delete(templateId: $templateId) {
+    status
+  }
+}

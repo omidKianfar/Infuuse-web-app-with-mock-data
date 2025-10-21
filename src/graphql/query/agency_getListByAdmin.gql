@@ -1,0 +1,26 @@
+query agency_getListByAdmin(
+	$skip: Int
+	$take: Int
+	$where: AgencyAdminDtoFilterInput
+	$order: [AgencyAdminDtoSortInput!]
+) {
+	agency_getListByAdmin {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				agency {
+					logo
+					name
+					id
+					createdDate
+					status
+					isDeleted
+				}
+				agencyOwner {
+					email
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

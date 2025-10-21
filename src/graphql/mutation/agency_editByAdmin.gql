@@ -1,0 +1,5 @@
+mutation agency_editByAdmin($input: AgencyAdminInput, $agencyId: Int!) {
+	agency_editByAdmin(input: $input, agencyId: $agencyId) {
+		status
+	}
+}

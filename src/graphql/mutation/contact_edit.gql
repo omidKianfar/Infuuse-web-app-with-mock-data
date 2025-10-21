@@ -1,0 +1,5 @@
+mutation contact_edit($contactId: Int!, $input: ContactInput) {
+	contact_edit(contactId: $contactId, input: $input) {
+		status
+	}
+}

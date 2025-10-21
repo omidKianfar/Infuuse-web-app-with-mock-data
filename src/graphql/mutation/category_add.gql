@@ -1,0 +1,5 @@
+mutation category_add($businessId: Int!, $input: CategoryInput) {
+	category_add(businessId: $businessId, input: $input) {
+		status
+	}
+}

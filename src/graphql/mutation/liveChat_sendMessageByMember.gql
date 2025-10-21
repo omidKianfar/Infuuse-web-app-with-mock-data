@@ -1,0 +1,35 @@
+mutation liveChat_sendMessageByMember($conversationId: Int!, $input: ConversationMessageInput) {
+	liveChat_sendMessageByMember(conversationId: $conversationId, input: $input) {
+		result {
+			id
+			typeSocialNetwork
+			message
+			isAttachment
+			conversationId
+			conversation {
+				id
+				type
+				createdDate
+			}
+			conversationMemberId
+			conversationMember {
+				id
+				user {
+					id
+					fullName
+					photoUrl
+				}
+			}
+			conversationAttachments {
+				id
+				type
+				url
+			}
+			isSentByContact
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		status
+	}
+}

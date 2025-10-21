@@ -1,0 +1,8 @@
+mutation supportChat_addSupportMessage($supportMessageInput: SupportMessageInput) {
+	supportChat_addSupportMessage(supportMessageInput: $supportMessageInput) {
+		result {
+			id
+		}
+		status
+	}
+}

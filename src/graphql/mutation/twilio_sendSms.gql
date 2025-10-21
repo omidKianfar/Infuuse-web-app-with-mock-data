@@ -1,0 +1,5 @@
+mutation twilio_sendSms($conversationId: Int!, $input: SendSmsInput) {
+	twilio_sendSms(conversationId: $conversationId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation category_edit($categoryId: Int!, $input: CategoryInput) {
+	category_edit(categoryId: $categoryId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+query user_getAccountStatus {
+	user_getAccountStatus {
+		status
+	}
+}

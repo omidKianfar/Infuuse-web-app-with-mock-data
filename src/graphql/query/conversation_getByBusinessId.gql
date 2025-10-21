@@ -1,0 +1,30 @@
+query conversation_getByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: ConversationFilterInput
+	$order: [ConversationSortInput!]
+) {
+	conversation_getByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				contact {
+					fullName
+					photoUrl
+					id
+				}
+				business {
+					id
+					name
+					status
+				}
+				createdDate
+				lastModifiedDate
+				id
+				type
+			}
+			totalCount
+		}
+		status
+	}
+}

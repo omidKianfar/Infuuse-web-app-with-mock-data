@@ -1,0 +1,18 @@
+query business_getList($skip: Int, $take: Int, $where: BusinessFilterInput, $order: [BusinessSortInput!]) {
+	business_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				createdDate
+				id
+				name
+				logo
+				isHideAgency
+				businessMembers {
+					email
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

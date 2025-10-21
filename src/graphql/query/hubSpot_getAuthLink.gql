@@ -1,0 +1,6 @@
+query hubSpot_getAuthLink($redirectLink: String) {
+	hubSpot_getAuthLink(redirectLink: $redirectLink) {
+		result
+		status
+	}
+}

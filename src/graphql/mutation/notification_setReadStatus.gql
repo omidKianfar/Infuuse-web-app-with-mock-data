@@ -1,0 +1,5 @@
+mutation notification_setReadStatus($ids: [Int!]) {
+	notification_setReadStatus(ids: $ids) {
+		status
+	}
+}

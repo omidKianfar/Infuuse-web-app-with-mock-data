@@ -1,0 +1,5 @@
+mutation hubSpot_setByBusinessId($code: String, $businessId: Int!, $redirectLink: String) {
+	hubSpot_setByBusinessId(code: $code, businessId: $businessId, redirectLink: $redirectLink) {
+		status
+	}
+}

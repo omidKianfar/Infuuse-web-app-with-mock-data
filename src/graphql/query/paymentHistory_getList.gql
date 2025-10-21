@@ -1,0 +1,42 @@
+query paymentHistory_getList(
+	$skip: Int
+	$take: Int
+	$where: PaymentHistoryFilterInput
+	$order: [PaymentHistorySortInput!]
+) {
+	paymentHistory_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				id
+				createdDate
+				creator {
+					id
+					fullName
+					phoneNumber
+					photoUrl
+					email
+					userType
+				}
+				discount
+				expireDate
+				invoiceId
+				lastModifiedDate
+				operatorCount
+				owner {
+					id
+					fullName
+					photoUrl
+					email
+					userType
+				}
+				packageDuration
+				paymentStatus
+				paymentType
+				subscriptionId
+				totalPrice
+			}
+			totalCount
+		}
+		status
+	}
+}

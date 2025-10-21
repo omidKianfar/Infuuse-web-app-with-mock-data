@@ -1,0 +1,5 @@
+mutation businessMember_edit($input: BusinessMemberInput, $businessMemberId: Int!) {
+	businessMember_edit(input: $input, businessMemberId: $businessMemberId) {
+		status
+	}
+}

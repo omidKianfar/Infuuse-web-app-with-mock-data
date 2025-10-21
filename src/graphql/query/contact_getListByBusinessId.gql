@@ -1,0 +1,43 @@
+query contact_getListByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: ContactFilterInput
+	$order: [ContactSortInput!]
+) {
+	contact_getListByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				conversationId
+				conversation {
+					conversationMembers {
+						userId
+					}
+				}
+				business {
+					id
+					name
+					logo
+				}
+				company
+				createdDate
+				fullName
+				firstName
+				lastName
+				id
+				hubSpotContactId
+				jobTitle
+				lastModifiedDate
+				photoUrl
+				contactNetworks {
+					id
+					url
+					value
+					typeContactNetwork
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

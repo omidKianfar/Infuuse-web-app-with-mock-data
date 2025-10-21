@@ -1,0 +1,10 @@
+mutation twilio_generateVideoRoom {
+	twilio_generateVideoRoom {
+		result {
+			id
+			roomName
+			videoSid
+		}
+		status
+	}
+}

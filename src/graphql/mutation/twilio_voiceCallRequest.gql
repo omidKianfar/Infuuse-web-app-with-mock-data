@@ -1,0 +1,5 @@
+mutation twilio_voiceCallRequest($businessId: Int!, $input: VoiceCallRequestInput) {
+	twilio_voiceCallRequest(businessId: $businessId, input: $input) {
+		status
+	}
+}

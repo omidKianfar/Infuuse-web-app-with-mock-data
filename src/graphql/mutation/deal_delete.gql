@@ -1,0 +1,5 @@
+mutation deal_delete($dealId: Int!) {
+	deal_delete(dealId: $dealId) {
+		status
+	}
+}

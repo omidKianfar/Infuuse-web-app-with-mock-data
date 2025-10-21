@@ -1,0 +1,41 @@
+query businessMember_getList(
+	$skip: Int
+	$take: Int
+	$where: BusinessMemberFilterInput
+	$order: [BusinessMemberSortInput!]
+) {
+	businessMember_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				business {
+					id
+					name
+					logo
+				}
+				createdDate
+				lastModifiedDate
+				email
+				fullName
+				id
+				isActive
+				isDeleted
+				isOnline
+				lineStatus
+				phoneNumber
+				photoUrl
+				typeMember
+				userType
+
+				isManageBusinessUserAccess
+				isOpratorAccess
+				isReportAccess
+				isSettingsManagmentAccess
+				isSocialManagmentAccess
+				isSubscriptionAccess
+			}
+
+			totalCount
+		}
+		status
+	}
+}

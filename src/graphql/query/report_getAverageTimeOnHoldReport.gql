@@ -1,0 +1,9 @@
+query report_getAverageTimeOnHoldReport($input: MutualReportInput) {
+	report_getAverageTimeOnHoldReport(input: $input) {
+		result {
+			typeSocialNetwork
+			avgResponseTime
+		}
+		status
+	}
+}

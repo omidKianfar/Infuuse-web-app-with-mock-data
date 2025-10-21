@@ -1,0 +1,20 @@
+query contactNetwork_getListByContactId(
+	$contactId: Int!
+	$skip: Int
+	$take: Int
+	$where: ContactNetworkFilterInput
+	$order: [ContactNetworkSortInput!]
+) {
+	contactNetwork_getListByContactId(contactId: $contactId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				typeContactNetwork
+				value
+				url
+				id
+			}
+			totalCount
+		}
+		status
+	}
+}

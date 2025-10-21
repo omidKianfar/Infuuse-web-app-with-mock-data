@@ -1,0 +1,6 @@
+query user_getCalendarAuthLink($redirectUrl: String) {
+	user_getCalendarAuthLink(redirectUrl: $redirectUrl) {
+		result
+		status
+	}
+}

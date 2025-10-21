@@ -1,0 +1,5 @@
+mutation deal_edit($dealId: Int!, $input: DealInput) {
+	deal_edit(dealId: $dealId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation tagCategory_delete($tagCategoryId: Int!) {
+	tagCategory_delete(tagCategoryId: $tagCategoryId) {
+		status
+	}
+}

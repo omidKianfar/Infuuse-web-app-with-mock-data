@@ -1,0 +1,32 @@
+query business_getDetailsByAdmin($businessId: Int!) {
+	business_getDetailsByAdmin(businessId: $businessId) {
+		result {
+			contactsCount
+			business {
+				createdDate
+				status
+				name
+				logo
+				id
+				businessMembers {
+					fullName
+					photoUrl
+					id
+					isActive
+					id
+					email
+					typeMember
+					createdDate
+				}
+			}
+			businessOwner {
+				fullName
+				photoUrl
+				id
+				phoneNumber
+				createdDate
+			}
+		}
+		status
+	}
+}

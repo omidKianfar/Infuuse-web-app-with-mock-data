@@ -1,0 +1,9 @@
+query report_getTagCategoryReport($input: TagCategoryReportInput) {
+	report_getTagCategoryReport(input: $input) {
+		result {
+			tagCategoryName
+			count
+		}
+		status
+	}
+}

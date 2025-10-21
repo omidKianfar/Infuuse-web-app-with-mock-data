@@ -1,0 +1,6 @@
+query payment_cancelingSubscriptionCost {
+	payment_cancelingSubscriptionCost {
+		result
+		status
+	}
+}

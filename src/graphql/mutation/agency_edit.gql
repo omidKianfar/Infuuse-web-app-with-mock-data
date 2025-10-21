@@ -1,0 +1,5 @@
+mutation agency_edit($input: AgencyInput, $agencyId: Int!) {
+	agency_edit(input: $input, agencyId: $agencyId) {
+		status
+	}
+}

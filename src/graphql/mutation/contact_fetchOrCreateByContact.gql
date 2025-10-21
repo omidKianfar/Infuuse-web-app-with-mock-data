@@ -1,0 +1,8 @@
+mutation contact_fetchOrCreateByContact($businessKey: String, $input: StartLiveChatInput) {
+	contact_fetchOrCreateByContact(businessKey: $businessKey, input: $input) {
+		result {
+			id
+		}
+		status
+	}
+}

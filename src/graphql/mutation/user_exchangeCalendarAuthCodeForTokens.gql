@@ -1,0 +1,14 @@
+mutation user_exchangeCalendarAuthCodeForTokens($code: String, $redirectUrl: String) {
+	user_exchangeCalendarAuthCodeForTokens(code: $code, redirectUrl: $redirectUrl) {
+		result {
+			accessToken
+			expiresIn
+			baseTokenExpiration
+			tokenType
+			scopes
+			refreshToken
+			expirationTime
+		}
+		status
+	}
+}

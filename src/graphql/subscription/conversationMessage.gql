@@ -1,0 +1,88 @@
+subscription conversationMessage($userId: Int!) {
+	conversationMessage(userId: $userId) {
+		id
+		typeSocialNetwork
+		message
+		isAttachment
+		conversationId
+		twilioHistoryCall {
+			callSid
+			callStatus
+			clientId
+			createdDate
+			direction
+			duration
+			endTime
+			enqueue
+			from
+			hasCallBeenAnswered
+			id
+			isRecordDone
+			lastModifiedDate
+			recordUrl
+			to
+			user {
+				id
+				fullName
+				phoneNumber
+				photoUrl
+			}
+			wasOperatorAvailable
+		}
+		contactNetwork {
+			id
+			typeContactNetwork
+			value
+		}
+		conversation {
+			numberOfUnreadMessages
+			type
+			isPinned
+			businessId
+			business {
+				id
+				logo
+				name
+			}
+			contact {
+				id
+				photoUrl
+				fullName
+				contactNetworks {
+					value
+				}
+			}
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		conversationMember {
+			userId
+			conversationId
+			user {
+				id
+				fullName
+				photoUrl
+				email
+			}
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		conversationAttachments {
+			type
+			url
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		conversationMemberId
+		isSentByContact
+		isDeleted
+		createdDate
+		lastModifiedDate
+	}
+}

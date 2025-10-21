@@ -1,0 +1,11 @@
+query report_getCustomerStatusReport($input: MutualReportInput) {
+	report_getCustomerStatusReport(input: $input) {
+		result {
+			typeSocialNetwork
+			leadCustomerCount
+			appointmentScheduledCustomerCount
+			closedWonCustomerCount
+		}
+		status
+	}
+}

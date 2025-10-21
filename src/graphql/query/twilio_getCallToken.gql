@@ -1,0 +1,10 @@
+query twilio_getCallToken($businessId: Int!) {
+	twilio_getCallToken(businessId: $businessId) {
+		result{
+      inboundClientId
+      outboundClientId
+      token
+    }
+		status
+	}
+}

@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+      - dev
+      - qa
+      - stg
+      - prd
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    git remote add github https://$(GITHUB_PAT)@github.com/aps-infuuse/Infuuse-Web.git
+    git push --mirror github
+  displayName: 'Mirror to GitHub'

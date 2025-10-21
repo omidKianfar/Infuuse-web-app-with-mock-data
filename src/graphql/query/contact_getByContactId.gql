@@ -1,0 +1,24 @@
+query contact_getByContactId($contactId: Int!) {
+	contact_getByContactId(contactId: $contactId) {
+		result {
+			business {
+				name
+				id
+				logo
+			}
+			company
+			createdDate
+			dealStatus
+			firstName
+			lastName
+			fullName
+			id
+			isDeleted
+			hubSpotContactId
+			jobTitle
+			lastModifiedDate
+			photoUrl
+		}
+		status
+	}
+}

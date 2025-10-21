@@ -1,0 +1,5 @@
+mutation contact_add($businessId: Int!, $input: ContactInput) {
+	contact_add(businessId: $businessId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation twilio_editPhoneNumber($twilioPhoneNumberId: Int!, $input: TwilioPhoneNumberInput) {
+	twilio_editPhoneNumber(twilioPhoneNumberId: $twilioPhoneNumberId, input: $input) {
+		status
+	}
+}

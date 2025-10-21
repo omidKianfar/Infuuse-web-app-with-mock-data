@@ -1,0 +1,5 @@
+mutation twilio_rejectCallByCallSid($callSid: String) {
+	twilio_rejectCallByCallSid(callSid: $callSid) {
+		status
+	}
+}

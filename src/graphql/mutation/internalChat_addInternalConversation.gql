@@ -1,0 +1,5 @@
+mutation internalChat_addInternalConversation($internalConveInput: InternalConversationInput){
+  internalChat_addInternalConversation(internalConveInput: $internalConveInput) {
+    status
+  }
+}

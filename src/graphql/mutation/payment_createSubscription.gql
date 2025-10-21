@@ -1,0 +1,6 @@
+mutation payment_createSubscription($input: CreateSubscriptionInput) {
+	payment_createSubscription(input: $input) {
+		result
+		status
+	}
+}

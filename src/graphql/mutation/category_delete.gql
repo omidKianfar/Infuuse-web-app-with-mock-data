@@ -1,0 +1,5 @@
+mutation category_delete($categoryId: Int!) {
+	category_delete(categoryId: $categoryId) {
+		status
+	}
+}

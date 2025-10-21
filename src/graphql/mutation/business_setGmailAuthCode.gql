@@ -1,0 +1,5 @@
+mutation business_setGmailAuthCode($input: GmailAuthPayloadInput, $callbackUrl: String) {
+	business_setGmailAuthCode(input: $input, callbackUrl: $callbackUrl) {
+		status
+	}
+}

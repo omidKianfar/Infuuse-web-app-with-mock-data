@@ -1,0 +1,5 @@
+mutation agencyMember_businessConnectionRequest($businessId: Int!, $colorTag: ColorTagType!) {
+	agencyMember_businessConnectionRequest(businessId: $businessId, colorTag: $colorTag) {
+		status
+	}
+}

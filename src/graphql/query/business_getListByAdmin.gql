@@ -1,0 +1,26 @@
+query business_getListByAdmin(
+	$skip: Int
+	$take: Int
+	$where: BusinessAdminDtoFilterInput
+	$order: [BusinessAdminDtoSortInput!]
+) {
+	business_getListByAdmin {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				business {
+					logo
+					name
+					id
+					createdDate
+					status
+                    isDeleted
+				}
+				businessOwner {
+					email
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

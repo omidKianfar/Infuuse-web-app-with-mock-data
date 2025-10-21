@@ -1,0 +1,5 @@
+mutation contactNetwork_deleteById($contactNetworkId: Int!) {
+	contactNetwork_deleteById(contactNetworkId: $contactNetworkId) {
+		status
+	}
+}

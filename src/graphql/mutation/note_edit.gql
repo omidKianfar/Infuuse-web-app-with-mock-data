@@ -1,0 +1,15 @@
+mutation note_edit($noteId: Int!, $input: NoteInput) {
+	note_edit(noteId: $noteId, input: $input) {
+		result {
+			content
+			contact {
+				id
+			}
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		status
+	}
+}

@@ -1,0 +1,25 @@
+query note_getListByContactId(
+	$contactId: Int!
+	$skip: Int
+	$take: Int
+	$where: NoteFilterInput
+	$order: [NoteSortInput!]
+) {
+	note_getListByContactId(contactId: $contactId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				content
+				createdDate
+				id
+				lastModifiedDate
+				contact {
+					id
+					fullName
+					photoUrl
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

@@ -1,0 +1,21 @@
+mutation agencyMember_signUpOwner($input: UserInput) {
+	agencyMember_signUpOwner(input: $input) {
+		result {
+			typeMember
+			isActive
+			isOnline
+			externalId
+			email
+			photoUrl
+			fullName
+			phoneNumber
+			about
+			id
+			createdDate
+			isDeleted
+			lineStatus
+			userType
+		}
+		status
+	}
+}

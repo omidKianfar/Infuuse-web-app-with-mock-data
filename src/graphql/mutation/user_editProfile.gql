@@ -1,0 +1,5 @@
+mutation user_editProfile($input: UserProfileInput) {
+	user_editProfile(input: $input) {
+		status
+	}
+}

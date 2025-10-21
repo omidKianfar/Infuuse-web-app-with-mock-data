@@ -1,0 +1,18 @@
+export const QUERY_KEYS = {
+	user_getCurrentUser: 'user_getCurrentUser',
+};
+
+export const HEADER = {
+	MOBILE_HEIGHT: 58,
+	MAIN_DESKTOP_HEIGHT: 75,
+	DASHBOARD_DESKTOP_HEIGHT: 72,
+};
+
+export const SIDEBAR = {
+	DASHBOARD_WIDTH: 200,
+	DASHBOARD_COLLAPSE_WIDTH: 88,
+	DASHBOARD_ITEM_ROOT_HEIGHT: 50,
+};
+
+export const ACCESS_TOKEN_KEY = 'LOCAL_TOKEN';
+export const ACCESS_REFRESH_TOKEN = 'ACCESS_REFRESH_TOKEN';

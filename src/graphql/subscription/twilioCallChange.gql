@@ -1,0 +1,83 @@
+
+
+subscription twilioCallChange($userId: Int!){
+  twilioCallChange(userId: $userId) {
+    callSid
+    enqueue
+    clientId
+    callStatus
+    endTime
+    isRecordDone
+    recordUrl
+    duration
+    hasCallBeenAnswered
+    wasOperatorAvailable
+    direction
+    from
+    to
+    userId
+    user {
+      userType
+      lineStatus
+      isActive
+      isOnline
+  
+      twilioHistoryCalls{
+        callSid
+        callStatus
+        clientId
+        conversationMessage{
+          typeSocialNetwork
+          message
+          conversation{
+            businessId
+             business{
+                id
+                name
+                logo
+              }
+            createdDate
+            numberOfUnreadMessages
+            id
+          }
+          contactNetwork{
+            createdDate
+            typeContactNetwork
+            url
+            value
+            contact{
+              businessId
+              business{
+                id
+                name
+                logo
+              }
+              id
+              fullName
+              photoUrl
+            }
+          }
+          
+        }
+      }
+      externalId
+      email
+      photoUrl
+      fullName
+      phoneNumber
+      about
+      location
+      age
+      dateOfBirth
+      id
+      isDeleted
+      createdDate
+      lastModifiedDate
+    }
+    
+    id
+    isDeleted
+    createdDate
+    lastModifiedDate
+  }
+}

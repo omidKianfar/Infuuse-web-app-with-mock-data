@@ -1,0 +1,5 @@
+mutation businessConnectionRequest_canceled($entityId: Int!) {
+	businessConnectionRequest_canceled(entityId: $entityId) {
+		status
+	}
+}

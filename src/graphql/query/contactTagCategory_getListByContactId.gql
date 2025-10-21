@@ -1,0 +1,38 @@
+query contactTagCategory_getListByContactId(
+	$contactId: Int!
+	$skip: Int
+	$take: Int
+	$where: ContactTagCategoryFilterInput
+	$order: [ContactTagCategorySortInput!]
+) {
+	contactTagCategory_getListByContactId(contactId: $contactId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				contact {
+					id
+					fullName
+					photoUrl
+				}
+				createdDate
+				id
+				isDeleted
+				isPinned
+				tagCategory {
+					id
+					name
+					category {
+						id
+						name
+						business {
+							id
+							name
+							logo
+						}
+					}
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

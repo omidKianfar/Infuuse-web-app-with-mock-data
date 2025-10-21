@@ -1,0 +1,25 @@
+query tagCategory_getListByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: TagCategoryFilterInput
+	$order: [TagCategorySortInput!]
+) {
+	tagCategory_getListByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				category {
+					name
+					id
+				}
+				createdDate
+				id
+				isDeleted
+				lastModifiedDate
+				name
+			}
+			totalCount
+		}
+		status
+	}
+}

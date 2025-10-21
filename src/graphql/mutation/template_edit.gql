@@ -1,0 +1,5 @@
+mutation template_edit($templateId: Int!, $input: TemplateInput) {
+	template_edit(templateId: $templateId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,29 @@
+mutation contactTagCategory_edit($contactTagCategoryId: Int!, $input: ContactTagCategoryInput) {
+	contactTagCategory_edit(contactTagCategoryId: $contactTagCategoryId, input: $input) {
+		result {
+			isPinned
+			createdDate
+			id
+			isDeleted
+			tagCategory {
+				name
+				id
+				category {
+					name
+					id
+					business {
+						id
+						name
+						logo
+					}
+				}
+			}
+			contact {
+				id
+				fullName
+				photoUrl
+			}
+		}
+		status
+	}
+}

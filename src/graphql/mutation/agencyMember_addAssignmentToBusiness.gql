@@ -1,0 +1,9 @@
+mutation agencyMember_addAssignmentToBusiness(
+	$agencyMemberId: Int!
+	$businessId: Int!
+	$input: AgencyMemberAssignmentInput
+) {
+	agencyMember_addAssignmentToBusiness(agencyMemberId: $agencyMemberId, businessId: $businessId, input: $input) {
+		status
+	}
+}

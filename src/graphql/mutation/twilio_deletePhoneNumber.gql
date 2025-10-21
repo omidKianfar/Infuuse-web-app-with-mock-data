@@ -1,0 +1,5 @@
+mutation twilio_deletePhoneNumber($twilioPhoneNumberId: Int!) {
+	twilio_deletePhoneNumber(twilioPhoneNumberId: $twilioPhoneNumberId) {
+		status
+	}
+}

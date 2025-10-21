@@ -1,0 +1,19 @@
+query business_getByBusinessId($businessId: Int) {
+	business_getByBusinessId(businessId: $businessId) {
+		result {
+			name
+			logo
+			isHideAgency
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+			businessKey
+			twilioPhoneNumber {
+				id
+				phoneNumber
+			}
+		}
+		status
+	}
+}

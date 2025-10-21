@@ -1,0 +1,40 @@
+mutation login($input: FirebaseLoginInput) {
+	firebase_login(input: $input) {
+		result {
+			idToken
+			refreshToken
+			expiresIn
+			user {
+				localId
+				email
+				isEmailVerified
+				displayName
+				photoUrl
+			}
+		}
+		status
+	}
+}
+
+mutation getRefreshToken($refreshToken: String) {
+	firebase_getTokenByRefreshToken(refreshToken: $refreshToken) {
+		result {
+			idToken
+			refreshToken
+			expiresIn
+			user {
+				localId
+				email
+				isEmailVerified
+				displayName
+				photoUrl
+			}
+		}
+	}
+}
+
+query isUserExist($email: String) {
+	user_isUserExistByEmail(email: $email) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation conversationMember_addList($conversationId: Int!, $users: [Int!]) {
+	conversationMember_addList(conversationId: $conversationId, users: $users) {
+		status
+	}
+}

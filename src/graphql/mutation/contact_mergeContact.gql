@@ -1,0 +1,5 @@
+mutation contact_mergeContact($fromContactId: Int!, $toContactId: Int!) {
+	contact_mergeContact(fromContactId: $fromContactId, toContactId: $toContactId) {
+		status
+	}
+}

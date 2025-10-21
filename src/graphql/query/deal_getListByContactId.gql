@@ -1,0 +1,29 @@
+query deal_getListByContactId(
+	$contactId: Int!
+	$skip: Int
+	$take: Int
+	$where: DealFilterInput
+	$order: [DealSortInput!]
+) {
+	deal_getListByContactId(contactId: $contactId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				contact {
+					id
+					fullName
+					photoUrl
+				}
+				createdDate
+				dealStatus
+				endDate
+				id
+				isDeleted
+				lastModifiedDate
+				price
+				title
+			}
+			totalCount
+		}
+		status
+	}
+}

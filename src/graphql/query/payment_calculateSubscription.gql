@@ -1,0 +1,12 @@
+query payment_calculateSubscription(
+  $input: CalculateSubscriptionCostInput){
+  payment_calculateSubscription(
+    input: $input
+  ) {
+    result {
+      price
+      discount
+    }
+    status
+  }
+}

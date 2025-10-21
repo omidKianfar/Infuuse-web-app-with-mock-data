@@ -1,0 +1,5 @@
+mutation conversation_edit($conversationId: Int!, $input: ConversationInput) {
+	conversation_edit(conversationId: $conversationId, input: $input) {
+		status
+	}
+}

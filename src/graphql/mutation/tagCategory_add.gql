@@ -1,0 +1,5 @@
+mutation tagCategory_add($categoryId: Int!, $input: TagCategoryInput) {
+	tagCategory_add(categoryId: $categoryId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation contactTagCategory_add($contactId: Int!, $input: ContactTagCategoryInput) {
+	contactTagCategory_add(contactId: $contactId, input: $input) {
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation conversationMessage_setSeenStatus($ints: [Long!]){
+  conversationMessage_setSeenStatus(ints: $ints) {
+    status
+  }
+}

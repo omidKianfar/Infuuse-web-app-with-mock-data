@@ -1,0 +1,9 @@
+mutation payment_createPaymentIntentForCustomPackage($packageId: Int!) {
+	payment_createPaymentIntentForCustomPackage(packageId: $packageId) {
+		result {
+			clientSecret
+			publishKey
+		}
+		status
+	}
+}

@@ -1,0 +1,5 @@
+mutation tagCategory_edit($tagCategoryId: Int!, $input: TagCategoryInput) {
+	tagCategory_edit(tagCategoryId: $tagCategoryId, input: $input) {
+		status
+	}
+}

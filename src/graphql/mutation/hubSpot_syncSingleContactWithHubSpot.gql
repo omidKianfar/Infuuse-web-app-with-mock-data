@@ -1,0 +1,5 @@
+mutation hubSpot_syncSingleContactWithHubSpot($contactId: Int!, $businessId: Int!) {
+	hubSpot_syncSingleContactWithHubSpot(contactId: $contactId, businessId: $businessId) {
+		status
+	}
+}

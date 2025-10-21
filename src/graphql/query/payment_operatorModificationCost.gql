@@ -1,0 +1,9 @@
+query payment_operatorModificationCost($operatorCount: Int!) {
+	payment_operatorModificationCost(operatorCount: $operatorCount) {
+		result {
+			cost
+			period
+		}
+		status
+	}
+}

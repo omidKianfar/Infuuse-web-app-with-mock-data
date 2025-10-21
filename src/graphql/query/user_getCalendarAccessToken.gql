@@ -1,0 +1,6 @@
+query user_getCalendarAccessToken {
+	user_getCalendarAccessToken {
+		result
+		status
+	}
+}

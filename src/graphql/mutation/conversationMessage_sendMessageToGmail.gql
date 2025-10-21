@@ -1,0 +1,5 @@
+mutation conversationMessage_sendMessageToGmail($input: SendGmailInput) {
+	conversationMessage_sendMessageToGmail(input: $input) {
+		status
+	}
+}

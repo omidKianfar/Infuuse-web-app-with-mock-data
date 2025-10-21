@@ -1,0 +1,66 @@
+query conversationMessage_getByConversationId(
+	$conversationId: Int!
+	$skip: Int
+	$take: Int
+	$where: ConversationMessageFilterInput
+	$order: [ConversationMessageSortInput!]
+) {
+	conversationMessage_getByConversationId(conversationId: $conversationId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				id
+				metaData
+				createdDate
+				isAttachment
+				conversationMemberId
+				isSentByContact
+				message
+				isReplyTo
+				subject
+				summaryReplyMessage
+				typeSocialNetwork
+				conversationMember {
+					userId
+					user {
+						id
+						fullName
+						email
+						photoUrl
+						email
+					}
+				}
+				conversationAttachments {
+					createdDate
+					id
+					type
+					url
+				}
+				conversation {
+					title
+					id
+					contact {
+						id
+						firstName
+						photoUrl
+						fullName
+					}
+					conversationMembers {
+						userId
+						user {
+							id
+							fullName
+							phoneNumber
+							photoUrl
+							email
+						}
+					}
+					createdDate
+					id
+					type
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

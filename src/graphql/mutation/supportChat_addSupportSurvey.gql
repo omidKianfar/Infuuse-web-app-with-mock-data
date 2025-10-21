@@ -1,0 +1,5 @@
+mutation supportChat_addSupportSurvey($conversationId: Int!, $input: SupportChatSurveyDtoInput) {
+	supportChat_addSupportSurvey(conversationId: $conversationId, input: $input) {
+		status
+	}
+}

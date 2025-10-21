@@ -1,0 +1,5 @@
+mutation contactTagCategory_delete($contactTagCategoryId: Int!) {
+	contactTagCategory_delete(contactTagCategoryId: $contactTagCategoryId) {
+		status
+	}
+}

@@ -1,0 +1,75 @@
+query twilio_getHistoryVideosByBusinessId(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: TwilioHistoryVideoFilterInput
+	$order: [TwilioHistoryVideoSortInput!]
+) {
+	twilio_getHistoryVideosByBusinessId(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				createdDate
+				lastModifiedDate
+
+				creatorUser {
+					id
+					fullName
+					phoneNumber
+					photoUrl
+				}
+				duration
+				endTime
+				id
+				isRecordDone
+				recordUrl
+				roomName
+				videoSid
+				videoStatus
+				conversationMessage {
+					message
+					conversation {
+						business {
+							id
+							name
+							logo
+							status
+						}
+						contact {
+							id
+							fullName
+							photoUrl
+						}
+					}
+					typeSocialNetwork
+					twilioHistoryVideo {
+						id
+						roomName
+						createdDate
+						videoStatus
+						duration
+						endTime
+					}
+					contactNetwork {
+						value
+						url
+						typeContactNetwork
+						id
+						contact {
+							id
+							fullName
+							photoUrl
+							business {
+								id
+								name
+								logo
+							}
+						}
+						createdDate
+					}
+				}
+			}
+			totalCount
+		}
+		status
+	}
+}

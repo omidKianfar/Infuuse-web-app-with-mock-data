@@ -1,0 +1,26 @@
+query category_getList(
+	$businessId: Int!
+	$skip: Int
+	$take: Int
+	$where: CategoryFilterInput
+	$order: [CategorySortInput!]
+) {
+	category_getList(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				business {
+					name
+					id
+					logo
+				}
+				createdDate
+				id
+				isDeleted
+				lastModifiedDate
+				name
+			}
+			totalCount
+		}
+		status
+	}
+}

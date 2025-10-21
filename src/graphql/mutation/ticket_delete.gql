@@ -1,0 +1,5 @@
+mutation ticket_delete($ticketId: Int!) {
+	ticket_delete(ticketId: $ticketId) {
+		status
+	}
+}

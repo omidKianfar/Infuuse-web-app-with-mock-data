@@ -1,0 +1,9 @@
+query report_getPendingConversationReport($input: MutualReportInput) {
+	report_getPendingConversationReport(input: $input) {
+		result {
+			conversationId
+			isLead
+		}
+		status
+	}
+}

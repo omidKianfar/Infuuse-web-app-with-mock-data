@@ -1,0 +1,13 @@
+query conversation_getConversationByContactId($contactId: Int!){
+  conversation_getConversationByContactId(contactId: $contactId) {
+    result {
+      type
+      businessId
+      id
+      createdDate
+      lastModifiedDate
+    }
+    status
+  }
+}
+ 

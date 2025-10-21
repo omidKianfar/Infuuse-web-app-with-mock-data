@@ -1,0 +1,21 @@
+mutation businessMember_signUpOwner($input: UserInput) {
+	businessMember_signUpOwner(input: $input) {
+		result {
+			typeMember
+			isActive
+			isOnline
+			externalId
+			email
+			photoUrl
+			fullName
+			phoneNumber
+			about
+			id
+			createdDate
+			isDeleted
+			lineStatus
+			userType
+		}
+		status
+	}
+}

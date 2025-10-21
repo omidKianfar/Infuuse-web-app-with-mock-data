@@ -1,0 +1,23 @@
+query notification_getList($skip: Int, $take: Int, $where: NotificationFilterInput, $order: [NotificationSortInput!]) {
+	notification_getList {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				id
+				content
+				createdDate
+				isSeen
+				lastModifiedDate
+				message
+				type
+				user {
+					id
+					fullName
+					photoUrl
+				}
+				userId
+			}
+			totalCount
+		}
+		status
+	}
+}

@@ -1,0 +1,16 @@
+query report_getTwilioCallReport($input: MutualReportInput) {
+	report_getTwilioCallReport(input: $input) {
+		result {
+			teamMemberId
+			totalAvgResponseTime
+			totalCallCount
+			totalIncomingCall
+			totalMissedCall
+			under180sCallAvgResponseTime
+			under180sCallCount
+			under180sIncomingCall
+			teamMemberFullName
+		}
+		status
+	}
+}

@@ -1,0 +1,6 @@
+query paymentHistory_checkActiveSubscription {
+	paymentHistory_checkActiveSubscription {
+		result
+		status
+	}
+}

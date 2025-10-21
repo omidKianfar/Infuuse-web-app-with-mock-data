@@ -1,0 +1,42 @@
+query business_getListAgencyRequests(
+	$businessId: Int
+	$skip: Int
+	$take: Int
+	$where: AgencyMemberAssignmentFilterInput
+	$order: [AgencyMemberAssignmentSortInput!]
+) {
+	business_getListAgencyRequests(businessId: $businessId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				businessMember {
+					id
+					fullName
+					email
+					photoUrl
+					phoneNumber
+				}
+				agencyMember {
+					id
+					fullName
+					email
+					phoneNumber
+					photoUrl
+				}
+				business {
+					name
+					id
+					logo
+					status
+				}
+				id
+				colorTag
+				createdDate
+				lastModifiedDate
+				isDeleted
+				status
+			}
+			totalCount
+		}
+		status
+	}
+}

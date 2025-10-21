@@ -1,0 +1,25 @@
+query tagCategory_getListByCategoryId(
+	$categoryId: Int!
+	$skip: Int
+	$take: Int
+	$where: TagCategoryFilterInput
+	$order: [TagCategorySortInput!]
+) {
+	tagCategory_getListByCategoryId(categoryId: $categoryId) {
+		result(skip: $skip, take: $take, where: $where, order: $order) {
+			items {
+				category {
+					name
+					id
+				}
+				createdDate
+				id
+				isDeleted
+				lastModifiedDate
+				name
+			}
+			totalCount
+		}
+		status
+	}
+}

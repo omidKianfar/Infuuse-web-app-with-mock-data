@@ -1,0 +1,52 @@
+subscription conversationMessageByContact($contactId: Int!) {
+	conversationMessageByContact(contactId: $contactId) {
+		id
+		typeSocialNetwork
+		message
+		isAttachment
+		conversationId
+		conversation {
+			type
+			isPinned
+			businessId
+			contact {
+				fullName
+				photoUrl
+				id
+				contactNetworks {
+					value
+				}
+			}
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		conversationMember {
+			conversationId
+			user {
+				id
+				photoUrl
+				fullName
+				email
+			}
+
+			id
+			isDeleted
+			createdDate
+			lastModifiedDate
+		}
+		conversationAttachments {
+			type
+			url
+			conversationMessageId
+			id
+			isDeleted
+			createdDate
+		}
+		conversationMemberId
+		isSentByContact
+		createdDate
+		lastModifiedDate
+	}
+}

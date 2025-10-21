@@ -1,0 +1,10 @@
+query report_getTeamPerformanceOnDealReport($input: TeamPerformanceOnDealReportInput) {
+	report_getTeamPerformanceOnDealReport(input: $input) {
+		result {
+			teamMemberId
+			teamMemberFullName
+			portionPercent
+		}
+		status
+	}
+}

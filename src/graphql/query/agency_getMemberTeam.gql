@@ -1,0 +1,20 @@
+
+query agency_getMemberTeam($permissionType: PermissionType){
+  agency_getMemberTeam(permissionType: $permissionType) {
+    result {
+      agencyMembers{
+        id
+        fullName
+        photoUrl
+      }
+      businessAccesses{
+        businessTeams{
+          id
+          fullName
+          photoUrl
+        }
+      }
+    }
+    status
+  }
+}

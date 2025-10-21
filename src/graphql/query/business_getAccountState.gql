@@ -1,0 +1,10 @@
+query business_getAccountState{
+  business_getAccountState {
+    result {
+      maxOperatorCount
+      activeOperatorCount
+      accountExpireDate
+    }
+    status
+  }
+}

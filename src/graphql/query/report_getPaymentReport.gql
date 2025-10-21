@@ -1,0 +1,9 @@
+query report_getPaymentReport($input: ReportTimeFrameInput) {
+	report_getPaymentReport(input: $input) {
+		result {
+			timeUnit
+			totalPayment
+		}
+		status
+	}
+}

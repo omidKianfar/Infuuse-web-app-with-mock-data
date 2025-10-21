@@ -1,0 +1,5 @@
+mutation businessConnectionRequest_rejected($entityId: Int!) {
+	businessConnectionRequest_rejected(entityId: $entityId) {
+		status
+	}
+}

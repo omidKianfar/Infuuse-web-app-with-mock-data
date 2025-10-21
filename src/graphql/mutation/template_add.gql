@@ -1,0 +1,5 @@
+mutation template_add($categoryId: Int!, $input: TemplateInput) {
+	template_add(categoryId: $categoryId, input: $input) {
+		status
+	}
+}
