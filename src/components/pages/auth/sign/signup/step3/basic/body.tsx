@@ -3,11 +3,11 @@ import IgnoreIcon from '@/assets/ignore-icon';
 import { Divider, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { NextButton } from '@/components/atoms/Button';
-import { useAuth } from '@/providers/AuthProvider';
 import { useSnapshot } from 'valtio';
 import userTypeStore from '@/store/userType.store';
 import { UserType } from '@/graphql/generated';
 import { useRouter } from 'next/router';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const BodyBasic = () => {
 	// -------------------------------tools

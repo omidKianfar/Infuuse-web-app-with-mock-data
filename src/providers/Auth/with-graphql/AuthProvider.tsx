@@ -1,5 +1,4 @@
 import { useQueryClient } from '@tanstack/react-query';
-import config from 'config';
 import { initializeApp } from 'firebase/app';
 import {
 	FacebookAuthProvider,
@@ -25,62 +24,19 @@ import {
 	BusinessMember_SignUpOwnerMutationVariables,
 	UserDto,
 	UserType,
-	User_GetCurrentUserDocument,
-	User_GetCurrentUserQuery,
 	useGetRefreshTokenMutation,
 	useLoginMutation,
 } from 'src/graphql/generated';
 import { getResponseErrorMessage } from 'src/utils';
 import { ACCESS_REFRESH_TOKEN, ACCESS_TOKEN_KEY } from 'src/utils/constants';
 import { clearCookie, getCookie, saveCookie } from 'src/utils/storage/cookieStorage';
-
+import { FIREBASE_API } from '../firebase-config';
+import { authReducer, initialState } from '../without-graphql/reducer';
+import { getUser } from './get-user';
 // config firebase
-const FIREBASE_API = {
-	appId: config.firebase.appId,
-	apiKey: config.firebase.apiKey,
-	projectId: config.firebase.projectId,
-	authDomain: config.firebase.authDomain,
-	storageBucket: config.firebase.storageBucket,
-	messagingSenderId: config.firebase.messagingSenderId,
-};
 
 const firebaseApp = initializeApp(FIREBASE_API);
-
 export const AUTH = getAuth(firebaseApp);
-
-// initial data
-const initialState = {
-	error: '',
-	user: null,
-	isLoading: null,
-	isInitialized: false,
-	isAuthenticated: false,
-};
-
-// reducer
-const authReducer = (
-	state: AuthContextStateType,
-	action: { payload: AuthContextStateType; type: AuthContextActionType }
-) => {
-	if (action.type === 'INITIALIZE') {
-		const { isAuthenticated, isLoading, user } = action.payload;
-		return {
-			...state,
-			user,
-			isLoading,
-			isAuthenticated,
-			isInitialized: true,
-		};
-	} else if (action.type === 'IS_LOADING') {
-		const { isLoading } = action.payload;
-		return {
-			...state,
-			isLoading,
-		};
-	}
-
-	return state;
-};
 
 // auth type
 const AuthContext = createContext<AuthContextType>({
@@ -92,17 +48,9 @@ const AuthContext = createContext<AuthContextType>({
 	signInWithGoogle: (type: UserType) => Promise.resolve(),
 	signInWithFacebook: () => Promise.resolve(),
 	signupStepCounter: 0,
-	setSignupStepCounter: () => { },
+	setSignupStepCounter: () => {},
 	changePassword: (password: string) => Promise.resolve(),
 });
-
-async function getUser(token: string) {
-	graphQLClient.setHeader('Authorization', 'Bearer ' + token);
-
-	const response = await fetcher<User_GetCurrentUserQuery, undefined>(User_GetCurrentUserDocument)();
-
-	return response.user_getCurrentUser;
-}
 
 export function AuthProvider({ children }: React.PropsWithChildren) {
 	// ------------------------------tools
@@ -209,8 +157,10 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
 
 						const user = await getUser(token);
 
-						if (user?.status?.value === 'AgencyHasBeenSuspended' ||
-							user?.status?.value === 'BusinessHasBeenSuspended') {
+						if (
+							user?.status?.value === 'AgencyHasBeenSuspended' ||
+							user?.status?.value === 'BusinessHasBeenSuspended'
+						) {
 							router.push('/deactived');
 							dispatch({
 								type: 'INITIALIZE',
@@ -237,9 +187,6 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
 
 							router.push('/signin-notification');
 						}
-
-
-
 					},
 					onError: (e) => {
 						enqueueSnackbar('There is an error');
@@ -396,10 +343,8 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
 		}
 	};
 
-
 	// sign in with google
 	const signInWithGoogle = async (type: UserType) => {
-
 		dispatch({
 			type: 'IS_LOADING',
 			payload: { isLoading: 'SIGN_IN_WITH_GOOGLE' },
@@ -492,8 +437,7 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
 				setSignupStepCounter,
 				changePassword,
 				signInWithGoogle,
-				signInWithFacebook
-
+				signInWithFacebook,
 			}}
 		>
 			{children}

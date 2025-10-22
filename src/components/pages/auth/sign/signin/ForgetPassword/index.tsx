@@ -1,15 +1,13 @@
 import { useRouter } from 'next/router';
-import { useAuth } from '@/providers/AuthProvider';
-import { Grid, InputAdornment, Stack, Typography, useMediaQuery } from '@mui/material';
+import {  InputAdornment, Stack, Typography, useMediaQuery } from '@mui/material';
 import { FormProvider, TextField, Yup, useForm, yupResolver } from '@/components/atoms/Form';
 import { useTheme } from '@mui/material/styles';
 import { useCallback, useState } from 'react';
-import StyleCardContainer from '@/components/organisms/StyleCard';
 import { NextButton } from '@/components/atoms/Button';
-import { getFullImageUrl } from '@/utils';
 import Image from '@/components/atoms/Image';
 import { ForgetPasswordIcon } from '@/assets/forgetpass';
 import EmailIcon from '@/assets/email-icon';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const defaultValues = { email: '' };
 

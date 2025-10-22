@@ -95,7 +95,7 @@ const AddCallBusinessNumberModal = ({ handleClose, businessId }: Props) => {
 					<FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 						<Stack>
 							<Label>Select Business Phone Number</Label>
-							<TextField name="phoneNumberId" fullWidth select>
+							<TextField name="phoneNumberId" fullWidth select disabled>
 								{twilioNumbers?.Twilio_getListPhoneNumber?.result?.items?.map((twilioPhoneNumber) => (
 									<MenuItem key={twilioPhoneNumber?.id} value={twilioPhoneNumber?.id}>
 										<Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
@@ -114,13 +114,18 @@ const AddCallBusinessNumberModal = ({ handleClose, businessId }: Props) => {
 							alignItems={'center'}
 						>
 							<NextButton
+								disabled
 								sx={{ width: '150px', fontSize: '16px', fontWeight: 600 }}
 								onClick={handleClose}
 							>
 								Cancel
 							</NextButton>
 
-							<NextButton type="submit" sx={{ width: '150px', fontSize: '16px', fontWeight: 600 }}>
+							<NextButton
+								type="submit"
+								sx={{ width: '150px', fontSize: '16px', fontWeight: 600 }}
+								disabled
+							>
 								Save
 							</NextButton>
 						</Stack>

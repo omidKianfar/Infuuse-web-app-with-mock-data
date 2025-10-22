@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import { Cart, CartBody } from '../styles';
 import TwilioIcon from '@/assets/twilio-icon';
@@ -6,13 +6,13 @@ import GmailIcon from '@/assets/gmail-icon';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { NextButton } from '@/components/atoms/Button';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/providers/AuthProvider';
 import { useBusiness_GetByBusinessIdQuery, useUser_GetCurrentUserQuery } from '@/graphql/generated';
 import Image from '@/components/atoms/Image';
-// import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import SigninWithGoogleSocialChannel from '@/components/pages/settings/social-channels/body/signin-with-google';
 import ModalContainer from '@/components/atoms/Modal';
 import AddCallBusinessNumberModal from '@/components/pages/settings/social-channels/body/modal';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const Body = () => {
 	// -------------------------------tools
@@ -34,7 +34,6 @@ const Body = () => {
 	});
 
 	const businessNumber = CurrentBusiness?.business_getByBusinessId?.result?.twilioPhoneNumber?.phoneNumber;
-
 
 	// -------------------------------state
 	const [choosenItem, setChoosenItem] = useState({
@@ -150,37 +149,42 @@ const Body = () => {
 				</Typography>
 			</Cart>
 
-			{/* {choosenItem?.gmail && (
+			{choosenItem?.gmail && (
 				<GoogleOAuthProvider clientId={'YOUR_GOOGLE_CLIENT_ID'}>
 					<SigninWithGoogleSocialChannel />
 				</GoogleOAuthProvider>
-			)} */}
+			)}
 
 			{choosenItem?.meta && (
 				<Stack>
 					<Stack width={'100%'} direction={'row'} justifyContent={'end'} alignItems={'center'} mb={1}>
-						<Box
-							display={'flex'}
-							justifyContent={'center'}
-							alignItems={'center'}
-							bgcolor={theme?.palette?.infuuse?.blue500}
-							borderRadius={3}
-							boxShadow={2}
-							width={'275px'}
-							height={'48px'}
-						>
-							<Image src={'images/meta-icon.svg'} style={{ width: '32px', height: '32px' }} />
+						<Tooltip title="Meta not available yet">
+							<Box
+								display={'flex'}
+								justifyContent={'center'}
+								alignItems={'center'}
+								bgcolor={theme?.palette?.infuuse?.blue500}
+								borderRadius={3}
+								boxShadow={2}
+								width={'275px'}
+								height={'48px'}
+							>
+								<Image src={'images/meta-icon.svg'} style={{ width: '32px', height: '32px' }} />
 
-							<Typography ml={1} color={theme?.palette?.common?.white} fontWeight={'bold'}>
-								Sign in with meta
-							</Typography>
-						</Box>
+								<Typography ml={1} color={theme?.palette?.common?.white} fontWeight={'bold'}>
+									Sign in with meta
+								</Typography>
+							</Box>
+						</Tooltip>
 					</Stack>
 				</Stack>
 			)}
 
 			<ModalContainer open={open} handleClose={handleClose}>
-				<AddCallBusinessNumberModal handleClose={handleClose} businessId={CurrentUser?.businessAccesses[0]?.business?.id} />
+				<AddCallBusinessNumberModal
+					handleClose={handleClose}
+					businessId={CurrentUser?.businessAccesses[0]?.business?.id}
+				/>
 			</ModalContainer>
 
 			{/* ---------------------------------button  */}

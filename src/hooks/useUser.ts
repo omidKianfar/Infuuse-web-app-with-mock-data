@@ -1,5 +1,5 @@
 import { useUser_GetCurrentUserQuery } from '@/graphql/generated';
-import { useAuth } from '@/providers/AuthProvider';
+import { useAuth } from '@/providers/Auth/with-graphql/AuthProvider';
 
 export function useUser() {
 	const { isAuthenticated } = useAuth();

@@ -3,7 +3,6 @@ import { FormProvider, TextField, Yup, useForm, yupResolver } from '@/components
 import { NextButton } from '@/components/atoms/Button';
 import CloseIconBox from '@/assets/close-icon-box';
 import { Label } from '../../businesses/styles';
-import { useAuth } from '@/providers/AuthProvider';
 import { useUser_ChangePasswordMutation } from '@/graphql/generated';
 import { responseDestructure } from '@/utils';
 import { enqueueSnackbar } from 'notistack';

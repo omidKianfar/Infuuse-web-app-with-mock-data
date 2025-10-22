@@ -2,7 +2,6 @@ import LightIcon from '@/assets/light-icon';
 import { NextButton } from '@/components/atoms/Button';
 import { Box, Divider, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
-import { useAuth } from '@/providers/AuthProvider';
 import Link from 'next/link';
 
 const BodyEnterprise = () => {

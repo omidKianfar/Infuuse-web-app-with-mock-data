@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/providers/AuthProvider';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 export default function GuestGuard({ children }: React.PropsWithChildren) {
 	const router = useRouter();

@@ -1,7 +1,7 @@
 import { Error404 } from '@/assets/404-icon';
 import { NextButton } from '@/components/atoms/Button';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
-import { useAuth } from '@/providers/AuthProvider';
 import { Box, Stack } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';

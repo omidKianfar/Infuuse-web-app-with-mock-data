@@ -2,7 +2,6 @@ import EmailIcon from '@/assets/email-icon';
 import PasswordIcon from '@/assets/password-icon';
 import { NextButton } from '@/components/atoms/Button';
 import { FormProvider, TextField, Yup, useForm, yupResolver } from '@/components/atoms/Form';
-import { useAuth } from '@/providers/AuthProvider';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, InputAdornment, Stack, Typography, useTheme } from '@mui/material';
@@ -11,6 +10,7 @@ import { useEffect, useState } from 'react';
 import AuthSection from '../../..';
 import SignHeader from '../../../sign-header';
 import { DownButtonContainer, ForgotPassword, Label, SignContainer } from '../../../styles';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const Login = () => {
 	//  -------------------------------tools

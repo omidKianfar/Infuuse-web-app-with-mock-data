@@ -4,27 +4,30 @@ import UserIcon from '@/assets/user-icon';
 import { FormProvider, TextField, Yup, useForm, yupResolver } from '@/components/atoms/Form';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Box, Divider, InputAdornment, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Divider, InputAdornment, Stack, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useState } from 'react';
 import AuthSection from '../../..';
 import SignHeader from '../../../sign-header';
 import { DownButtonContainer, Label, SignContainer } from '../../../styles';
 
 import { NextButton } from '@/components/atoms/Button';
-import { useAuth } from '@/providers/AuthProvider';
 import userTypeStore from '@/store/userType.store';
 import { useSnapshot } from 'valtio';
 import FacebookIcon from '@/assets/facebook-icon';
 import GmailIcon from '@/assets/gmail-icon';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
+import { useSnackbar } from 'notistack';
 
 const Step2 = () => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-	const { signUpWithEmail, signInWithGoogle, signInWithFacebook } = useAuth();
+	const { signUpWithEmail } = useAuth();
 	const { userType } = useSnapshot(userTypeStore);
+	const { enqueueSnackbar } = useSnackbar();
 
 	// -------------------------------state
 	const [visible, setVisible] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	// -------------------------------form
 	const defaultValues = {
@@ -47,15 +50,18 @@ const Step2 = () => {
 			name: values.name,
 			type: userType,
 		});
+		setLoading(true)
 	};
 
 	// -------------------------------functions
 	const onGoogleClick = () => {
-		signInWithGoogle({type: userType});
+		// signInWithGoogle({ type: userType });
+		enqueueSnackbar('Signup with google not available', { variant: 'warning' });
 	};
 
 	const onFacebookClick = () => {
-		signInWithFacebook();
+		// signInWithFacebook();
+		enqueueSnackbar('Signup with facebook not available', { variant: 'warning' });
 	};
 
 	return (
@@ -134,9 +140,7 @@ const Step2 = () => {
 							width={'100%'}
 							mt={1}
 						>
-							<Divider
-								sx={{ border: `2px solid ${theme?.palette?.infuuse._C4CAD8}`, width: '30%' }}
-							/>
+							<Divider sx={{ border: `2px solid ${theme?.palette?.infuuse._C4CAD8}`, width: '30%' }} />
 							<Box
 								sx={{
 									width: '30%',
@@ -154,9 +158,7 @@ const Step2 = () => {
 								</Typography>
 							</Box>
 
-							<Divider
-								sx={{ border: `2px solid ${theme?.palette?.infuuse._C4CAD8}`, width: '30%' }}
-							/>
+							<Divider sx={{ border: `2px solid ${theme?.palette?.infuuse._C4CAD8}`, width: '30%' }} />
 						</Stack>
 						<Stack
 							direction={'row'}
@@ -166,26 +168,31 @@ const Step2 = () => {
 							mt={1}
 							mb={1}
 						>
-							<Box mr={'80px'} sx={{ cursor: 'pointer' }} onClick={onFacebookClick}>
-								<FacebookIcon
-									fill={theme?.palette?.infuuse.blueDark400}
-									width="38px"
-									height="38px"
-								/>
-							</Box>
-							<Box sx={{ cursor: 'pointer' }} onClick={onGoogleClick}>
-								<GmailIcon
-									width="55px"
-									height="55px"
-									fill={{
-										fill1: '#EA4335',
-										fill2: '#FBBC05',
-										fill3: '#34A853',
-										fill4: '#C5221F',
-										fill5: '#4285F4',
-									}}
-								/>
-							</Box>
+							<Tooltip title="Meta signin not available yet">
+								<Box mr={'80px'} sx={{ cursor: 'pointer' }} onClick={onFacebookClick}>
+									<FacebookIcon
+										fill={theme?.palette?.infuuse.blueDark400}
+										width="38px"
+										height="38px"
+									/>
+								</Box>
+							</Tooltip>
+
+							<Tooltip title="Gmail signin not available yet">
+								<Box sx={{ cursor: 'pointer' }} onClick={onGoogleClick}>
+									<GmailIcon
+										width="55px"
+										height="55px"
+										fill={{
+											fill1: '#EA4335',
+											fill2: '#FBBC05',
+											fill3: '#34A853',
+											fill4: '#C5221F',
+											fill5: '#4285F4',
+										}}
+									/>
+								</Box>
+							</Tooltip>
 						</Stack>
 
 						{/* ------------------------------- down menu */}
@@ -217,7 +224,7 @@ const Step2 = () => {
 
 							{/* -------------------------------button */}
 							<Stack width={'100%'} direction={'row'} justifyContent={'center'} alignItems={'center'}>
-								<NextButton type="submit" sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }}>
+								<NextButton type="submit" sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }} isLoading={loading}>
 									AGREE & JOIN
 								</NextButton>
 							</Stack>

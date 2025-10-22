@@ -1,5 +1,5 @@
 import { NextButton } from '@/components/atoms/Button';
-import { useAuth } from '@/providers/AuthProvider';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 import settingStore from '@/store/setting.store';
 import { ACCESS_REFRESH_TOKEN, ACCESS_TOKEN_KEY } from '@/utils/constants';
 import { clearCookie } from '@/utils/storage/cookieStorage';

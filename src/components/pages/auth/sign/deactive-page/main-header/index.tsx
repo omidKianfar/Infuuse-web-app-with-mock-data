@@ -4,7 +4,7 @@ import SupportIcon from '@/assets/support-icon';
 import Support from '@/components/molecules/header/main-header/support';
 import Image from '@/components/atoms/Image';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/providers/AuthProvider';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const MainHeader = () => {
 	// -------------------------------tools

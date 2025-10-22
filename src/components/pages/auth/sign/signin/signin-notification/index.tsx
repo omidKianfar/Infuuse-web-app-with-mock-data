@@ -14,8 +14,10 @@ import {
 } from '@/graphql/generated';
 import TicketNotificationCart from './notification-cart/ticket';
 import AssignConversationNotificationCart from './notification-cart/assign-conversation';
+import { MockData } from './mock-notification';
 
 const SigninNotification = () => {
+	const mockData = true;
 	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -70,7 +72,26 @@ const SigninNotification = () => {
 							<Header CurrentUser={CurrentUser} />
 
 							{/*------------------------------- body*/}
-							{notificationUnreadData?.items?.length >= 1 ? (
+							{mockData ? (
+								<CartBody>
+									{MockData.map((notification, index) => {
+										const NotificationConvert =
+											typeof notification === 'string' ? JSON.parse(notification) : notification;
+
+										return (
+											<Stack
+												key={index}
+												justifyContent="center"
+												alignItems="center"
+												width="100%"
+												p={1}
+											>
+												<TicketNotificationCart NotificationConvert={NotificationConvert} />
+											</Stack>
+										);
+									})}
+								</CartBody>
+							) : notificationUnreadData?.items?.length >= 1 ? (
 								<CartBody>
 									{notificationUnreadData?.items?.map((notification) => {
 										const NotificationConvert = JSON.parse(notification?.content);
@@ -85,8 +106,11 @@ const SigninNotification = () => {
 											>
 												{notification?.type === NotificationType?.Ticket ? (
 													<TicketNotificationCart NotificationConvert={NotificationConvert} />
-												) : notification?.type === NotificationType?.AssignMemberToConversation ? (
-													<AssignConversationNotificationCart NotificationConvert={NotificationConvert} />
+												) : notification?.type ===
+												  NotificationType?.AssignMemberToConversation ? (
+													<AssignConversationNotificationCart
+														NotificationConvert={NotificationConvert}
+													/>
 												) : null}
 											</Stack>
 										);

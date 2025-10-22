@@ -8,9 +8,9 @@ import AuthSection from '../../..';
 
 import { NextButton } from '@/components/atoms/Button';
 import { UserType } from '@/graphql/generated';
-import { useAuth } from '@/providers/AuthProvider';
 import userTypeStore from '@/store/userType.store';
 import { useSnapshot } from 'valtio';
+import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const Step1 = () => {
 	// -------------------------------tools

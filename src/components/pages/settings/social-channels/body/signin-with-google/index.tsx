@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Tooltip, Typography, useTheme } from '@mui/material';
 import LightIcon from '@/assets/light-icon';
 import GoogleIcon from '@/assets/google-icon';
 import { NextButton } from '@/components/atoms/Button';
@@ -20,11 +20,13 @@ const SigninWithGoogleSocialChannel = () => {
 
 	return (
 		<Stack>
-			<Stack width="100%" direction="row" justifyContent="end" alignItems="center" mb={1}>
-				<NextButton onClick={getLinkHandeler} startIcon={<GoogleIcon />} sx={{ width: '275px' }}>
-					Sign in with Google
-				</NextButton>
-			</Stack>
+			<Tooltip title="Gmail sign not available yet">
+				<Stack width="100%" direction="row" justifyContent="end" alignItems="center" mb={1}>
+					<NextButton onClick={getLinkHandeler} startIcon={<GoogleIcon />} sx={{ width: '275px' }} disabled>
+						Sign in with Google
+					</NextButton>
+				</Stack>
+			</Tooltip>
 			<Stack
 				bgcolor={theme?.palette?.infuuse?.gray400}
 				p={2}

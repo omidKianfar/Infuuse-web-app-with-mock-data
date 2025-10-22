@@ -101,7 +101,7 @@ const NoResponsive = () => {
 						</Box>
 					</Stack>
 
-					{modalCounter == 1 ? (
+					{/* {modalCounter == 1 ? (
 						<video
 							controls
 							autoPlay
@@ -117,7 +117,7 @@ const NoResponsive = () => {
 							src={'/videos/video_2023-11-30_01-06-58.mp4'}
 							style={{ width: '100%', height: '90%', maxWidth: '300px', maxHeight: '692px' }}
 						/>
-					)}
+					)} */}
 				</Stack>
 			</ModalContainer>
 		</Stack>

@@ -1,4 +1,3 @@
-import ChatContextProvider from '@/providers/chat-provider';
 import SocialMessageProvider from '@/providers/socialMessageProvider';
 import TwilioContextProvider from '@/providers/Twilio/provider';
 import { CacheProvider } from '@emotion/react';
@@ -6,11 +5,11 @@ import { MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Head from 'next/head';
 import ProgressBar from 'src/components/atoms/ProgressBar';
-import { AuthProvider } from 'src/providers/AuthProvider';
 import { NotistackProvider } from 'src/providers/NotistackProvider';
 import { ThemeProvider } from 'src/theme';
 import { createEmotionCache } from 'src/utils/createEmotionCache';
 import '../public/global.css';
+import { AuthProviderWithoutGraphQL } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -63,14 +62,17 @@ export default function App(props: AppPropsWithLayout) {
 				<ReactQueryDevtools initialIsOpen={false} />
 				<NotistackProvider>
 					{/* <AuthProvider> */}
+					<AuthProviderWithoutGraphQL>
 						<ThemeProvider>
 							<TwilioContextProvider>
-									<SocialMessageProvider>
-										<ProgressBar />
-										{getLayout(<Component {...pageProps} />)}
-									</SocialMessageProvider>
+								<SocialMessageProvider>
+									<ProgressBar />
+									{getLayout(<Component {...pageProps} />)}
+								</SocialMessageProvider>
 							</TwilioContextProvider>
 						</ThemeProvider>
+					</AuthProviderWithoutGraphQL>
+
 					{/* </AuthProvider> */}
 				</NotistackProvider>
 			</QueryClientProvider>
