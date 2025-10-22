@@ -18,7 +18,7 @@ const Login = () => {
 	const router = useRouter();
 
 	// ------------------------------- useAuth
-	const { isLoading,signInWithEmail, setSignupStepCounter } = useAuth();
+	const { isLoading, signInWithEmail, setSignupStepCounter } = useAuth();
 
 	useEffect(() => {
 		setSignupStepCounter(0);
@@ -41,8 +41,7 @@ const Login = () => {
 	const { handleSubmit } = methods;
 
 	const onSubmit = (values: typeof defaultValues) => {
-		// signInWithEmail(values.email, values.password);
-		router.push('/')
+		signInWithEmail(values.email, values.password);
 	};
 
 	// -------------------------------functions
@@ -122,7 +121,11 @@ const Login = () => {
 					{/* ------------------------------- button */}
 					<DownButtonContainer>
 						<Stack width={'100%'} direction={'row'} justifyContent={'center'} alignItems={'center'}>
-							<NextButton type="submit" isLoading={isLoading === 'SIGN_IN_WITH_EMAIL'} sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }}>
+							<NextButton
+								type="submit"
+								isLoading={isLoading === 'SIGN_IN_WITH_EMAIL'}
+								sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }}
+							>
 								Sign In
 							</NextButton>
 						</Stack>
