@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node prebuild && next dev -p 4500",
+    "dev": " next dev -p 4500",
     "build": "node prebuild && npm run generate && next build",
     "build:qa": "node prebuild -qa && npm run generate && next build",
     "build:dev": "node prebuild -dev && npm run generate && next build",
