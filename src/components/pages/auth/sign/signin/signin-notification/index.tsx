@@ -17,7 +17,6 @@ import AssignConversationNotificationCart from './notification-cart/assign-conve
 import { MockData } from './mock-notification';
 
 const SigninNotification = () => {
-	const mockData = true;
 	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -72,7 +71,7 @@ const SigninNotification = () => {
 							<Header CurrentUser={CurrentUser} />
 
 							{/*------------------------------- body*/}
-							{mockData ? (
+							{process.env.NEXT_PUBLIC_MOCK ? (
 								<CartBody>
 									{MockData.map((notification, index) => {
 										const NotificationConvert =
