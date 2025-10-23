@@ -13,20 +13,16 @@ import SidebarSecond from './sidebar';
 const MainLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<CustomLayout direction={'row'} justifyContent={'start'} alignItems={'start'}>
-			{/* -------------------------------left sidebar */}
 
 			<FirstSidebar />
 
-			{/* -------------------------------user sidebar */}
 			<SidebarSecond />
 
-			{/* -------------------------------main */}
 			<Main>
-				{/* -------------------------------main header */}
 				<Stack px={'16px'}>
 					<MainHeader />
 				</Stack>
-				{/* -------------------------------main children */}
+				
 				<CustomMainLayoutChildren>{children}</CustomMainLayoutChildren>
 			</Main>
 		</CustomLayout>

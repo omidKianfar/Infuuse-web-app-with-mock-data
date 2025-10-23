@@ -14,7 +14,9 @@ const BaseLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<CustomLayout direction={'row'} justifyContent={'start'} alignItems={'start'}>
 			<FirstSidebar />
+
 			<SidebarSecond baselayout={true} />
+
 			<Main>
 				<Stack px={'16px'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
 					{!setting && (
@@ -24,6 +26,7 @@ const BaseLayout = ({ children }: PropsWithChildren) => {
 					)}
 					<MainHeader />
 				</Stack>
+				
 				<CustomBaseLayoutChildren setting={setting}>{children}</CustomBaseLayoutChildren>
 			</Main>
 		</CustomLayout>

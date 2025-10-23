@@ -15,22 +15,14 @@ const ChatLayout = ({ children }: PropsWithChildren) => {
 
 	return (
 		<CustomLayout direction={'row'} justifyContent={'start'} alignItems={'start'}>
-			{/* -------------------------------left sidebar */}
 			<FirstSidebar />
-
-			{/* -------------------------------user sidebar */}
 			<SidebarSecond />
-
-			{/* -------------------------------main */}
 			<Main>
-				{/* -------------------------------main header */}
 				<Stack px={'16px'}>
 					<MainHeader />
 				</Stack>
 
-				{/* -------------------------------main children */}
 				<CustomChatLayoutChildren>
-					{/* -------------------------------chat */}
 					<ChatPage>
 						<Stack
 							width={'100%'}
@@ -40,16 +32,13 @@ const ChatLayout = ({ children }: PropsWithChildren) => {
 							alignItems={'start'}
 						>
 							<Stack width={'100%'} height={'100%'}>
-								{/* -------------------------------chat header */}
 								<ChatHeader />
 
-								{/* -------------------------------chat children */}
 								<Stack width={'100%'} height={'100%'}>
 									{children}
 								</Stack>
 							</Stack>
-
-							{/* -------------------------------chat sidebar */}
+							
 							{chatSidebar && <ChatSidebar />}
 						</Stack>
 					</ChatPage>
