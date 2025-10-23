@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Grid, Stack, Typography, styled, useMediaQuery, useTheme } from '@mui/material';
 import OwnerIcon from '@/assets/owner-icon';
 import AgencyIcon from '@/assets/agency-icon';
@@ -7,10 +7,10 @@ import SignHeader from '../../../sign-header';
 import AuthSection from '../../..';
 
 import { NextButton } from '@/components/atoms/Button';
-import { UserType } from '@/graphql/generated';
 import userTypeStore from '@/store/userType.store';
 import { useSnapshot } from 'valtio';
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
+import { UserType } from '@/providers/Auth/without-graphql/type';
 
 const Step1 = () => {
 	// -------------------------------tools
