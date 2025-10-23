@@ -18,13 +18,13 @@ const Header = ({ CurrentUser }: Props) => {
 				<Image src={'/images/infuuse-logo.svg'} style={{ width: '120px' }} />
 			</Stack>
 			<Typography fontSize={'24px'} color={theme?.palette?.infuuse.blueDark500} mb={1}>
-				{currentTime <= 12
+				{currentTime <= '12'
 					? 'Good Morning'
-					: currentTime > 12 && currentTime <= 17
-					? 'Good Afternoon'
-					: currentTime > 17 && currentTime <= 19
-					? 'Good Evening'
-					: 'Good Night'}
+					: currentTime > '12' && currentTime <= '17'
+						? 'Good Afternoon'
+						: currentTime > '17' && currentTime <= '19'
+							? 'Good Evening'
+							: 'Good Night'}
 				, {CurrentUser?.user?.fullName ? CurrentUser?.user?.fullName : CurrentUser?.user?.email}
 			</Typography>
 			<Typography fontSize={'24px'} color={theme.palette.infuuse.blueLight300} mb={4}>

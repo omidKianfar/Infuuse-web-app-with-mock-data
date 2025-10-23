@@ -17,14 +17,11 @@ import AssignConversationNotificationCart from './notification-cart/assign-conve
 import { MockData } from './mock-notification';
 
 const SigninNotification = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const router = useRouter();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
@@ -58,19 +55,17 @@ const SigninNotification = () => {
 			: router?.push('/inbox');
 	};
 
+	const unreadCount = Array.isArray(notificationUnreadData?.items) && notificationUnreadData.items.length >= 1;
+
 	return (
 		<>
 			{isMobile ? (
-				// ------------------------------- No responsive
 				<NoResponsive />
 			) : (
 				<Stack bgcolor={theme?.palette?.infuuse.gray100}>
 					<Cart direction="row">
 						<CartHeader boxShadow="3">
-							{/*------------------------------- header*/}
 							<Header CurrentUser={CurrentUser} />
-
-							{/*------------------------------- body*/}
 							{process.env.NEXT_PUBLIC_MOCK ? (
 								<CartBody>
 									{MockData.map((notification, index) => {
@@ -90,38 +85,46 @@ const SigninNotification = () => {
 										);
 									})}
 								</CartBody>
-							) : notificationUnreadData?.items?.length >= 1 ? (
+							) : unreadCount ? (
 								<CartBody>
-									{notificationUnreadData?.items?.map((notification) => {
-										const NotificationConvert = JSON.parse(notification?.content);
+									{Array.isArray(notificationUnreadData?.items) &&
+										notificationUnreadData?.items?.map((notification) => {
+											let NotificationConvert = {};
+											if (notification?.content) {
+												try {
+													NotificationConvert = JSON.parse(notification?.content);
+												} catch (err) {
+													console.log('Error: ', err);
+												}
+											}
 
-										return (
-											<Stack
-												justifyContent={'center'}
-												alignItems={'center'}
-												width={'100%'}
-												height={'100%'}
-												p={1}
-											>
-												{notification?.type === NotificationType?.Ticket ? (
-													<TicketNotificationCart NotificationConvert={NotificationConvert} />
-												) : notification?.type ===
-												  NotificationType?.AssignMemberToConversation ? (
-													<AssignConversationNotificationCart
-														NotificationConvert={NotificationConvert}
-													/>
-												) : null}
-											</Stack>
-										);
-									})}
+											return (
+												<Stack
+													justifyContent={'center'}
+													alignItems={'center'}
+													width={'100%'}
+													height={'100%'}
+													p={1}
+												>
+													{notification?.type === NotificationType?.Ticket ? (
+														<TicketNotificationCart
+															NotificationConvert={NotificationConvert}
+														/>
+													) : notification?.type ===
+													  NotificationType?.AssignMemberToConversation ? (
+														<AssignConversationNotificationCart
+															NotificationConvert={NotificationConvert}
+														/>
+													) : null}
+												</Stack>
+											);
+										})}
 								</CartBody>
 							) : (
 								<CartBody>
 									<No_Notification direction={'row'}>You have no reminders for today</No_Notification>
 								</CartBody>
 							)}
-
-							{/* -------------------------------button */}
 							<Stack
 								direction={'row'}
 								justifyContent={'center'}

@@ -13,21 +13,17 @@ import { DownButtonContainer, ForgotPassword, Label, SignContainer } from '../..
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const Login = () => {
-	//  -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
-	// ------------------------------- useAuth
 	const { isLoading, signInWithEmail, setSignupStepCounter } = useAuth();
 
 	useEffect(() => {
 		setSignupStepCounter(0);
 	}, []);
 
-	// -------------------------------state
 	const [visible, setVisible] = useState(false);
 
-	// -------------------------------form
 	const defaultValues = {
 		email: '',
 		password: '',
@@ -44,7 +40,6 @@ const Login = () => {
 		signInWithEmail(values.email, values.password);
 	};
 
-	// -------------------------------functions
 	const forgotPassword = () => {
 		router.push('/forget-password');
 	};
@@ -52,13 +47,9 @@ const Login = () => {
 	return (
 		<AuthSection>
 			<SignContainer direction="column" maxHeight="400px">
-				{/*  -------------------------------header */}
 				<SignHeader title="Sign In" description="Seize The Day" />
-
-				{/* -------------------------------form */}
 				<FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 					<Stack>
-						{/* -------------------------------fields */}
 						<Label>Email</Label>
 
 						<TextField
@@ -101,8 +92,6 @@ const Login = () => {
 									),
 								}}
 							/>
-
-							{/* -------------------------------forgot password */}
 							<ForgotPassword onClick={forgotPassword}>
 								<Typography
 									fontSize={'16px'}
@@ -117,8 +106,6 @@ const Login = () => {
 							</ForgotPassword>
 						</Stack>
 					</Stack>
-
-					{/* ------------------------------- button */}
 					<DownButtonContainer>
 						<Stack width={'100%'} direction={'row'} justifyContent={'center'} alignItems={'center'}>
 							<NextButton
