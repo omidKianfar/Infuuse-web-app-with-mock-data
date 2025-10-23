@@ -6,19 +6,16 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function AuthGuard({ children }: React.PropsWithChildren) {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, isInitialized } = useAuth();
 
-	const { pathname, push } = useRouter();
-	const excludePath1 = '/chat-setting/contact-chat';
-	const excludePath2 = '/video-call';
+	const { pathname } = useRouter();
+	const excludePaths = ['/chat-setting/contact-chat', '/video-call'];
 
-	if (pathname === excludePath1 || pathname === excludePath2) {
-		return children;
+	if (excludePaths.includes(pathname)) return children;
+
+	if (!isInitialized) {
+		return <FullscreenLoading />;
 	}
-
-	// if (!isInitialized) {
-	// 	return <FullscreenLoading />;
-	// }
 
 	if (!isAuthenticated) {
 		return (

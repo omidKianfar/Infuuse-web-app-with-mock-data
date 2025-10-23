@@ -15,6 +15,7 @@ export interface AuthContextType {
 	isAuthenticated: boolean;
 	isLoading: string | null;
 	user: any | null;
+	isInitialized: boolean;
 	signupStepCounter: number;
 	setSignupStepCounter: React.Dispatch<React.SetStateAction<number>>;
 	signUpWithEmail: (input: SignUpInput) => Promise<void>;
@@ -27,16 +28,16 @@ export interface AuthContextType {
 }
 
 export type AuthContextStateType = {
-  error: string;
-  user: {
-    uid: string;
-    email: string | null;
-    displayName: string | null;
-    userType?: UserType;
-  } | null;
-  isLoading: string | null;
-  isInitialized: boolean;
-  isAuthenticated: boolean;
+	error: string;
+	user: {
+		uid: string;
+		email: string | null;
+		displayName: string | null;
+		userType?: UserType;
+	} | null;
+	isLoading: string | null;
+	isInitialized: boolean;
+	isAuthenticated: boolean;
 };
 
 export type AuthContextActionType = 'INITIALIZE' | 'IS_LOADING';

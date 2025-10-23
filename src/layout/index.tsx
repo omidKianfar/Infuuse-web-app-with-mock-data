@@ -1,15 +1,29 @@
+import LoadingProgress from '@/components/atoms/ProgressBar/CircularProgress';
 import NoResponsive from '@/components/molecules/no-responsive';
-import DeactivePage from '@/components/pages/auth/sign/deactive-page';
-import DeactivePayment from '@/components/pages/auth/sign/deactive-peyment-page';
 import { AccountStatus, UserType, useUser_GetCurrentUserQuery } from '@/graphql/generated';
 import { AuthGuard } from '@/guards';
 import RoleGuard from '@/guards/RoleGuard';
-import { Stack, styled, useTheme } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react';
-import BaseLayout from './base-layout';
-import ChatLayout from './chat-layout';
+import React, { lazy, Suspense } from 'react';
 import MainLayout from './main-layout';
+import BaseLayout from './base-layout';
+
+const ChatLayout = lazy(() => import('./chat-layout'));
+const DeactivePage = lazy(() => import('@/components/pages/auth/sign/deactive-page'));
+const DeactivePayment = lazy(() => import('@/components/pages/auth/sign/deactive-peyment-page'));
+
+const AuthLayout = styled(Stack)({
+	width: '100vw',
+	height: '100vh',
+});
+
+const NotificationLayout = styled(Stack)({
+	width: '100vw',
+	height: '100vh',
+});
+
+const layoutsWithoutRoleGuard = ['contactLayout', 'AuthLayout'];
 
 // -------------------- type props
 type LayoutProps = React.PropsWithChildren & {
@@ -17,18 +31,6 @@ type LayoutProps = React.PropsWithChildren & {
 	accessibleRoles?: Array<string>;
 };
 
-// ------------------ auth layout
-const AuthLayout = styled(Stack)({
-	width: '100vw',
-	height: '100vh',
-});
-// ------------------ auth layout
-const NotificationLayout = styled(Stack)({
-	width: '100vw',
-	height: '100vh',
-});
-
-// ------------------ layout types
 const layoutMap: { [key: string]: React.ElementType } = {
 	MainLayout,
 	BaseLayout,
@@ -38,21 +40,13 @@ const layoutMap: { [key: string]: React.ElementType } = {
 	contactLayout: AuthLayout,
 };
 
-// -------------------- layout without role gard
-const layoutsWithoutRoleGuard = ['contactLayout', 'AuthLayout'];
-
 export default function Layout({ type = 'MainLayout', children, accessibleRoles }: LayoutProps) {
-	// --------------------------------tools
-	const theme = useTheme();
 	const router = useRouter();
-	const isMobile = false; // useMediaQuery(theme.breakpoints.down('md'));
+	const isMobile = false;
 
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// useCallManagement();
-	// ------------------------- no responsive page
 	if (
 		isMobile &&
 		!router?.pathname.includes('/contact-chat') &&
@@ -62,15 +56,12 @@ export default function Layout({ type = 'MainLayout', children, accessibleRoles 
 		return <NoResponsive />;
 	}
 
-	// ------------------------ layout types selected
 	const SelectedLayout = layoutMap[type] || AuthLayout;
-
-	// ------------------------ layout not in the role gard
 	const requiresRoleGuard = !layoutsWithoutRoleGuard.includes(type);
 
 	return (
-		<>
-			{/* {requiresRoleGuard ? (
+		<Suspense fallback={<LoadingProgress />}>
+			{requiresRoleGuard ? (
 				<>
 					{CurrentUser?.user?.userType === UserType?.BusinessMember &&
 					CurrentUser?.businessAccesses?.[0]?.business?.status === AccountStatus?.Suspended ? (
@@ -87,9 +78,9 @@ export default function Layout({ type = 'MainLayout', children, accessibleRoles 
 						</AuthGuard>
 					)}
 				</>
-			) : ( */}
+			) : (
 				<SelectedLayout>{children}</SelectedLayout>
-			{/* )} */}
-		</>
+			)}
+		</Suspense>
 	);
 }
