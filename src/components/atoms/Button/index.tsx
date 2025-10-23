@@ -1,50 +1,64 @@
-import { Box, Button, Menu, MenuProps, Stack, alpha, styled, useTheme } from '@mui/material';
+import { Box, Button, ButtonProps, Menu, MenuProps, Stack, alpha, styled } from '@mui/material';
 import { MouseEventHandler, ReactNode, useState } from 'react';
 import LoadingProgress from '../ProgressBar/CircularProgress';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-// -------------------------------button props
-interface Props {
+
+// ------------------------------- Props
+interface ButtonPropsCustom {
 	onClick?: MouseEventHandler<HTMLButtonElement>;
 	children?: ReactNode;
 	sx?: any;
-	type?: string;
-	disabled?: any;
-	isLoading?: any;
-	startIcon?: Element;
-	endIcon?: Element;
-	icon?: Element;
-	text: string;
+	type?: 'button' | 'submit' | 'reset';
+	disabled?: boolean;
+	isLoading?: boolean;
+	startIcon?: ReactNode;
+	endIcon?: ReactNode;
+	icon?: ReactNode;
+	text?: string;
 }
 
-// -------------------------------blue button
-export const NextButton = ({ onClick, children, sx, type, disabled, isLoading = false, startIcon, endIcon }: Props) => {
+interface CustomNextButtonProps extends ButtonProps {
+	loading?: boolean;
+}
+
+// ------------------------------- NextButton
+export const NextButton = ({
+	onClick,
+	children,
+	sx,
+	type = 'button',
+	disabled = false,
+	isLoading = false,
+	startIcon,
+	endIcon,
+}: ButtonPropsCustom) => {
 	return (
-		<CustomNextButton onClick={onClick} type={type} sx={...sx} disabled={disabled} loading={isLoading}>
-			<Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
-				<Box display={'flex'} alignItems={'center'} mr={1}>
-					{startIcon}
-				</Box>
+		<CustomNextButton onClick={onClick} type={type} sx={sx} disabled={disabled || isLoading} loading={isLoading}>
+			<Stack direction="row" justifyContent="center" alignItems="center">
+				{startIcon && (
+					<Box display="flex" alignItems="center" mr={1}>
+						{startIcon}
+					</Box>
+				)}
 				{children}
-				<Box display={'flex'} alignItems={'center'} ml={1}>
-					{endIcon}
-					{isLoading && <LoadingProgress size={20} />}
-				</Box>
+				{endIcon && (
+					<Box display="flex" alignItems="center" ml={1}>
+						{endIcon}
+						{isLoading && <LoadingProgress size={20} />}
+					</Box>
+				)}
 			</Stack>
 		</CustomNextButton>
 	);
 };
 
-// -------------------------------split button
-
-export const SplitButton = ({ text, icon, children, sx, disabled }: Props) => {
+// ------------------------------- SplitButton
+export const SplitButton = ({ text, icon, children, sx, disabled = false }: ButtonPropsCustom) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
+
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+	const handleClose = () => setAnchorEl(null);
 
 	return (
 		<div>
@@ -59,15 +73,13 @@ export const SplitButton = ({ text, icon, children, sx, disabled }: Props) => {
 				startIcon={icon}
 				endIcon={<KeyboardArrowDownIcon />}
 				disabled={disabled}
-				sx={...sx}
+				sx={sx}
 			>
-				{text && text}
+				{text}
 			</CustomNextButton>
 			<StyledMenu
 				id="demo-customized-menu"
-				MenuListProps={{
-					'aria-labelledby': 'demo-customized-button',
-				}}
+				MenuListProps={{ 'aria-labelledby': 'demo-customized-button' }}
 				anchorEl={anchorEl}
 				open={open}
 				onClose={handleClose}
@@ -78,8 +90,9 @@ export const SplitButton = ({ text, icon, children, sx, disabled }: Props) => {
 	);
 };
 
-// ------------------------------- blue button style
-const CustomNextButton = styled(Button)(({ theme }) => ({
+// ------------------------------- CustomNextButton
+
+const CustomNextButton = styled(Button)<CustomNextButtonProps>(({ theme }) => ({
 	height: '48px',
 	background: theme?.palette?.infuuse.blue500,
 	color: theme?.palette?.common?.white,
@@ -89,35 +102,21 @@ const CustomNextButton = styled(Button)(({ theme }) => ({
 	'&:hover': {
 		background: theme?.palette?.infuuse.blueDark500,
 		color: theme?.palette?.common?.white,
-
-		svg: {
-			path: {
-				fill: theme?.palette?.common?.white,
-			},
-		},
+		svg: { path: { fill: theme?.palette?.common?.white } },
 	},
 	'&:disabled': {
 		backgroundColor: theme?.palette?.infuuse.gray500,
 		color: theme?.palette?.common?.white,
-		svg: {
-			path: {
-				fill: theme?.palette?.common?.white,
-			},
-		},
+		svg: { path: { fill: theme?.palette?.common?.white } },
 	},
 }));
 
+// ------------------------------- StyledMenu
 const StyledMenu = styled((props: MenuProps) => (
 	<Menu
 		elevation={0}
-		anchorOrigin={{
-			vertical: 'bottom',
-			horizontal: 'right',
-		}}
-		transformOrigin={{
-			vertical: 'top',
-			horizontal: 'right',
-		}}
+		anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+		transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 		{...props}
 	/>
 ))(({ theme }) => ({
@@ -128,25 +127,11 @@ const StyledMenu = styled((props: MenuProps) => (
 		color: theme?.palette?.infuuse?.blueDark500,
 		boxShadow:
 			'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-		'& .MuiMenu-list': {
-			padding: '4px 0',
-		},
+		'& .MuiMenu-list': { padding: '4px 0' },
 		'& .MuiMenuItem-root': {
-			'& .MuiSvgIcon-root': {
-				color: theme?.palette?.common?.white,
-				marginRight: theme.spacing(1.5),
-			},
+			'& .MuiSvgIcon-root': { color: theme?.palette?.common?.white, marginRight: theme.spacing(1.5) },
 			'&:active': {
 				backgroundColor: alpha(theme?.palette?.infuuse?.blue500, theme.palette.action.selectedOpacity),
-			},
-		},
-		'&:disabled': {
-			backgroundColor: theme?.palette?.infuuse?.gary500,
-			color: theme?.palette?.common?.white,
-			svg: {
-				path: {
-					fill: theme?.palette?.common?.white,
-				},
 			},
 		},
 	},
