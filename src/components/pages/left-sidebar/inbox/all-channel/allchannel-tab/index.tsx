@@ -12,29 +12,30 @@ const AllChannelTab = () => {
 
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
-	// const variables = {
-	// 	skip: 0,
-	// 	take: 10000,
-	// 	where: {
-	// 		type: {
-	// 			eq: ConversationType?.SocialNetworkChat
-	// 		}
-	// 	},
-	// 	order: {
-	// 		lastMessage: {
-	// 			createdDate: SortEnumType?.Desc
-	// 		}
-	// 	},
-	// };
-	// // get agency conversations
-	// const { data: Conversation } = useConversation_GetListQuery(variables);
+	const variables = {
+		skip: 0,
+		take: 10000,
+		where: {
+			type: {
+				eq: ConversationType?.SocialNetworkChat,
+			},
+		},
+		order: {
+			lastMessage: {
+				createdDate: SortEnumType?.Desc,
+			},
+		},
+	};
+	// get agency conversations
+	const { data: Conversation } = useConversation_GetListQuery(variables);
 
-	// useEffect(() => {
-	// 	queryKeyManager.addKey('conversationList', ['conversation_getList', variables]);
-	// }, []);
+	useEffect(() => {
+		queryKeyManager.addKey('conversationList', ['conversation_getList', variables]);
+	}, []);
 
-	// const ConversationData = Conversation?.conversation_getList?.result;
-	const ConversationData = mockConversations;
+	const ConversationData = process.env.NEXT_PUBLIC_MOCK
+		? mockConversations
+		: Conversation?.conversation_getList?.result;
 
 	useEffect(() => {
 		const ConversationIds = [];
@@ -49,7 +50,6 @@ const AllChannelTab = () => {
 	return (
 		<AllChannelContainer>
 			<>
-			
 				{ConversationData?.map((conversation) => (
 					<Stack key={conversation?.id}>
 						<MessageCart conversation={conversation} />

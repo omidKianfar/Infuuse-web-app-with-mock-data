@@ -18,17 +18,9 @@ import chatBoxTypeNetworkStore from '@/store/chat-box-type-network.store';
 import { useSnapshot } from 'valtio';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import copy from 'clipboard-copy';
+import { DefaultValuesType, Props } from '../../types';
 
-interface DefaultValuesType {
-	note: string;
-}
-
-interface Props {
-	handleClose: () => void;
-}
-
-const AddTwilioVideoCall = ({ handleClose }: Props) => {
-	// -------------------------------tools
+const AddTwilioVideoCall = ({ handleClose }: Partial<Props>) => {
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -40,7 +32,6 @@ const AddTwilioVideoCall = ({ handleClose }: Props) => {
 	const [room, setRoom] = useState(null);
 	const [videoLinkId, setvideoLinkId] = useState(null);
 
-	// -------------------------------query
 	const { mutate: MemberSendMessage } = useLiveChat_SendMessageByMemberMutation();
 	const { mutate: twilioLinkGenerate } = useTwilio_GenerateVideoRoomMutation();
 	const { mutate: sendSMS } = useTwilio_SendSmsMutation();
@@ -49,7 +40,6 @@ const AddTwilioVideoCall = ({ handleClose }: Props) => {
 	const { data } = useBusiness_GetByBusinessIdQuery({ businessId });
 	const businessName = data?.business_getByBusinessId?.result?.name;
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		note: '',
 	};
@@ -59,7 +49,7 @@ const AddTwilioVideoCall = ({ handleClose }: Props) => {
 		values: defaultValues,
 	});
 
-	const { handleSubmit, reset } = methods;
+	const { handleSubmit } = methods;
 
 	const MyLocation = location.origin;
 

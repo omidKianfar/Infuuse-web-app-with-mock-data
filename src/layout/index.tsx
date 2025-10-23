@@ -6,7 +6,7 @@ import { useUser_GetCurrentUserQuery, AccountStatus, UserType } from '@/graphql/
 import { AuthGuard } from '@/guards';
 import RoleGuard from '@/guards/RoleGuard';
 import NoResponsive from '@/components/molecules/no-responsive';
-import FullscreenLoading from '@/components/organisms/FullscreenLoading';
+import LoadingProgress from '@/components/atoms/ProgressBar/CircularProgress';
 
 // Lazy components
 const MainLayout = lazy(() => import('./main-layout'));
@@ -52,7 +52,7 @@ export default function Layout({ type = 'MainLayout', children, accessibleRoles 
 	const requiresRoleGuard = !layoutsWithoutRoleGuard.includes(type);
 
 	return (
-		<Suspense fallback={<FullscreenLoading />}>
+		<Suspense fallback={<LoadingProgress />}>
 			{requiresRoleGuard ? (
 				<>
 					{CurrentUser?.user?.userType === UserType.BusinessMember &&
@@ -64,10 +64,10 @@ export default function Layout({ type = 'MainLayout', children, accessibleRoles 
 						<DeactivePayment />
 					) : (
 						<AuthGuard>
-							<RoleGuard accessibleRoles={accessibleRoles}>
+							{/* <RoleGuard accessibleRoles={accessibleRoles}> */}
 								<SelectedLayout>{children}</SelectedLayout>
-							</RoleGuard>
-						</AuthGuard>
+							{/* </RoleGuard> */}
+						// </AuthGuard>
 					)}
 				</>
 			) : (

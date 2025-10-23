@@ -7,23 +7,12 @@ import { NextButton } from '@/components/atoms/Button';
 import { responseDestructure } from '@/utils';
 import { enqueueSnackbar } from 'notistack';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
+import { DefaultValuesType, Props } from '../../types';
 
-interface DefaultValuesType {
-	note: string;
-}
-
-interface Props {
-	handleClose: () => void;
-}
-
-const AddNote = ({ handleClose }: Props) => {
+const AddNote = ({ handleClose, contactId }: Partial<Props>) => {
 	// -------------------------------tools
 	const theme = useTheme();
 	const queryClient = useQueryClient();
-	const router = useRouter();
-
-	const contactId = router.query.contactId;
 
 	// -------------------------------query
 
