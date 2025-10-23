@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
+		"allowJs": false, // اگر js لازم نیست → false کن برای سرعت بیشتر
 		"skipLibCheck": true,
 		"strict": true,
 		"noEmit": true,
@@ -17,6 +17,6 @@
 			"@/*": ["src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "src/components/pages/left-sidebar/message-card"],
-	"exclude": ["node_modules"]
+	"include": ["next-env.d.ts", "src", "pages"],
+	"exclude": ["node_modules", ".next", ".turbo", "dist", "build", "public"]
 }
