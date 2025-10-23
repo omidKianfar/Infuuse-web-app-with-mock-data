@@ -9,18 +9,12 @@ import settingStore from '@/store/setting.store';
 import SidebarSecond from './sidebar';
 
 const BaseLayout = ({ children }: PropsWithChildren) => {
-	// -------------------------------state management
 	const { setting } = useSnapshot(settingStore);
 
 	return (
 		<CustomLayout direction={'row'} justifyContent={'start'} alignItems={'start'}>
-			{/* -------------------------------left sidebar */}
 			<FirstSidebar />
-
-			{/* user sidebar */}
 			<SidebarSecond baselayout={true} />
-
-			{/* -------------------------------main */}
 			<Main>
 				<Stack px={'16px'} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
 					{!setting && (
@@ -28,11 +22,8 @@ const BaseLayout = ({ children }: PropsWithChildren) => {
 							<Image src={'/images/infuuse-logo.svg'} style={{ width: '120px' }} />
 						</Stack>
 					)}
-
-					{/* -------------------------------main header */}
 					<MainHeader />
 				</Stack>
-				{/* -------------------------------main children */}
 				<CustomBaseLayoutChildren setting={setting}>{children}</CustomBaseLayoutChildren>
 			</Main>
 		</CustomLayout>
