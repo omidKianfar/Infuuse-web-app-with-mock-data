@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const TwilioIcon = ({ width = '32', height = '32', fill = '#f22f46' }) => {
+const TwilioIcon:React.FC<IconProps>  = ({ width = '32', height = '32', fill = '#f22f46' }) => {
 	return (
 		<svg
 			width={width}

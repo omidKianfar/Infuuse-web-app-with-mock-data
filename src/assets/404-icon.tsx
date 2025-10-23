@@ -1,6 +1,7 @@
 import useResponsive from '@/hooks/useResponsive';
+import React from 'react';
 
-export function Error404() {
+export function Error404(): JSX.Element {
 	const isMobile = useResponsive('down', 'md');
 
 	const sizes = isMobile ? { width: '350.286', height: '207.257' } : { width: '541.286', height: '321.257' };

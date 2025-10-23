@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const DilarIcon = ({ width = '16', height = '16', fill = '#99a6bf' }) => {
+const DilarIcon: React.FC<IconProps> = ({ width = '16', height = '16', fill = '#99a6bf' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 16 16">
 			<g id="vuesax_bold_grid-1" data-name="vuesax/bold/grid-1" transform="translate(-428 -252)">

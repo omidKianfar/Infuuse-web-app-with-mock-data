@@ -1,6 +1,7 @@
 import React from "react";
+import { IconProps } from './type';
 
-const ContactIcon = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
+const ContactIcon:React.FC<IconProps> = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
   return (
     <svg
       id="Group_74067"

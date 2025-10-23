@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const PictureIcon = ({ width = '24px', height = '24px', fill = '#c3cad9' }) => {
+const PictureIcon:React.FC<IconProps>  = ({ width = '24px', height = '24px', fill = '#c3cad9' }) => {
 	return (
 		<svg width={width} height={height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

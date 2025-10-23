@@ -1,6 +1,7 @@
 import React from 'react';
+import { GoogleProps } from './type';
 
-const CalendarGoogleIcon = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
+const CalendarGoogleIcon: React.FC<GoogleProps> = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width={width} height={height} fill={'#fff'}>
 			<rect width="22" height="22" x="13" y="13" />

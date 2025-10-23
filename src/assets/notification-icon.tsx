@@ -1,6 +1,7 @@
+import { IconProps } from './type';
 import React from "react";
 
-const NotificationIcon = ({
+const NotificationIcon:React.FC<IconProps> = ({
   width = "32",
   height = "32",
   fill = "#c3cad9",

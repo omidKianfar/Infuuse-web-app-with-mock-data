@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const StarGoldIcon = ({ width = '32', height = '30.836' }) => {
+const StarGoldIcon:React.FC<IconProps>  = ({ width = '32', height = '30.836' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 30.836">
 			<g id="Group_22587" data-name="Group 22587" transform="translate(-570.852 -278)">

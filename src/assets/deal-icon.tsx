@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DealIcon = () => {
+const DealIcon: React.FC = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="28.425" height="28.479" viewBox="0 0 28.425 28.479">
 			<g id="Group_70145" data-name="Group 70145" transform="translate(-2 -2)">

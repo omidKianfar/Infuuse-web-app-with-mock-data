@@ -1,6 +1,6 @@
 import React from "react";
 
-const AgencyIcon = () => {
+const AgencyIcon:React.FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

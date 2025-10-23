@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const PinIcon = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
+const PinIcon:React.FC<IconProps>  = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
 	return (
 		<svg
 			fill={fill}

@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const MessageMenuIcon = ({ width = '24', height = '24' }) => {
+const MessageMenuIcon:React.FC<IconProps> = ({ width = '24', height = '24' }) => {
 	return (
 		<svg id="call" xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24">
 			<g id="Group_696" data-name="Group 696" transform="translate(0 24) rotate(-90)">

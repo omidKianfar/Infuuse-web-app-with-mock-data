@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TagIcon = () => {
+const TagIcon:React.FC = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="26.467" height="26.441" viewBox="0 0 26.467 26.441">
 			<path

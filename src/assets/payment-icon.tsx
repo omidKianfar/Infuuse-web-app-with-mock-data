@@ -1,6 +1,6 @@
 import React from "react";
 
-const PaymentIcon = () => {
+const PaymentIcon:React.FC = () => {
   return (
     <svg
       id="Group_70158"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ArrowRightIcon = () => {
+const ArrowRightIcon:React.FC = () => {
 	return (
 		<svg
 			id="vuesax_linear_arrow-right"

@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const UserIcon = ({ width = '24', height = '24', fill = '#99a6bf' }) => {
+const UserIcon:React.FC<IconProps>  = ({ width = '24', height = '24', fill = '#99a6bf' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24">
 			<g id="Group_70150" data-name="Group 70150" transform="translate(-108 -252)">

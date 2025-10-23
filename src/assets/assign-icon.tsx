@@ -1,6 +1,8 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const AssignIcon = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
+
+const AssignIcon: React.FC<IconProps> = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24">
 			<g id="Group_70148" data-name="Group 70148" transform="translate(-4.016 -4)">

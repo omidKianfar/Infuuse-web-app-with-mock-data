@@ -1,4 +1,6 @@
-const VideoCallBotIcon = () => {
+import React from "react";
+
+const VideoCallBotIcon:React.FC = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="136.174" height="134.245" viewBox="0 0 136.174 134.245">
 			<g id="Group_71824" data-name="Group 71824" transform="translate(-685.391 -333.603)">

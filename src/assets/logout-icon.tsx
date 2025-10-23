@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const LogoutIcon = ({ width = '32', height = '32', fill = '#3f5073' }) => {
+const LogoutIcon:React.FC<IconProps> = ({ width = '32', height = '32', fill = '#3f5073' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 32">
 			<g id="vuesax_bold_logout" data-name="vuesax/bold/logout" transform="translate(-748 -444)">

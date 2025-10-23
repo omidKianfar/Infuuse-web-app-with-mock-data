@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const HubspotPlayIcon = ({ width = '24', height = '24', fill = '#f7bd42' }) => {
+const HubspotPlayIcon:React.FC<IconProps> = ({ width = '24', height = '24', fill = '#f7bd42' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24">
 			<g id="vuesax_bold_arrow-right" data-name="vuesax/bold/arrow-right" transform="translate(-492 -316)">

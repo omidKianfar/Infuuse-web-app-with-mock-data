@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const GoogleIcon = ({ width = '24px', height = '24px', fill = '#c3cad9' }) => {
+const GoogleIcon:React.FC<IconProps> = ({ width = '24px', height = '24px', fill = '#c3cad9' }) => {
 	return (
 		<svg width={width} height={height} viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
 			<path

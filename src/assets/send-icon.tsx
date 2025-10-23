@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const SendIcon = ({ width = '32', height = '32', fill = '#fff' }) => {
+const SendIcon:React.FC<IconProps>  = ({ width = '32', height = '32', fill = '#fff' }) => {
 	return (
 		<svg width={width} height={height} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
 			<path

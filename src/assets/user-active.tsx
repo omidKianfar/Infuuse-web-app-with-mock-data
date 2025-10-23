@@ -1,6 +1,7 @@
 import React from "react";
+import { IconProps } from "./type";
 
-const UserActive = ({ width = "24", height = "24" }) => {
+const UserActive:React.FC<IconProps>  = ({ width = "24", height = "24" }) => {
   return (
     <svg
       id="Group_74068"

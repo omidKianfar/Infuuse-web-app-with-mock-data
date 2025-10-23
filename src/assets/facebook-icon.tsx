@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const FacebookIcon = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
+const FacebookIcon:React.FC<IconProps> = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
 	return (
 		<svg
 			width={width}

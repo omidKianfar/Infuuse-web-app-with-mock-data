@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const EditIcon = ({ width = '24', height = '24', fill = '#fff' }) => {
+const EditIcon: React.FC<IconProps> = ({ width = '24', height = '24', fill = '#fff' }) => {
 	return (
 		<svg
 			id="Group_70145"

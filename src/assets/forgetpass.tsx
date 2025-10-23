@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ForgetPasswordIcon = () => {
+export const ForgetPasswordIcon:React.FC = () => {
 	return (
 		<svg width="350" height="200" viewBox="0 0 478 485" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

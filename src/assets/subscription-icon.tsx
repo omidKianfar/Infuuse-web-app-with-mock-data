@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const SubscriptionIcon = ({ width = '25', height = '25', fill = '#f7bd42' }) => {
+const SubscriptionIcon:React.FC<IconProps>  = ({ width = '25', height = '25', fill = '#f7bd42' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 25 25">
 			<g id="Group_70146" data-name="Group 70146" transform="translate(-4 -4)">

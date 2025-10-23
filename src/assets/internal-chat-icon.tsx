@@ -1,6 +1,7 @@
 import React from "react";
+import { IconProps } from './type';
 
-const InternalChatIcon = ({
+const InternalChatIcon:React.FC<IconProps> = ({
   width = "32",
   height = "32",
   fill = "#c3cad9",

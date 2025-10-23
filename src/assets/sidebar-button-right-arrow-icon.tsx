@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const SidebarButtonRightArrowIcon = ({ width = '65', height = '40', fill = '#57b8d9' }) => {
+const SidebarButtonRightArrowIcon:React.FC<IconProps>  = ({ width = '65', height = '40', fill = '#57b8d9' }) => {
 	return (
 		<svg
 			id="Group_70145"

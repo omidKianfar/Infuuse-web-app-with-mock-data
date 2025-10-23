@@ -1,6 +1,7 @@
 import React from "react";
+import { IconProps } from "./type";
 
-const TicketIcon = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
+const TicketIcon:React.FC<IconProps>  = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
   return (
     <svg
       id="Group_74065"

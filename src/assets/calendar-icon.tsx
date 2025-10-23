@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CalendarIcon = () => {
+const CalendarIcon:React.FC = () => {
 	return (
 		<svg
 			id="Group_70151"

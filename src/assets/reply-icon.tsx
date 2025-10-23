@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const ReplyIcon = ({ width = '24', height = '24' }) => {
+const ReplyIcon:React.FC<IconProps>  = ({ width = '24', height = '24' }) => {
 	return (
 		<svg id="call" xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24">
 			<g id="vuesax_bold_undo" data-name="vuesax/bold/undo" transform="translate(-108 -316)">

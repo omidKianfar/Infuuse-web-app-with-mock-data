@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const VideoIcon = ({ width = '24', height = '24', fill = '#99a6bf' }) => {
+const VideoIcon: React.FC<IconProps> = ({ width = '24', height = '24', fill = '#99a6bf' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 			<g id="vuesax_bold_video" data-name="vuesax/bold/video" transform="translate(-108 -252)">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NoteIcon = () => {
+const NoteIcon:React.FC = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
 			<g id="Group_70146" data-name="Group 70146" transform="translate(-156)">

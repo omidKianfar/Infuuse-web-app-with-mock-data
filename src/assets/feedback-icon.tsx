@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const FeedbackIcon = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
+const FeedbackIcon:React.FC<IconProps> = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 32">
 			<g id="Group_70145" data-name="Group 70145" transform="translate(-8 -8)">

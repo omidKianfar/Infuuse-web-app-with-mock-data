@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const CloseIconBox = ({ width = '24', height = '24', fill = '#f33' }) => {
+const CloseIconBox:React.FC<IconProps> = ({ width = '24', height = '24', fill = '#f33' }) => {
 	return (
 		<svg id="close-square" xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 32">
 			<g id="Group_70144" data-name="Group 70144">

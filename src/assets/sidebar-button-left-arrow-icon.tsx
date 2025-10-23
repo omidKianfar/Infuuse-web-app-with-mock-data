@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SidebarButtonLeftArrowIcon = () => {
+const SidebarButtonLeftArrowIcon:React.FC = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width={65} height={40} >
 			<g data-name="Group 70170" transform="translate(-1392 -117)">

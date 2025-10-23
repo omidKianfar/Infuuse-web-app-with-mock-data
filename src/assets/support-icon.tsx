@@ -1,6 +1,7 @@
 import React from "react";
+import { IconProps } from "./type";
 
-const SupportIcon = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
+const SupportIcon:React.FC<IconProps>  = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

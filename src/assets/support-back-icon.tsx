@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SupportBackIcon = () => {
+const SupportBackIcon:React.FC = () => {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 			<g id="arrow-square-left" transform="translate(-492 -188)">

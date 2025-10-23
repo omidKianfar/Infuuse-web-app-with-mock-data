@@ -1,6 +1,7 @@
 import React from "react";
+import { IconProps } from "./type";
 
-const VideoCallIcon = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
+const VideoCallIcon:React.FC<IconProps>  = ({ width = "32", height = "32", fill = "#c3cad9" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,8 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const CheckedIcon = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
+
+const CheckedIcon: React.FC<IconProps> = ({ width = '32', height = '32', fill = '#c3cad9' }) => {
 	return (
 		<svg
 			id="Group_70144"

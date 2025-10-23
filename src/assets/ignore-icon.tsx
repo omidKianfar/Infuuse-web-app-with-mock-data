@@ -1,6 +1,6 @@
 import React from "react";
 
-const IgnoreIcon = () => {
+const IgnoreIcon:React.FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

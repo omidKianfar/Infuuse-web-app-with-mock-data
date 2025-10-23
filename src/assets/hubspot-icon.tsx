@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconProps } from './type';
 
-const HubspotIcon = ({ width = "24px", height = "24px", fill = "#FF7A59" }) => {
+const HubspotIcon:React.FC<IconProps> = ({ width = "24px", height = "24px", fill = "#FF7A59" }) => {
 	return (
 		<svg
 			width={width}
