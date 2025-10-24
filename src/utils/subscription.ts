@@ -25,7 +25,7 @@ export const ConversationMessage_Chat = gql.subscription({
 	fields: ['createdDate', 'id', 'typeSocialNetwork'],
 });
 
-export function subscribe(query: string, variables: any, callback: (message: any) => void, externalId?: string) {
+export function subscribe(query: string, variables: any, callback: (message: MessageEvent) => void, externalId?: string) {
 	if (typeof window === 'undefined') return;
 	if (!callback) callback = () => {};
 
