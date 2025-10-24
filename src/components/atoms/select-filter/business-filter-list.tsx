@@ -1,28 +1,22 @@
 import {
 	AgencyMemberAssignmentStatus,
 	SortEnumType,
+	UserDto,
 	UserType,
 	useBusiness_GetListAgencyRequestsQuery,
-	useUser_GetCurrentUserQuery,
 } from '@/graphql/generated';
 import { Box, MenuItem, Stack, styled, TextField, Typography, useTheme } from '@mui/material';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 interface Props {
-	setBusinessId?: React.Dispatch<React.SetStateAction<number | undefined>>;
-	businessId?: number | undefined;
+	setBusinessId: Dispatch<SetStateAction<number | null>> | undefined;
+	businessId: number | null;
+	CurrentUser: UserDto;
 }
 
-const FilterList = ({ setBusinessId, businessId }: Props) => {
-	// -------------------------------tools
+const FilterList = ({ setBusinessId, businessId, CurrentUser }: Partial<Props>) => {
 	const theme = useTheme();
 
-	// ------------------------------- query
-	// current user
-	const { data: User } = useUser_GetCurrentUserQuery();
-	const CurrentUser = User?.user_getCurrentUser?.result;
-
-	// get businesses
 	const { data: businessRequests } = useBusiness_GetListAgencyRequestsQuery({
 		skip: 0,
 		take: 10000,
@@ -35,7 +29,6 @@ const FilterList = ({ setBusinessId, businessId }: Props) => {
 			createdDate: SortEnumType?.Desc,
 		},
 	});
-	const BusinessRequestsData = businessRequests?.business_getListAgencyRequests?.result;
 
 	return (
 		<Stack>
@@ -46,9 +39,10 @@ const FilterList = ({ setBusinessId, businessId }: Props) => {
 						select
 						fullWidth
 						value={
-							businessId !== null && businessId !== undefined
+							businessId
 								? businessId
-								: CurrentUser?.businessAccesses[0]?.business?.id}
+								: CurrentUser?.businessAccesses?.[0]?.business?.id ?? 0
+						}
 						InputLabelProps={{
 							sx: {
 								color: theme?.palette?.infuuse.blue500,
@@ -57,18 +51,16 @@ const FilterList = ({ setBusinessId, businessId }: Props) => {
 							shrink: true,
 						}}
 					>
-						{BusinessRequestsData?.items?.map((business) => (
+						{businessRequests?.business_getListAgencyRequests?.result?.items?.map((business) => (
 							<MenuItem
 								key={business?.business?.id}
-								value={
-									business?.business?.id as number
-								}
-								onClick={() => setBusinessId(business?.business?.id as number)}
+								value={business?.business?.id as number}
+								onClick={() => setBusinessId?.(business?.business?.id as number)}
 							>
 								<Typography fontWeight={'bold'} color={theme?.palette?.infuuse?.blue500}>
 									{business?.business?.name
 										? business?.business?.name
-										: CurrentUser?.businessAccesses[0]?.business?.name}
+										: CurrentUser?.businessAccesses?.[0]?.business?.name ?? ''}
 								</Typography>
 							</MenuItem>
 						))}
