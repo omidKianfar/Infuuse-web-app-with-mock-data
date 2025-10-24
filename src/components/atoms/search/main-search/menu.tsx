@@ -9,30 +9,32 @@ import { useRouter } from 'next/router';
 interface Props {
 	handleClose: () => void;
 	setSearchMenu: React.Dispatch<React.SetStateAction<boolean>>;
-	ContactsData?: ContactCollectionSegment;
+	ContactsData: ContactCollectionSegment;
 	BusinessId: number | undefined;
 	setChoosenContactId: React.Dispatch<React.SetStateAction<number | null>>;
 	setChoosenContactName: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const SearchMenuBody = ({ handleClose, setSearchMenu, ContactsData, BusinessId, setChoosenContactId, setChoosenContactName }: Props) => {
+const SearchMenuBody = ({ handleClose, setSearchMenu, ContactsData, BusinessId, setChoosenContactId, setChoosenContactName }: Partial<Props>) => {
 	const theme = useTheme();
 	const router = useRouter();
 
+
 	const choosenConatctHandler = (contact: Contact) => {
-		setChoosenContactId(contact?.id as number);
-		setChoosenContactName(contact?.fullName as string);
-		setSearchMenu(false);
+
+		setChoosenContactId?.(contact?.id as number);
+		setChoosenContactName?.(contact?.fullName as string);
+		setSearchMenu?.(false);
 		router.push({
 			pathname: '/inbox/all-channel-chats',
 			query: {
 				conversationId: contact?.conversationId,
 				businessId: BusinessId,
 				contactId: contact?.id,
-				memberId: contact?.conversation?.conversationMembers[0]?.userId
+				memberId: contact?.conversation?.conversationMembers?.[0]?.userId ?? 0 as number
 			}
 		})
-		handleClose()
+		handleClose?.()
 	};
 
 	return (
@@ -50,7 +52,7 @@ const SearchMenuBody = ({ handleClose, setSearchMenu, ContactsData, BusinessId, 
 			overflow={'auto'}
 		>
 			<Stack direction={'row'} justifyContent={'end'} alignItems={'center'}>
-				<Stack onClick={() => setSearchMenu(false)} sx={{ cursor: 'pointer' }}>
+				<Stack onClick={() => setSearchMenu?.(false)} sx={{ cursor: 'pointer' }}>
 					<CloseIcon
 						sx={{
 							'&:hover': {
@@ -63,7 +65,7 @@ const SearchMenuBody = ({ handleClose, setSearchMenu, ContactsData, BusinessId, 
 
 			{/* -------------------------------search items (query) */}
 			{ContactsData?.items?.map((contact) => (
-				<Stack key={contact?.id} onClick={() => choosenConatctHandler(contact)}>
+				<Stack key={contact?.id} onClick={() => choosenConatctHandler(contact as Contact)}>
 					<SearchItem direction={'row'}>
 						<Stack mr={2}>
 							<UserIcon fill={theme.palette?.infuuse?.gray500} />

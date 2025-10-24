@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import SearchMenuBody from './menu';
 import SearchIcon from '@/assets/search-icon';
 import CloseIcon from '@mui/icons-material/Close';
-import { useContact_GetListByBusinessIdQuery } from '@/graphql/generated';
+import { ContactCollectionSegment, useContact_GetListByBusinessIdQuery } from '@/graphql/generated';
 
 interface props {
 	handleClose: () => void;
-	BusinessId?: number;
+	BusinessId: number;
 	choosenContactId: number | null;
 	setChoosenContactId: React.Dispatch<React.SetStateAction<number | null>>;
 	choosenContactName: string | null;
@@ -21,7 +21,7 @@ const MainSearch = ({
 	setChoosenContactId,
 	choosenContactName,
 	setChoosenContactName,
-}: props) => {
+}: Partial<props>) => {
 	// -------------------------------tools
 	const theme = useTheme();
 
@@ -39,7 +39,7 @@ const MainSearch = ({
 
 	// -------------------------------search query
 
-	const { data: Contacs } = useContact_GetListByBusinessIdQuery({
+	const { data: Contacts } = useContact_GetListByBusinessIdQuery({
 		businessId: Number(BusinessId),
 		skip: 0,
 		take: 1000,
@@ -50,11 +50,11 @@ const MainSearch = ({
 		},
 	});
 
-	const ContactsData = Contacs?.contact_getListByBusinessId?.result;
+	const ContactsData = Contacts?.contact_getListByBusinessId?.result;
 
 	const contactChoosenHandler = () => {
-		setChoosenContactId(null);
-		setChoosenContactName(null);
+		setChoosenContactId?.(null);
+		setChoosenContactName?.(null);
 		setSearchData('');
 		setSearchMenu(false);
 	};
@@ -70,7 +70,7 @@ const MainSearch = ({
 						placeholder="Contact"
 						value={searchData}
 						onChange={(e) => setSearchData(e.target.value)}
-						onFocus={searchData ? () => setSearchMenu(true) : null}
+						onFocus={searchData ? () => setSearchMenu(true) : undefined}
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
@@ -125,7 +125,7 @@ const MainSearch = ({
 					<SearchMenuBody
 						handleClose={handleClose}
 						setSearchMenu={setSearchMenu}
-						ContactsData={ContactsData}
+						ContactsData={ContactsData as ContactCollectionSegment}
 						BusinessId={BusinessId}
 						setChoosenContactId={setChoosenContactId}
 						setChoosenContactName={setChoosenContactName}
