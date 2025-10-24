@@ -17,11 +17,11 @@ const CustomBox = styled(Box)((theme) => ({
 	outline: 'none',
 }));
 
-export default function ModalContainer({ open, handleClose, children }: Props) {
+export default function ModalContainer({ open, handleClose, children }: Partial<Props>) {
 	return (
 		<div>
 			<Modal
-				open={open}
+				open={open ?? false}
 				onClose={handleClose}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
