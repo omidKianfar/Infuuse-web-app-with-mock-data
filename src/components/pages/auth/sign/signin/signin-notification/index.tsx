@@ -55,7 +55,6 @@ const SigninNotification = () => {
 			: router?.push('/inbox');
 	};
 
-	const unreadCount = Array.isArray(notificationUnreadData?.items) && notificationUnreadData.items.length >= 1;
 
 	return (
 		<>
@@ -85,40 +84,39 @@ const SigninNotification = () => {
 										);
 									})}
 								</CartBody>
-							) : unreadCount ? (
+							) : (notificationUnreadData?.items?.length ?? 0) >= 1 ? (
 								<CartBody>
-									{Array.isArray(notificationUnreadData?.items) &&
-										notificationUnreadData?.items?.map((notification) => {
-											let NotificationConvert = {};
-											if (notification?.content) {
-												try {
-													NotificationConvert = JSON.parse(notification?.content);
-												} catch (err) {
-													console.log('Error: ', err);
-												}
+									{notificationUnreadData?.items?.map((notification) => {
+										let NotificationConvert = {};
+										if (notification?.content) {
+											try {
+												NotificationConvert = JSON.parse(notification?.content);
+											} catch (err) {
+												console.log('Error: ', err);
 											}
+										}
 
-											return (
-												<Stack
-													justifyContent={'center'}
-													alignItems={'center'}
-													width={'100%'}
-													height={'100%'}
-													p={1}
-												>
-													{notification?.type === NotificationType?.Ticket ? (
-														<TicketNotificationCart
-															NotificationConvert={NotificationConvert}
-														/>
-													) : notification?.type ===
-													  NotificationType?.AssignMemberToConversation ? (
-														<AssignConversationNotificationCart
-															NotificationConvert={NotificationConvert}
-														/>
-													) : null}
-												</Stack>
-											);
-										})}
+										return (
+											<Stack
+												justifyContent={'center'}
+												alignItems={'center'}
+												width={'100%'}
+												height={'100%'}
+												p={1}
+											>
+												{notification?.type === NotificationType?.Ticket ? (
+													<TicketNotificationCart
+														NotificationConvert={NotificationConvert}
+													/>
+												) : notification?.type ===
+													NotificationType?.AssignMemberToConversation ? (
+													<AssignConversationNotificationCart
+														NotificationConvert={NotificationConvert}
+													/>
+												) : null}
+											</Stack>
+										);
+									})}
 								</CartBody>
 							) : (
 								<CartBody>
