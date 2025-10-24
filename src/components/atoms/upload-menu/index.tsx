@@ -26,188 +26,141 @@ interface Props {
 	>;
 	setIsUploading?: React.Dispatch<React.SetStateAction<boolean>>;
 	setProgressbar: React.Dispatch<React.SetStateAction<number>>;
-	SendVia?: {
+	SendVia: {
 		type: string;
 		id: string | number;
 		value: string;
 	};
 }
 
-const UploadMenu = ({ showMenu, setShowMenu, setUploadedFile, setIsUploading, setProgressbar, SendVia }: Props) => {
-	// -------------------------------tools
+const UploadMenu = ({
+	showMenu,
+	setShowMenu,
+	setUploadedFile,
+	setIsUploading,
+	setProgressbar,
+	SendVia,
+}: Partial<Props>) => {
 	const theme = useTheme();
 
-	// -------------------------------ref
 	const inputPhotoRef = useRef<HTMLInputElement>(null);
 	const inputVideoRef = useRef<HTMLInputElement>(null);
 	const inputFilesRef = useRef<HTMLInputElement>(null);
 
-	// ------------------------------- functions
-
-	const voiceHandler = () => {
-		setUploadedFile({ photoUrl: '', videoUrl: '', fileUrl: '', voiceUrl: '', type: 'voice' });
-		setShowMenu(false);
-	};
-
-	// useFileUpload hook
 	const { uploadFile, progress, reset, url, isUploading } = useFileUpload();
 
+	// ------------------ helpers ------------------
+	const triggerInput = (ref: React.RefObject<HTMLInputElement>) => {
+		ref.current?.click();
+	};
+
+	const handleUnsupportedFile = () => {
+		enqueueSnackbar('Video and audio files are not supported', { variant: 'error' });
+	};
+
+	const handleVoice = () => {
+		setUploadedFile?.({ photoUrl: '', videoUrl: '', fileUrl: '', voiceUrl: '', type: 'voice' });
+		setShowMenu?.(false);
+	};
+
+	// ------------------ effects ------------------
 	useEffect(() => {
-		if (isUploading && !url) {
-			setIsUploading(true);
-		} else {
-			setIsUploading(false);
-		}
-	}, [isUploading, url]);
+		setIsUploading?.(isUploading && !url);
+	}, [isUploading, url, setIsUploading]);
 
 	useEffect(() => {
-		if (progress) {
-			setProgressbar(progress);
-		}
-	}, [progress]);
+		setProgressbar?.(progress || 0);
+	}, [progress, setProgressbar]);
 
-	// upload handler
-	const UploadHandler = async (event: ChangeEvent<HTMLInputElement>, type: string) => {
+	// ------------------ upload handler ------------------
+	const UploadHandler = async (event: ChangeEvent<HTMLInputElement>, type: 'image' | 'video' | 'file') => {
 		const files = event.target.files;
-		setShowMenu(false);
+		setShowMenu?.(false);
 		if (!files?.length) return;
 
+		const file = files[0];
 		try {
-			const res = await uploadFile(files[0]);
+			const res = await uploadFile(file);
 			if (res?.url) {
-				if (type === 'image') {
-					setUploadedFile({
-						photoUrl: getFullImageUrl(res.url) as string,
-						videoUrl: '',
-						fileUrl: '',
-						voiceUrl: '',
-						type: 'photo',
-					});
-				} else if (type === 'video') {
-					setUploadedFile({
-						photoUrl: '',
-						videoUrl: getFullImageUrl(res.url) as string,
-						fileUrl: '',
-						voiceUrl: '',
-
-						type: 'video',
-					});
-				} else {
-					setUploadedFile({
-						photoUrl: '',
-						videoUrl: '',
-						fileUrl: getFullImageUrl(res.url) as string,
-						voiceUrl: '',
-						type: 'file',
-					});
+				const uploadedUrl = getFullImageUrl(res.url);
+				switch (type) {
+					case 'image':
+						setUploadedFile?.({ photoUrl: uploadedUrl ?? '', videoUrl: '', fileUrl: '', voiceUrl: '', type: 'photo' });
+						break;
+					case 'video':
+						setUploadedFile?.({ photoUrl: '', videoUrl: uploadedUrl ?? '', fileUrl: '', voiceUrl: '', type: 'video' });
+						break;
+					case 'file':
+						setUploadedFile?.({ photoUrl: '', videoUrl: '', fileUrl: uploadedUrl ?? '', voiceUrl: '', type: 'file' });
+						break;
 				}
 				reset();
-				event.target.value = '';
 			}
 		} catch (error) {
-			enqueueSnackbar('Failed upload file', { variant: 'error' });
+			enqueueSnackbar('Failed to upload file', { variant: 'error' });
 		} finally {
 			event.target.value = '';
 		}
 	};
 
-	const handelStoper = () => {
-		enqueueSnackbar('Video and audio files does not supported', { variant: 'error' });
-	};
-
 	return (
 		<>
 			<Box
-				display={'flex'}
-				justifyContent={'start'}
-				alignItems={'center'}
+				display="flex"
+				justifyContent="start"
+				alignItems="center"
 				mr={2}
 				sx={{ cursor: 'pointer' }}
-				onClick={() => setShowMenu(!showMenu)}
+				onClick={() => setShowMenu?.(!showMenu)}
 			>
 				{showMenu ? (
-					<CloseIconBox width="32px" height="32px" fill={theme?.palette?.infuuse?.blue100} />
+					<CloseIconBox width="32px" height="32px" fill={theme.palette.infuuse.blue100} />
 				) : (
 					<AddIcon width="32px" height="32px" />
 				)}
 			</Box>
+
 			{showMenu && (
 				<MenuContainer>
-					{/*  ------------------------------- voice */}
-
-					<IconBox
-						mb={1}
-						onClick={SendVia?.type === TypeContactNetwork?.PhoneNumber ? handelStoper : voiceHandler}
-					>
-						<MicIcon
-							sx={{
-								fontSize: '32px',
-								color: theme?.palette?.infuuse?.blueDark200,
-							}}
-						/>
+					{/* Voice */}
+					<IconBox mb={1} onClick={SendVia?.type === TypeContactNetwork?.PhoneNumber ? handleUnsupportedFile : handleVoice}>
+						<MicIcon sx={{ fontSize: '32px', color: theme.palette.infuuse.blueDark200 }} />
 					</IconBox>
 
-					{/* ------------------------------- video */}
-					<IconBox mb={'8px'}>
+					{/* Video */}
+					<IconBox mb={1}>
 						<Box
 							onClick={
 								SendVia?.type === TypeContactNetwork?.PhoneNumber
-									? handelStoper
-									: () => inputVideoRef.current.click()
+									? handleUnsupportedFile
+									: () => triggerInput(inputVideoRef)
 							}
 						>
-							<VideoIcon width="32px" height="32px" fill={theme?.palette?.infuuse?.blueDark200} />
+							<VideoIcon width="32px" height="32px" fill={theme.palette.infuuse.blueDark200} />
 						</Box>
-						<input
-							type="file"
-							hidden
-							accept="video/*"
-							onChange={(event) => UploadHandler(event, 'video')}
-							ref={inputVideoRef}
-						/>
+						<input type="file" hidden accept="video/*" onChange={(e) => UploadHandler(e, 'video')} ref={inputVideoRef} />
 					</IconBox>
 
-					{/* ------------------------------- photo */}
-					<IconBox mb={'8px'}>
-						<Box onClick={() => inputPhotoRef.current.click()}>
-							<PictureIcon fill={theme?.palette?.infuuse?.blueDark200} />
+					{/* Photo */}
+					<IconBox mb={1}>
+						<Box onClick={() => triggerInput(inputPhotoRef)}>
+							<PictureIcon fill={theme.palette.infuuse.blueDark200} />
 						</Box>
-						<input
-							type="file"
-							hidden
-							accept="image/*"
-							onChange={(event) => UploadHandler(event, 'image')}
-							ref={inputPhotoRef}
-						/>
+						<input type="file" hidden accept="image/*" onChange={(e) => UploadHandler(e, 'image')} ref={inputPhotoRef} />
 					</IconBox>
 
-					{/* ------------------------------- files */}
+					{/* Files */}
 					<IconBox>
 						<Box
 							onClick={
 								SendVia?.type === TypeContactNetwork?.PhoneNumber
-									? () => {
-											inputFilesRef.current.click();
-											handelStoper();
-									  }
-									: () => {
-											inputFilesRef.current.click();
-									  }
+									? handleUnsupportedFile
+									: () => triggerInput(inputFilesRef)
 							}
 						>
-							<FileAttachmentIcon
-								width="20px"
-								height="20px"
-								fill={theme?.palette?.infuuse?.blueDark200}
-							/>
+							<FileAttachmentIcon width="20px" height="20px" fill={theme.palette.infuuse.blueDark200} />
 						</Box>
-						<input
-							type="file"
-							hidden
-							accept="*"
-							onChange={(event) => UploadHandler(event, 'file')}
-							ref={inputFilesRef}
-						/>
+						<input type="file" hidden accept="*" onChange={(e) => UploadHandler(e, 'file')} ref={inputFilesRef} />
 					</IconBox>
 				</MenuContainer>
 			)}
@@ -215,4 +168,4 @@ const UploadMenu = ({ showMenu, setShowMenu, setUploadedFile, setIsUploading, se
 	);
 };
 
-export default UploadMenu;
+export default React.memo(UploadMenu);

@@ -1,17 +1,27 @@
-import { ConversationMessage, Maybe } from '@/graphql/generated';
 import { Box, Rating, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import StarGoldIcon from '@/assets/star-gold-icon';
 import StarEmptyIcon from '@/assets/star-emty-icon';
+import { SupportProps, SupportRateProps } from '@/components/molecules/header/main-header/type';
 
-interface Props {
-    message: Maybe<ConversationMessage>
 
-}
 
-const RateMessageSupport = ({ message }: Props) => {
+
+
+const RateMessageSupport = ({ message }: Partial<SupportProps>) => {
     const theme = useTheme();
-    const RateConvert = JSON.parse(message?.metaData);
+    let RateConvert: SupportRateProps = {
+        Score: 0,
+        Name: ''
+    }
+    if (message?.metaData) {
+        try {
+            RateConvert = JSON.parse(message?.metaData) as SupportRateProps;
+        } catch (error) {
+            console.log('Error: ', error);
+        }
+    }
+
 
     return (
         <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} px={2} mb={'50px'}>
@@ -30,7 +40,7 @@ const RateMessageSupport = ({ message }: Props) => {
                     <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} mb={2}>
                         <Rating
                             name="size-large"
-                            value={RateConvert?.Score}
+                            value={RateConvert?.Score ?? 0}
                             readOnly
                             icon={
                                 <Box p={1}>
@@ -46,7 +56,7 @@ const RateMessageSupport = ({ message }: Props) => {
                     </Stack>
 
                     <Typography color={theme?.palette?.infuuse?.blue500}
-                    >{RateConvert?.Name}</Typography>
+                    >{RateConvert?.Name ?? ''}</Typography>
                 </Box>
             </Stack>
         </Stack>

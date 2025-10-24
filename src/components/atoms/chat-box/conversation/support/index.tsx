@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import SendMessageSupport from './send-message/send-message';
 import { TypeSocialNetwork } from '@/graphql/generated';
-import RateMessageSupport from '@/components/molecules/header/main-header/support/step1/message/rate';
+import RateMessageSupport from '@/components/molecules/header/main-header/items/support/support/step1/message/rate';
 
 interface Props {
 	conversationChat: any;

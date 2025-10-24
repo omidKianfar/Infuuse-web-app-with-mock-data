@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import { Typography, useTheme } from '@mui/material';
 import WaveSurfer from 'wavesurfer.js';
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
 import RecorderStore from './recorderStore';
-import DeleteIcon from '@/assets/delete-icon';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { ChatContainer, IconBox } from './styles';
@@ -15,6 +14,7 @@ import { getFullImageUrl } from '@/utils';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import CloseIcon from '@mui/icons-material/Close';
+
 interface Props {
 	setUploadedFile: React.Dispatch<
 		React.SetStateAction<{
@@ -27,19 +27,19 @@ interface Props {
 	>;
 }
 
-//@ts-ignore
 let wavesurfer: WaveSurfer | null;
 let record: any;
 
-const VoiceChat = ({ setUploadedFile }: Props) => {
+const VoiceChat = React.memo(({ setUploadedFile }: Props) => {
 	const theme = useTheme();
 	const [isRecording, setIsRecording] = useState(false);
 	const timer = useStopwatch({ autoStart: false });
-	const element = useRef(null);
-	const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+	const element = useRef<HTMLDivElement>(null);
+	const { uploadFile } = useFileUpload();
 
+	// Initialize wavesurfer once
 	useEffect(() => {
-		if (element.current && !wavesurfer) {
+		if (!wavesurfer && element.current) {
 			wavesurfer = WaveSurfer.create({
 				container: element.current,
 				height: 48,
@@ -56,107 +56,87 @@ const VoiceChat = ({ setUploadedFile }: Props) => {
 				RecordPlugin.create({ scrollingWaveform: false, renderRecordedAudio: true })
 			);
 		}
-	}, [element.current]);
 
-	useEffect(() => {
-		if (isRecording && record) {
-			timer.start();
-			record.startRecording();
-			record.on('record-end', (blob) => {
-				const recordedUrl = URL.createObjectURL(blob);
-				console.log({ recordedUrl });
-				wavesurfer?.load(recordedUrl);
-				RecorderStore.mediaBlob = recordedUrl;
-				timer.pause();
-				setIsRecording(false);
-			});
-		}
-	}, [isRecording, record]);
-
-	function handleRemoveRecording() {
-		cancelRecording();
-
-		setUploadedFile({ photoUrl: '', videoUrl: '', fileUrl: '', voiceUrl: '', type: 'text' });
-	}
-
-	function isSupportAudioRecording() {
-		return Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-	}
-
-	async function startRecording() {
-		if (!isSupportAudioRecording()) {
-			return;
-		}
-
-		try {
-			if (!isRecording) {
-				setIsRecording(true);
-			}
-		} catch (error) {
-			throw new Error(error);
-		}
-	}
-
-	async function stopRecording() {
-		try {
-			timer.pause();
-			if (record && record.isRecording()) {
-				await record.stopRecording();
-			}
-		} catch (error) {
-			throw new Error(error);
-		}
-	}
-
-	async function cancelRecording() {
-		try {
-			timer.reset();
-			if (record && record.isRecording()) {
-				await record.stopRecording();
-				setIsRecording(false);
-			}
+		return () => {
 			if (wavesurfer) {
 				wavesurfer.destroy();
 				wavesurfer = null;
 				record = null;
 			}
-		} catch (error) {
-			throw new Error(error);
-		}
-	}
+		};
+	}, []);
 
-	const onPause = () => {
-		wavesurfer?.pause();
-	};
-
-	const onPlay = () => {
-		wavesurfer?.play();
-	};
-
-	const { uploadFile, url, isUploading } = useFileUpload();
-
+	// Add record-end listener once
 	useEffect(() => {
-		if (RecorderStore.mediaBlob === '') {
-			return;
+		if (!record) return;
+
+		const handleRecordEnd = async (blob: Blob) => {
+			const recordedUrl = URL.createObjectURL(blob);
+			wavesurfer?.load(recordedUrl);
+			RecorderStore.mediaBlob = recordedUrl;
+			timer.pause();
+			setIsRecording(false);
+		};
+
+		record.on('record-end', handleRecordEnd);
+		return () => {
+			record.un('record-end', handleRecordEnd);
+		};
+	}, [record]);
+
+	// Handle recording
+	useEffect(() => {
+		if (!isRecording || !record) return;
+		timer.start();
+		record.startRecording();
+	}, [isRecording, record]);
+
+	const isSupportAudioRecording = () =>
+		Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+
+	const startRecording = async () => {
+		if (!isSupportAudioRecording()) return;
+		if (!isRecording) setIsRecording(true);
+	};
+
+	const stopRecording = async () => {
+		timer.pause();
+		if (record && record.isRecording()) await record.stopRecording();
+	};
+
+	const cancelRecording = async () => {
+		timer.reset();
+		if (record && record.isRecording()) await record.stopRecording();
+		setIsRecording(false);
+
+		if (wavesurfer) {
+			wavesurfer.destroy();
+			wavesurfer = null;
+			record = null;
 		}
+		setUploadedFile({ photoUrl: '', videoUrl: '', fileUrl: '', voiceUrl: '', type: 'text' });
+	};
 
-		(async () => {
-			await new Promise((resolve) => setTimeout(resolve, 100));
+	const onPause = () => wavesurfer?.pause();
+	const onPlay = () => wavesurfer?.play();
 
-			// Convert blob URL to ArrayBuffer
+	// Upload recorded audio
+	useEffect(() => {
+		if (!RecorderStore.mediaBlob) return;
+
+		const upload = async () => {
+			await new Promise((r) => setTimeout(r, 100));
 			const response = await fetch(RecorderStore.mediaBlob);
 			const mediaBlob = await response.blob();
 			const arrayBuffer = await new Response(mediaBlob).arrayBuffer();
-
-			// Create a Blob from the ArrayBuffer
 			const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
 
-			// Create a FormData object and append the Blob
 			const formData = new FormData();
 			formData.append('file', blob, `${uuid()}.wav`);
+			const file = formData.get('file');
+			if (!file) return;
 
-			const result = await uploadFile(formData.get('file'));
-
+			const result = await uploadFile(file as File);
 			if (result) {
 				setUploadedFile({
 					photoUrl: '',
@@ -167,61 +147,40 @@ const VoiceChat = ({ setUploadedFile }: Props) => {
 				});
 				RecorderStore.mediaBlob = '';
 			}
-		})();
-		// eslint-disable-next-line
-	}, [RecorderStore.mediaBlob]);
+		};
+
+		upload();
+	}, [RecorderStore.mediaBlob, setUploadedFile, uploadFile]);
 
 	return (
-		<ChatContainer width={'100%'} height={'40px'} direction={'row'}>
-			<IconBox mr={1} onClick={handleRemoveRecording}>
-				<CloseIcon sx={{
-					fill: theme?.palette?.infuuse?.red300,
-					fontSize: '24px',
-				}} />
+		<ChatContainer width="100%" height="40px" direction="row">
+			<IconBox mr={1} onClick={cancelRecording}>
+				<CloseIcon sx={{ fill: theme.palette.infuuse.red300, fontSize: '24px' }} />
 			</IconBox>
 
 			<IconBox mr={1} onClick={isRecording ? stopRecording : startRecording}>
 				{isRecording ? (
-					<StopCircleIcon
-						sx={{
-							fill: theme?.palette?.infuuse?.blue500,
-							fontSize: '28px',
-						}}
-					/>
+					<StopCircleIcon sx={{ fill: theme.palette.infuuse.blue500, fontSize: '28px' }} />
 				) : (
-					<RadioButtonCheckedIcon
-						sx={{
-							fill: theme?.palette?.infuuse?.red300,
-							fontSize: '28px',
-						}}
-					/>
+					<RadioButtonCheckedIcon sx={{ fill: theme.palette.infuuse.red300, fontSize: '28px' }} />
 				)}
 			</IconBox>
 
-			{isRecording ? (
-				<IconBox mr={1} onClick={onPause}>
-					<PauseIcon sx={{ fill: theme?.palette?.infuuse?.blueDark100, fontSize: '28px' }} />
-				</IconBox>
-			) : (
-				<IconBox mr={1} onClick={onPlay}>
-					<PlayArrowIcon sx={{ fill: theme?.palette?.infuuse?.blueDark100, fontSize: '28px' }} />
-				</IconBox>
-			)}
+			<IconBox mr={1} onClick={isRecording ? onPause : onPlay}>
+				{isRecording ? (
+					<PauseIcon sx={{ fill: theme.palette.infuuse.blueDark100, fontSize: '28px' }} />
+				) : (
+					<PlayArrowIcon sx={{ fill: theme.palette.infuuse.blueDark100, fontSize: '28px' }} />
+				)}
+			</IconBox>
 
-			<div
-				style={{
-					width: '100%',
-					height: '50px',
-				}}
-				ref={element}
-			/>
+			<div style={{ width: '100%', height: '50px' }} ref={element} />
 
 			<Typography component="span" style={{ color: '#64708A', fontSize: 12, textAlign: 'center' }}>
-				{timer.minutes.toString().length === 1 ? `0${timer.minutes}` : timer.minutes}:
-				{timer.seconds.toString().length === 1 ? `0${timer.seconds}` : timer.seconds}
+				{timer.minutes.toString().padStart(2, '0')}:{timer.seconds.toString().padStart(2, '0')}
 			</Typography>
 		</ChatContainer>
 	);
-};
+});
 
 export default VoiceChat;

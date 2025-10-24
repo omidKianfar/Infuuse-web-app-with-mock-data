@@ -7,12 +7,11 @@ import StarEmptyIcon from '@/assets/star-emty-icon';
 import { useSupportChat_AddSupportSurveyMutation, useSupportChat_GetListQuery, useUser_GetCurrentUserQuery } from '@/graphql/generated';
 import { responseDestructure } from '@/utils';
 import { enqueueSnackbar } from 'notistack';
+import { SupportProps } from '../../../../type';
 
-interface Props {
-	setCounter: Dispatch<SetStateAction<number>>;
-}
 
-const Step2 = ({ setCounter }: Props) => {
+
+const Step2 = ({ setCounter }:Partial<SupportProps>) => {
 	const theme = useTheme();
 
 	const [valueRate, setValueRate] = useState<number>(0);

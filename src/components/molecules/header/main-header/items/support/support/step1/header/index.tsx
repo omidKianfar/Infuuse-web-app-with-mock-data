@@ -1,17 +1,13 @@
 import SupportBackIcon from '@/assets/support-back-icon';
 import SupportIcon from '@/assets/support-icon';
 import { NextButton } from '@/components/atoms/Button';
-import { ConversationMessageCollectionSegment, TypeSocialNetwork } from '@/graphql/generated';
+import { SupportProps } from '@/components/molecules/header/main-header/type';
+import {  TypeSocialNetwork } from '@/graphql/generated';
 import { Box, Stack, Typography, useTheme } from '@mui/material';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 
-interface Props {
-	setCounter: Dispatch<SetStateAction<number>>;
-	supportHandler: React.Dispatch<React.SetStateAction<boolean>>;
-	conversationLastMessageData: ConversationMessageCollectionSegment;
-}
 
-const Header = ({ setCounter, supportHandler, conversationLastMessageData }: Props) => {
+const Header = ({ setCounter, supportHandler, conversationLastMessageData }: Partial<SupportProps>) => {
 	const theme = useTheme();
 
 	return (
@@ -22,7 +18,7 @@ const Header = ({ setCounter, supportHandler, conversationLastMessageData }: Pro
 				</Box>
 
 				<Box display={'flex'} justifyContent={'center'} alignItems={'center'} pr={1}>
-					<NextButton sx={{ width: '250px' }} onClick={() => setCounter(1)} disabled={conversationLastMessageData?.items[0]?.typeSocialNetwork === TypeSocialNetwork?.SupportChatSurvey}>
+					<NextButton sx={{ width: '250px' }} onClick={() => setCounter?.(1)} disabled={conversationLastMessageData?.items?.[0]?.typeSocialNetwork === TypeSocialNetwork?.SupportChatSurvey}>
 						Finish Conversation
 					</NextButton>
 				</Box>
@@ -33,7 +29,7 @@ const Header = ({ setCounter, supportHandler, conversationLastMessageData }: Pro
 					display={'flex'}
 					justifyContent={'center'}
 					alignItems={'center'}
-					onClick={() => supportHandler(false)}
+					onClick={() => supportHandler?.()}
 					sx={{ cursor: 'pointer' }}
 					mr={1}
 				>

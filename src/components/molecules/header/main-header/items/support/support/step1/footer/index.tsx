@@ -12,17 +12,13 @@ import { useSnapshot } from 'valtio';
 import ShowUploadedBox from './show-uploaded-box';
 import { queryClient } from 'pages/_app';
 
-interface Props {
-	chatId?: number
-}
-
-const Footer = ({ chatId }: Props) => {
+const Footer = () => {
 	const theme = useTheme();
 
 	const [value, setValue] = useState<string>('');
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [IsUploading, setIsUploading] = useState<boolean>(false);
-	const [ProgressBar, setProgressbar] = useState(0);
+	const [ProgressBar, setProgressbar] = useState<number>(0);
 
 	const [uploadedFile, setUploadedFile] = useState({
 		photoUrl: '',
@@ -33,7 +29,6 @@ const Footer = ({ chatId }: Props) => {
 	});
 
 
-	// -------------------------------state management
 	const { mediaBlob } = useSnapshot(RecorderStore);
 
 	const { mutate: SupportMemberSendMessage, isLoading: sendSupportLoading } = useSupportChat_AddSupportMessageMutation();
@@ -50,7 +45,7 @@ const Footer = ({ chatId }: Props) => {
 					},
 					{
 						onSuccess: async (data) => {
-							const { status, result } = responseDestructure(data);
+							const { status } = responseDestructure(data);
 							if (status.code == 1) {
 								await resetFields()
 								await refetchQueries()
@@ -76,7 +71,7 @@ const Footer = ({ chatId }: Props) => {
 					},
 					{
 						onSuccess: async (data) => {
-							const { status, result } = responseDestructure(data);
+							const { status } = responseDestructure(data);
 							if (status.code == 1) {
 								await resetFields()
 								await refetchQueries()
@@ -147,8 +142,8 @@ const Footer = ({ chatId }: Props) => {
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Enter' && !event.ctrlKey && !sendSupportLoading) {
-				event.preventDefault(); // Prevent the default "Enter" key behavior
-				sendHandler(); // Call the sendHandler function
+				event.preventDefault(); 
+				sendHandler(); 
 			}
 		};
 
