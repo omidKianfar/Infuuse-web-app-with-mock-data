@@ -1,7 +1,7 @@
 import { Box, Stack, Tooltip, styled, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import SupportIcon from '@/assets/support-icon';
-import Support from '@/components/molecules/header/main-header/support';
+import Support from '@/components/molecules/header/main-header/items/support/support';
 import Image from '@/components/atoms/Image';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';

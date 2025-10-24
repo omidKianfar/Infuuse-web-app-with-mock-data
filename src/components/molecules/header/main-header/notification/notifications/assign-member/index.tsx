@@ -15,7 +15,7 @@ interface Props {
 	notification: Notification;
 }
 
-const AssignMemberNotification = ({ NotificationConvert, notificationRead, notification }: Props) => {
+const AssignMemberNotification = ({ NotificationConvert, notificationRead, notification }: Partial<Props>) => {
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -31,7 +31,6 @@ const AssignMemberNotification = ({ NotificationConvert, notificationRead, notif
 	})
 	const ConversationData = Conversation?.conversation_getList?.result
 
-	// get last message
 	const { data: conversationLastMessage } = useConversationMessage_GetByConversationIdQuery(
 		{
 			conversationId: Number(NotificationConvert?.Conversation?.Id),
@@ -40,23 +39,23 @@ const AssignMemberNotification = ({ NotificationConvert, notificationRead, notif
 			order: {
 				createdDate: SortEnumType?.Desc,
 			},
-		},{
-			enabled:!!NotificationConvert?.Conversation?.Id
-		}
+		}, {
+		enabled: !!NotificationConvert?.Conversation?.Id
+	}
 	);
 	const conversationLastMessageData = conversationLastMessage?.conversationMessage_getByConversationId?.result;
 
-
 	const selectConversation = async () => {
-		await notificationRead(notification?.id as number);
+		await notificationRead?.(notification?.id as number);
 
 		router?.push({
 			pathname: '/inbox/assign-chats',
 			query: {
-				conversationId: ConversationData?.items[0]?.id,
-				businessId: ConversationData?.items[0]?.business?.id,
-				contactId: ConversationData?.items[0]?.contact?.id,
-				memberId: conversationLastMessageData?.items[0]?.conversation?.conversationMembers[0]?.userId,
+				conversationId: ConversationData?.items?.[0]?.id ?? 0,
+				businessId: ConversationData?.items?.[0]?.business?.id ?? 0,
+				contactId: ConversationData?.items?.[0]?.contact?.id ?? 0,
+				memberId:
+					conversationLastMessageData?.items?.[0]?.conversation?.conversationMembers?.[0]?.userId ?? 0,
 			},
 		});
 	};
@@ -88,7 +87,7 @@ const AssignMemberNotification = ({ NotificationConvert, notificationRead, notif
 					</Stack>
 
 					<Box
-						onClick={() => notificationRead(notification?.id as number)}
+						onClick={() => notificationRead?.(notification?.id as number)}
 						display={'flex'}
 						justifyContent={'center'}
 						alignItems={'center'}
@@ -138,7 +137,7 @@ const AssignMemberNotification = ({ NotificationConvert, notificationRead, notif
 							</span>
 
 							<Typography color={theme?.palette?.infuuse?.blue500} mr={1} fontWeight={'bold'}>
-								{stringSlicer(ConversationData?.items[0]?.business?.name, 50)}
+								{stringSlicer(ConversationData?.items?.[0]?.business?.name, 50)}
 							</Typography>
 						</Stack>
 					</Stack>
