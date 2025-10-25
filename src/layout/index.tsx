@@ -56,18 +56,18 @@ export default function Layout({ type = 'MainLayout', children, accessibleRoles 
 			{requiresRoleGuard ? (
 				<>
 					{CurrentUser?.user?.userType === UserType.BusinessMember &&
-					CurrentUser?.businessAccesses?.[0]?.business?.status === AccountStatus.Suspended ? (
+						CurrentUser?.businessAccesses?.[0]?.business?.status === AccountStatus.Suspended ? (
 						<DeactivePage />
 					) : CurrentUser?.user?.userType === UserType.BusinessMember &&
-					  CurrentUser?.businessAccesses?.[0]?.business?.status ===
-							AccountStatus.AwaitingSubscriptionPayment ? (
+						CurrentUser?.businessAccesses?.[0]?.business?.status ===
+						AccountStatus.AwaitingSubscriptionPayment ? (
 						<DeactivePayment />
 					) : (
 						<AuthGuard>
 							{/* <RoleGuard accessibleRoles={accessibleRoles}> */}
-								<SelectedLayout>{children}</SelectedLayout>
+							<SelectedLayout>{children}</SelectedLayout>
 							{/* </RoleGuard> */}
-						// </AuthGuard>
+						</AuthGuard>
 					)}
 				</>
 			) : (
