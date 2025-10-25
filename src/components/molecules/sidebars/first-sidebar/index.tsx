@@ -7,49 +7,50 @@ import { LineStatus, UserDto, UserType, useUser_GetCurrentUserQuery } from '@/gr
 import { getFullImageUrl } from '@/utils';
 import LoadingProgress from '@/components/atoms/ProgressBar/CircularProgress';
 
+
+const AdminSidebar = lazy(() => import('./admin'))
+const UserSidebar = lazy(() => import('./user'))
+
 const FirstSidebar = () => {
-	const router = useRouter();
-	const theme = useTheme();
+  const router = useRouter();
+  const theme = useTheme();
 
-	const { data: User } = useUser_GetCurrentUserQuery();
-	const CurrentUser = User?.user_getCurrentUser?.result;
+  const { data: User } = useUser_GetCurrentUserQuery();
+  const CurrentUser = User?.user_getCurrentUser?.result;
 
-	if (!CurrentUser) return null;
 
-	const userLineStatus = CurrentUser?.user?.lineStatus || LineStatus.Away;
+  const userLineStatus = CurrentUser?.user?.lineStatus || LineStatus.Away;
 
-	const AdminSidebar = lazy(() => import('./admin'))
-	const UserSidebar = lazy(() => import('./user'))
 
-	return (
-		<CustomSidebarLayout>
-			<Sidebar direction="column" justifyContent="start" alignItems="center">
-				<Stack justifyContent="center" alignItems="center" mb={4} position="relative">
-					<Box onClick={() => router.push('/profile')} sx={{ cursor: 'pointer' }}>
-						<Avatar src={getFullImageUrl(CurrentUser?.user?.photoUrl)} />
-					</Box>
-					<UserActive
-						sx={{
-							bgcolor:
-								userLineStatus === LineStatus.Active
-									? theme.palette.infuuse.green100
-									: theme.palette.infuuse.orange200,
-						}}
-					/>
-				</Stack>
+  return (
+    <CustomSidebarLayout>
+      <Sidebar direction="column" justifyContent="start" alignItems="center">
+        <Stack justifyContent="center" alignItems="center" mb={4} position="relative">
+          <Box onClick={() => router.push('/profile')} sx={{ cursor: 'pointer' }}>
+            <Avatar src={getFullImageUrl(CurrentUser?.user?.photoUrl)} />
+          </Box>
+          <UserActive
+            sx={{
+              bgcolor:
+                userLineStatus === LineStatus.Active
+                  ? theme.palette.infuuse.green100
+                  : theme.palette.infuuse.orange200,
+            }}
+          />
+        </Stack>
 
-				<Suspense fallback={<LoadingProgress />}>
-					{CurrentUser?.user?.userType === UserType.Administrator ? (
-						<AdminSidebar CurrentUser={CurrentUser as UserDto} />
-					) : (
-						<UserSidebar CurrentUser={CurrentUser as UserDto} />
-					)}
+        <Suspense fallback={<LoadingProgress />}>
+          {CurrentUser?.user?.userType === UserType.Administrator ? (
+            <AdminSidebar CurrentUser={CurrentUser as UserDto} />
+          ) : (
+            <UserSidebar CurrentUser={CurrentUser as UserDto} />
+          )}
 
-				</Suspense>
+        </Suspense>
 
-			</Sidebar>
-		</CustomSidebarLayout>
-	);
+      </Sidebar>
+    </CustomSidebarLayout>
+  );
 };
 
 export default FirstSidebar;
