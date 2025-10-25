@@ -1,15 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { CustomSidebarLayout, Sidebar, UserActive } from './styles';
 import Avatar from '@/components/atoms/avatar';
-
-import UserSidebarIcon from './user';
 import { Box, Stack, useTheme } from '@mui/material';
 import { useRouter } from 'next/router';
-import { LineStatus, useConversation_GetUnseenMessagesByTypeQuery, UserType, useUser_GetCurrentUserQuery } from '@/graphql/generated';
-import AdminSidebarIcon from './admin';
+import { LineStatus, UserDto, UserType, useUser_GetCurrentUserQuery } from '@/graphql/generated';
 import { getFullImageUrl } from '@/utils';
-import { queryClient } from 'pages/_app';
-import { SubscriptionLayoutContext } from '@/providers/socialMessageProvider';
+import LoadingProgress from '@/components/atoms/ProgressBar/CircularProgress';
 
 const FirstSidebar = () => {
 	const router = useRouter();
@@ -18,26 +14,39 @@ const FirstSidebar = () => {
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
+	if (!CurrentUser) return null;
+
+	const userLineStatus = CurrentUser?.user?.lineStatus || LineStatus.Away;
+
+	const AdminSidebar = lazy(() => import('./admin'))
+	const UserSidebar = lazy(() => import('./user'))
+
 	return (
 		<CustomSidebarLayout>
-			<Sidebar direction={'column'} justifyContent={'start'} alignItems={'center'}>
-				{/* -------------------------------user avatar */}
-				<Stack justifyContent={'center'} alignItems={'center'} mb={4} position={'relative'}>
-					<Box onClick={() => router?.push('/profile')} sx={{ cursor: 'pointer' }}>
+			<Sidebar direction="column" justifyContent="start" alignItems="center">
+				<Stack justifyContent="center" alignItems="center" mb={4} position="relative">
+					<Box onClick={() => router.push('/profile')} sx={{ cursor: 'pointer' }}>
 						<Avatar src={getFullImageUrl(CurrentUser?.user?.photoUrl)} />
 					</Box>
 					<UserActive
 						sx={{
 							bgcolor:
-								CurrentUser?.user?.lineStatus === LineStatus?.Active
-									? theme?.palette?.infuuse.green100
-									: theme?.palette?.infuuse?.orange200,
+								userLineStatus === LineStatus.Active
+									? theme.palette.infuuse.green100
+									: theme.palette.infuuse.orange200,
 						}}
 					/>
 				</Stack>
 
-				{/*-------------------------------user sidebar icons */}
-				{CurrentUser?.user?.userType === UserType?.Administrator ? <AdminSidebarIcon CurrentUser={CurrentUser}/> : <UserSidebarIcon CurrentUser={CurrentUser} />}
+				<Suspense fallback={<LoadingProgress />}>
+					{CurrentUser?.user?.userType === UserType.Administrator ? (
+						<AdminSidebar CurrentUser={CurrentUser as UserDto} />
+					) : (
+						<UserSidebar CurrentUser={CurrentUser as UserDto} />
+					)}
+
+				</Suspense>
+
 			</Sidebar>
 		</CustomSidebarLayout>
 	);

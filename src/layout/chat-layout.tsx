@@ -10,7 +10,6 @@ import chatStore from '@/store/chat.store';
 import SidebarSecond from './sidebar';
 
 const ChatLayout = ({ children }: PropsWithChildren) => {
-	// -------------------------------state management
 	const { chatSidebar } = useSnapshot(chatStore);
 
 	return (

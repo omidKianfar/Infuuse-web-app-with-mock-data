@@ -8,12 +8,12 @@ import settingStore from '@/store/setting.store';
 interface Props {
 	pathname: string;
 	icon: any;
-	unSeen?: number;
+	unSeen: number;
 	active: boolean;
-	hover?: string;
+	hover: string;
 }
 
-const IconComponent = ({ pathname, icon, unSeen, hover, active }: Props) => {
+const IconComponent = ({ pathname, icon, unSeen, hover, active }: Partial<Props>) => {
 	const theme = useTheme();
 
 	const { setting } = useSnapshot(settingStore);
@@ -29,7 +29,7 @@ const IconComponent = ({ pathname, icon, unSeen, hover, active }: Props) => {
 						</IconBoxBadge>
 					) : null}
 					{/* -------------------------------active item */}
-					{active ? <IconBoxActive /> : null}
+					{/* {active ? <IconBoxActive /> : null} */}
 					<IconBox>{icon}</IconBox>
 				</Stack>
 			</Link>
