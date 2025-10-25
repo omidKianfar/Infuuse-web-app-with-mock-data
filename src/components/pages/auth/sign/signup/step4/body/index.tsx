@@ -14,183 +14,170 @@ import ModalContainer from '@/components/atoms/Modal';
 import AddCallBusinessNumberModal from '@/components/pages/settings/social-channels/body/modal';
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
+type ChannelType = 'phone' | 'whatsapp' | 'meta' | 'gmail' | null;
+
+const ChannelCard = ({
+  icon,
+  label,
+  selected,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+}) => {
+  const theme = useTheme();
+
+  return (
+    <Cart
+      direction="row"
+      justifyContent="start"
+      alignItems="center"
+      onClick={onClick}
+      bgcolor={selected ? theme.palette.infuuse.green400 : 'none'}
+      sx={{ cursor: 'pointer', mb: 1 }}
+    >
+      <CartBody bgcolor={theme.palette.infuuse.gray200}>{icon}</CartBody>
+      <Typography
+        fontSize={16}
+        color={selected ? theme.palette.common.white : theme.palette.infuuse.blueLight300}
+        ml={1}
+      >
+        {label}
+      </Typography>
+    </Cart>
+  );
+};
+
 const Body = () => {
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
+  const { setSignupStepCounter } = useAuth();
 
-	const router = useRouter();
+  const { data: User } = useUser_GetCurrentUserQuery();
+  const CurrentUser = User?.user_getCurrentUser?.result;
 
-	const { setSignupStepCounter } = useAuth();
+  const { data: CurrentBusiness } = useBusiness_GetByBusinessIdQuery({
+    businessId: Number(CurrentUser?.businessAccesses?.[0]?.business?.id),
+  });
 
-	const { data: User } = useUser_GetCurrentUserQuery();
-	const CurrentUser = User?.user_getCurrentUser?.result;
+  const businessNumber = CurrentBusiness?.business_getByBusinessId?.result?.twilioPhoneNumber?.phoneNumber;
 
-	const { data: CurrentBusiness } = useBusiness_GetByBusinessIdQuery({
-		businessId: Number(CurrentUser?.businessAccesses[0]?.business?.id),
-	});
+  const [selectedChannel, setSelectedChannel] = useState<ChannelType>(null);
+  const [openModal, setOpenModal] = useState(false);
 
-	const businessNumber = CurrentBusiness?.business_getByBusinessId?.result?.twilioPhoneNumber?.phoneNumber;
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
-	const [choosenItem, setChoosenItem] = useState({
-		phone: false,
-		meta: false,
-		whatsapp: false,
-		gmail: false,
-	});
+  const handleFinish = () => {
+    router.push('/inbox');
+    setSignupStepCounter(0);
+  };
 
-	const [open, setOpen] = React.useState(false);
+  const handleSelectChannel = (channel: ChannelType) => {
+    setSelectedChannel(channel);
+    if (channel === 'phone') handleOpenModal();
+  };
 
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+  return (
+    <Stack pl={isMobile ? 0 : '100px'} pb={isMobile ? '80px' : 0}>
+      <ChannelCard
+        icon={<TwilioIcon />}
+        label={businessNumber ?? 'Phone/SMS/Video Call'}
+        selected={selectedChannel === 'phone'}
+        onClick={() => handleSelectChannel('phone')}
+      />
 
-	const handelModal = () => {
-		handleOpen();
-	};
+      <ChannelCard
+        icon={<WhatsAppIcon sx={{ fill: theme.palette.infuuse.green300, fontSize: 32 }} />}
+        label="WhatsApp"
+        selected={selectedChannel === 'whatsapp'}
+        onClick={() => handleSelectChannel('whatsapp')}
+      />
 
-	const handelPhone = () => {
-		setChoosenItem({ phone: true, meta: false, whatsapp: false, gmail: false });
-		handelModal();
-	};
+      <ChannelCard
+        icon={<Image src="images/meta-icon.svg" style={{ width: 32, height: 32 }} />}
+        label="Meta"
+        selected={selectedChannel === 'meta'}
+        onClick={() => handleSelectChannel('meta')}
+      />
 
-	const finishHandler = () => {
-		router.push('/inbox');
-		setSignupStepCounter(0);
-	};
+      <ChannelCard
+        icon={
+          <GmailIcon
+            fill={{
+              fill1: '#EA4335',
+              fill2: '#FBBC05',
+              fill3: '#34A853',
+              fill4: '#C5221F',
+              fill5: '#4285F4',
+            }}
+          />
+        }
+        label="Gmail"
+        selected={selectedChannel === 'gmail'}
+        onClick={() => handleSelectChannel('gmail')}
+      />
 
-	return (
-		<Stack pl={isMobile ? 0 : '100px'}>
-			<Cart
-				direction="row"
-				justifyContent="start"
-				alignItems="center"
-				onClick={handelPhone}
-				bgcolor={choosenItem?.phone ? theme?.palette?.infuuse.green400 : 'none'}
-			>
-				<CartBody bgcolor={theme?.palette?.infuuse.gray200}>
-					<TwilioIcon />
-				</CartBody>
+      {/* Conditional Renderings */}
+      {selectedChannel === 'gmail' && (
+        <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+          <SigninWithGoogleSocialChannel />
+        </GoogleOAuthProvider>
+      )}
 
-				<Typography
-					fontSize={'16px'}
-					color={choosenItem?.phone ? theme?.palette?.common?.white : theme?.palette?.infuuse.blueLight300}
-				>
-					{businessNumber ? businessNumber : 'Phone/SMS/Video Call'}
-				</Typography>
-			</Cart>
-			{/* ---------------------------------whatsapp  */}
-			<Cart
-				direction="row"
-				justifyContent="start"
-				alignItems="center"
-				onClick={() => setChoosenItem({ phone: false, meta: false, whatsapp: true, gmail: false })}
-				bgcolor={choosenItem?.whatsapp ? theme?.palette?.infuuse.green400 : 'none'}
-			>
-				<CartBody bgcolor={theme?.palette?.infuuse.gray200}>
-					<WhatsAppIcon sx={{ fill: theme?.palette?.infuuse.green300, fontSize: '32px' }} />
-				</CartBody>
+      {selectedChannel === 'meta' && (
+        <Stack width="100%" direction="row" justifyContent="end" alignItems="center" mb={1}>
+          <Tooltip title="Meta not available yet">
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              bgcolor={theme.palette.infuuse.blue500}
+              borderRadius={3}
+              boxShadow={2}
+              width={275}
+              height={48}
+            >
+              <Image src="images/meta-icon.svg" style={{ width: 32, height: 32 }} />
+              <Typography ml={1} color={theme.palette.common.white} fontWeight="bold">
+                Sign in with Meta
+              </Typography>
+            </Box>
+          </Tooltip>
+        </Stack>
+      )}
 
-				<Typography
-					fontSize={'16px'}
-					color={choosenItem?.whatsapp ? theme?.palette?.common?.white : theme?.palette?.infuuse.blueLight300}
-				>
-					Whatsapp{' '}
-				</Typography>
-			</Cart>
+      <ModalContainer open={openModal} handleClose={handleCloseModal}>
+        <AddCallBusinessNumberModal
+          handleClose={handleCloseModal}
+          businessId={CurrentUser?.businessAccesses?.[0]?.business?.id}
+        />
+      </ModalContainer>
 
-			{/* ---------------------------------meta */}
-			<Cart
-				direction="row"
-				justifyContent="start"
-				alignItems="center"
-				onClick={() => setChoosenItem({ phone: false, meta: true, whatsapp: false, gmail: false })}
-				bgcolor={choosenItem?.meta ? theme?.palette?.infuuse.green400 : 'none'}
-			>
-				<CartBody bgcolor={theme?.palette?.infuuse.gray200}>
-					<Image src={'images/meta-icon.svg'} style={{ width: '32px', height: '32px' }} />
-				</CartBody>
-				<Typography
-					fontSize={'16px'}
-					color={choosenItem?.meta ? theme?.palette?.common?.white : theme?.palette?.infuuse.blueLight300}
-				>
-					Meta{' '}
-				</Typography>
-			</Cart>
-
-			{/* ---------------------------------gmail  */}
-			<Cart
-				direction="row"
-				justifyContent="start"
-				alignItems="center"
-				onClick={() => setChoosenItem({ phone: false, meta: false, whatsapp: false, gmail: true })}
-				bgcolor={choosenItem?.gmail ? theme?.palette?.infuuse.green400 : 'none'}
-			>
-				<CartBody bgcolor={theme?.palette?.infuuse.gray200}>
-					<GmailIcon
-						fill={{
-							fill1: '#EA4335',
-							fill2: '#FBBC05',
-							fill3: '#34A853',
-							fill4: '#C5221F',
-							fill5: '#4285F4',
-						}}
-					/>
-				</CartBody>
-				<Typography
-					fontSize={'16px'}
-					color={choosenItem?.gmail ? theme?.palette?.common?.white : theme?.palette?.infuuse.blueLight300}
-				>
-					Gmail
-				</Typography>
-			</Cart>
-
-			{choosenItem?.gmail && (
-				<GoogleOAuthProvider clientId={'YOUR_GOOGLE_CLIENT_ID'}>
-					<SigninWithGoogleSocialChannel />
-				</GoogleOAuthProvider>
-			)}
-
-			{choosenItem?.meta && (
-				<Stack>
-					<Stack width={'100%'} direction={'row'} justifyContent={'end'} alignItems={'center'} mb={1}>
-						<Tooltip title="Meta not available yet">
-							<Box
-								display={'flex'}
-								justifyContent={'center'}
-								alignItems={'center'}
-								bgcolor={theme?.palette?.infuuse?.blue500}
-								borderRadius={3}
-								boxShadow={2}
-								width={'275px'}
-								height={'48px'}
-							>
-								<Image src={'images/meta-icon.svg'} style={{ width: '32px', height: '32px' }} />
-
-								<Typography ml={1} color={theme?.palette?.common?.white} fontWeight={'bold'}>
-									Sign in with meta
-								</Typography>
-							</Box>
-						</Tooltip>
-					</Stack>
-				</Stack>
-			)}
-
-			<ModalContainer open={open} handleClose={handleClose}>
-				<AddCallBusinessNumberModal
-					handleClose={handleClose}
-					businessId={CurrentUser?.businessAccesses[0]?.business?.id}
-				/>
-			</ModalContainer>
-
-			{/* ---------------------------------button  */}
-			{isMobile && (
-				<Stack width={'100%'} direction={'row'} justifyContent={'end'} alignItems={'center'} mb={2} mt={2}>
-					<NextButton onClick={finishHandler} sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }}>
-						Finish
-					</NextButton>
-				</Stack>
-			)}
-		</Stack>
-	);
+      {/* Sticky Finish button for mobile */}
+      {isMobile && (
+        <Box
+          position="fixed"
+          bottom={0}
+          left={0}
+          width="100%"
+          bgcolor={theme.palette.background.default}
+          p={2}
+          boxShadow="0 -2px 8px rgba(0,0,0,0.1)"
+          zIndex={1000}
+        >
+          <Stack width="100%" direction="row" justifyContent="end">
+            <NextButton onClick={handleFinish} sx={{ width: 278, fontSize: 16, fontWeight: 600 }}>
+              Finish
+            </NextButton>
+          </Stack>
+        </Box>
+      )}
+    </Stack>
+  );
 };
 
 export default Body;

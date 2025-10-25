@@ -18,9 +18,6 @@ const Step1 = () => {
 	const { userType } = useSnapshot(userTypeStore);
 	const { setSignupStepCounter } = useAuth();
 
-	console.log('userType',userType);
-	
-
 	return (
 		<AuthSection>
 			<SignContainer
@@ -37,11 +34,9 @@ const Step1 = () => {
 			>
 				<SignHeader title="Select User Type" description="Are You?" />
 
-				{/* -------------------------------user type */}
 				<Grid container justifyContent={'space-around'} alignItems={'center'}>
 					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 						<Grid container justifyContent={'center'} alignItems={'center'}>
-							{/* -------------------------------owner cart*/}
 							<Cart
 								direction="column"
 								onClick={() => (userTypeStore.userType = UserType?.BusinessMember)}
@@ -54,18 +49,20 @@ const Step1 = () => {
 								<Stack mb={2}>
 									<OwnerIcon />
 								</Stack>
+
 								<Typography fontSize={'16px'} color={theme?.palette?.infuuse.blueLight400} mb={2}>
 									Business Owner
 								</Typography>
+
 								<Typography fontSize={'14px'} color={theme?.palette?.infuuse.blueLight200}>
 									Hello! Is The Consultation These Five Tips Will Help
 								</Typography>
 							</Cart>
 						</Grid>
 					</Grid>
+
 					<Grid item xs={12} sm={12} md={12} lg={6} xl={6} mt={isMobile ? 4 : 0}>
 						<Grid container justifyContent={'center'} alignItems={'center'}>
-							{/* -------------------------------agency cart*/}
 							<Cart
 								direction="column"
 								onClick={() => (userTypeStore.userType = UserType?.AgencyMember)}
@@ -78,9 +75,11 @@ const Step1 = () => {
 								<Stack mb={2}>
 									<AgencyIcon />
 								</Stack>
+
 								<Typography fontSize={'16px'} color={theme?.palette?.infuuse.blueLight400} mb={2}>
 									Agency{' '}
 								</Typography>
+
 								<Typography fontSize={'14px'} color={theme?.palette?.infuuse.blueLight200}>
 									Hello! Is The Consultation These Five Tips Will Help{' '}
 								</Typography>
@@ -95,6 +94,7 @@ const Step1 = () => {
 						<NextButton
 							onClick={() => setSignupStepCounter(1)}
 							sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }}
+							disabled={!userType}
 						>
 							Next
 						</NextButton>

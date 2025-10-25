@@ -15,15 +15,19 @@ const BodyEnterprise = () => {
 					Enterprise
 				</Typography>
 			</Stack>
+
 			<Divider sx={{ bgcolor: theme?.palette?.infuuse.gray500, height: '2px', mb: 4 }} />
+
 			<Stack direction={'row'}>
 				<Box mr={2}>
 					<LightIcon />
 				</Box>
+
 				<Typography fontSize={'16px'} color={theme?.palette?.infuuse.blueLight400}>
 					For Our Enterprise Plan, Email Us To Learn More: Tanyette@In-Fuuse.Com
 				</Typography>
 			</Stack>
+
 			<Stack position={'absolute'} bottom={0} left={0} width={'100%'}>
 				<Divider sx={{ bgcolor: theme?.palette?.infuuse.gray500, height: '2px', mb: 4 }} />
 
@@ -31,7 +35,7 @@ const BodyEnterprise = () => {
 					<Link href={'mailto:tabyette@in-fuuse.com'}>
 						<NextButton
 							type="submit"
-							sx={{ width: '85%', fontSize: '18px', fontWeight: 'bold', width:isMobile ? '80vw' :'420px' }}
+							sx={{ width: '85%', fontSize: '18px', fontWeight: 'bold', width: isMobile ? '80vw' : '420px' }}
 						>
 							Send Email{' '}
 						</NextButton>

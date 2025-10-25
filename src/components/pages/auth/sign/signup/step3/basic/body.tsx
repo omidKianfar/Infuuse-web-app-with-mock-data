@@ -5,9 +5,9 @@ import React from 'react';
 import { NextButton } from '@/components/atoms/Button';
 import { useSnapshot } from 'valtio';
 import userTypeStore from '@/store/userType.store';
-import { UserType } from '@/graphql/generated';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
+import { UserType } from '@/providers/Auth/without-graphql/type';
 
 const BodyBasic = () => {
 	const theme = useTheme();

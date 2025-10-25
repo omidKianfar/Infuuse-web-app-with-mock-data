@@ -34,7 +34,6 @@ const Step3 = () => {
 						</Stack>
 					</Grid>
 
-					{/* ------------------------------------------Standard  */}
 
 					<Grid item xs={12} sm={12} md={12} lg={4} xl={4} p={isMobile ? '100px 0 0 0' : '0 8px'}>
 						{' '}
@@ -52,7 +51,6 @@ const Step3 = () => {
 						</Stack>
 					</Grid>
 
-					{/* ------------------------------------------Enterprise */}
 
 					<Grid item xs={12} sm={12} md={12} lg={4} xl={4} p={isMobile ? '100px 0 0 0' : '0 8px'}>
 						{' '}

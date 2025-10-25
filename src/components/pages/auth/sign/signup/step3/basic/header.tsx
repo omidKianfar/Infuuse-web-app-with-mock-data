@@ -1,7 +1,6 @@
 import PaymentIcon from '@/assets/payment-icon';
 import { Box, Stack, useTheme } from '@mui/material';
-import React, { useContext } from 'react';
-import { SignupContext } from '../..';
+import React from 'react';
 
 const HeaderBasic = () => {
 	const theme = useTheme();

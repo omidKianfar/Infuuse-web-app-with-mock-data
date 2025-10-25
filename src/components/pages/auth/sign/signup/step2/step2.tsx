@@ -9,7 +9,6 @@ import { useState } from 'react';
 import AuthSection from '../../..';
 import SignHeader from '../../../sign-header';
 import { DownButtonContainer, Label, SignContainer } from '../../../styles';
-
 import { NextButton } from '@/components/atoms/Button';
 import userTypeStore from '@/store/userType.store';
 import { useSnapshot } from 'valtio';
@@ -66,11 +65,9 @@ const Step2 = () => {
 			<SignContainer direction="column" maxHeight={isMobile ? '650px' : '630px'}>
 				<SignHeader title="Sign In" description="Seize The Day" />
 
-				{/* -------------------------------form */}
 				<FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 					<Stack position={'relative'} width={'100%'} height={isMobile ? '540px' : '520px'}>
 						<Stack>
-							{/* -------------------------------fields */}
 							<Label>Name</Label>
 
 							<TextField
@@ -129,7 +126,6 @@ const Step2 = () => {
 							/>
 						</Stack>
 
-						{/* ------------------------------- sign google or facebook */}
 						<Stack
 							direction={'row'}
 							justifyContent={'space-between'}
@@ -138,6 +134,7 @@ const Step2 = () => {
 							mt={1}
 						>
 							<Divider sx={{ border: `2px solid ${theme?.palette?.infuuse._C4CAD8}`, width: '30%' }} />
+							
 							<Box
 								sx={{
 									width: '30%',
@@ -221,7 +218,7 @@ const Step2 = () => {
 
 							{/* -------------------------------button */}
 							<Stack width={'100%'} direction={'row'} justifyContent={'center'} alignItems={'center'}>
-								<NextButton type="submit" sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }} isLoading={loading}>
+								<NextButton type="submit" disabled={!methods.formState.isValid} sx={{ width: '278px', fontSize: '16px', fontWeight: 600 }} isLoading={loading}>
 									AGREE & JOIN
 								</NextButton>
 							</Stack>

@@ -24,7 +24,6 @@ import {
 } from '@/graphql/generated';
 import { responseDestructure } from '@/utils';
 import { enqueueSnackbar } from 'notistack';
-import { Title } from 'chart.js';
 
 const BodyStandard = () => {
 	const theme = useTheme();
@@ -77,10 +76,11 @@ const BodyStandard = () => {
 	return (
 		<Stack position={'relative'} width={'100%'} height={isMobile ? '780px' : '680px'}>
 			<Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-				{' '}
+				
 				<Typography fontSize={'18px'} color={theme?.palette?.infuuse.blueDark500} mb={2}>
 					Standard
 				</Typography>
+				
 				<Typography fontSize={'18px'} color={theme?.palette?.infuuse.green300} mb={2}>
 					{calcPaymentData?.price ? `$ ${calcPaymentData?.price}` : null}
 				</Typography>
@@ -132,17 +132,21 @@ const BodyStandard = () => {
 					</Grid>
 				</Grid>
 				<Stack mt={2}>
+				
 					<Divider sx={{ bgcolor: theme?.palette?.infuuse.gray500, height: '2px', mb: 2 }} />
 
 					{bodyTitle?.map((item) => (
 						<Stack key={item?.id} direction={'row'} mb={1}>
+
 							{item?.icon === 'check' ? <CheckGreenIcon /> : <IgnoreIcon />}
+							
 							<Typography fontSize={'14px'} color={theme?.palette?.infuuse.blueLight200} mb={2} ml={2}>
 								{item?.icon === 'ignore' ? <del>{item?.title}</del> : item?.title}
 							</Typography>
 						</Stack>
 					))}
 				</Stack>
+
 				<Stack position={'absolute'} bottom={0} left={0} width={'100%'}>
 					<Divider sx={{ bgcolor: theme?.palette?.infuuse.gray500, height: '2px', mb: 2 }} />
 
