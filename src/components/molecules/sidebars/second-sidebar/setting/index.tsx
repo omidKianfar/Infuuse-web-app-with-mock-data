@@ -6,7 +6,6 @@ import { Stack, Typography, useTheme } from '@mui/material';
 import LogoutIcon from '@/assets/logout-icon';
 import ModalContainer from '@/components/atoms/Modal';
 import LogoutModal from './modal/logout-modal';
-import CallNow from '../call-now';
 
 const SettingSidebar = () => {
 	const theme = useTheme();
@@ -22,7 +21,6 @@ const SettingSidebar = () => {
 
 	return (
 		<CustomSidebarLayout direction={'column'} justifyContent={'start'} alignItems={'center'} position={'relative'}>
-			
 
 			<Sidebar>
 				<HeaderSettingSidebar />
@@ -53,8 +51,6 @@ const SettingSidebar = () => {
 				</Stack>
 			</Sidebar>
 
-			{/* ------------------------------- modals */}
-			{/* logout */}
 			<ModalContainer open={open} handleClose={handleClose}>
 				<LogoutModal handleClose={handleClose} />
 			</ModalContainer>

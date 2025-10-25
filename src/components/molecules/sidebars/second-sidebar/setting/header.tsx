@@ -3,7 +3,6 @@ import Image from '@/components/atoms/Image';
 import { LineStatus, useUser_EditProfileMutation, useUser_GetCurrentUserQuery } from '@/graphql/generated';
 import { responseDestructure } from '@/utils';
 import { Box, Stack, Typography, useTheme } from '@mui/material';
-import { updateProfile } from 'firebase/auth';
 import { enqueueSnackbar } from 'notistack';
 import { queryClient } from 'pages/_app';
 import React from 'react';
