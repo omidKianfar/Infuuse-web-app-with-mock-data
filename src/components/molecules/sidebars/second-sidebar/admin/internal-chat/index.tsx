@@ -10,10 +10,8 @@ import { ConversationType, SortEnumType, useConversation_GetListQuery } from '@/
 import { queryKeyManager } from '@/utils/queryKeys';
 
 const AdminInternalChatSidebar = () => {
-	//  -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------query
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
 	const variables = {
@@ -31,7 +29,6 @@ const AdminInternalChatSidebar = () => {
 		},
 	}
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {
@@ -50,7 +47,6 @@ const AdminInternalChatSidebar = () => {
 		}
 	}, [ConversationData]);
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -94,7 +90,6 @@ const AdminInternalChatSidebar = () => {
 
 export default AdminInternalChatSidebar;
 
-//  -------------------------------style
 export const AdminInternalChatSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

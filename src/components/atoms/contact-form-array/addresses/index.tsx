@@ -97,7 +97,6 @@ const AddressesInput = ({ name }: Props) => {
 
 export default AddressesInput;
 
-// ------------------------------------styles
 export const Label = styled(Typography)(({ theme }) => ({
 	fontSize: '14px',
 	color: theme?.palette?.infuuse.blueLight500,

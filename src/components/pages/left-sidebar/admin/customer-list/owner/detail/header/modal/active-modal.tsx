@@ -12,15 +12,11 @@ interface Props {
 }
 
 const ActiveModal = ({ handleClose, business }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const querClient = useQueryClient();
 
-	// -------------------------------query
-	// edit mutation
 	const { mutate: UpdateBusiness } = useBusiness_EditByAdminMutation();
 
-	// active
 	const ActiveHandler = () => {
 		UpdateBusiness(
 			{

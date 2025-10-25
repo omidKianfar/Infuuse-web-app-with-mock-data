@@ -9,7 +9,6 @@ import { BaseSidebarContext } from '../..';
 const UserItems = () => {
 	const theme = useTheme();
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
 	return (
@@ -22,7 +21,6 @@ const UserItems = () => {
 			bgcolor={theme?.palette?.infuuse.gray200}
 			mb={1}
 		>
-			{/* ------------------------------- assign */}
 			<ItemBox
 				direction={'row'}
 				onClick={() =>

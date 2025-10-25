@@ -21,7 +21,6 @@ interface Props {
 }
 
 const SMSMessage = ({ message }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [openImage, setOpenIamage] = useState(false);

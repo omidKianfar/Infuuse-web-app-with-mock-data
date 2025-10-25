@@ -6,10 +6,8 @@ import chatStore from '@/store/chat.store';
 import DealSidebar from './deal-sidebar';
 
 const ChatSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------state management
 	const { dealSidebar } = useSnapshot(chatStore);
 
 	return (

@@ -21,7 +21,6 @@ const Footer = ({ lastMessageSubscription }: Props) => {
 	const router = useRouter();
 	const ContactId = router?.query?.contactId;
 
-	// contact networks
 	const NetworkData = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(ContactId),
 		skip: 0,

@@ -55,7 +55,6 @@ export const FooterSection = styled(Stack)(({ theme }) => ({
 	borderRadius: '16px',
 }));
 
-// -------------------------------sign
 export const SignContainer = styled(Stack)(({ theme }) => ({
 	width: '100%',
 	height: '100%',

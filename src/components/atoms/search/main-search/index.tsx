@@ -22,13 +22,11 @@ const MainSearch = ({
 	choosenContactName,
 	setChoosenContactName,
 }: Partial<props>) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [searchData, setSearchData] = useState<string>('');
 	const [SearchMenu, setSearchMenu] = useState<boolean>(false);
 
-	// -------------------------------menu handler
 	React.useEffect(() => {
 		if (searchData) {
 			setSearchMenu(true);
@@ -37,7 +35,6 @@ const MainSearch = ({
 		}
 	}, [searchData]);
 
-	// -------------------------------search query
 
 	const { data: Contacts } = useContact_GetListByBusinessIdQuery({
 		businessId: Number(BusinessId),
@@ -145,9 +142,7 @@ export const Label = styled(Typography)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
 
-	// },
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -156,15 +151,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		width: '100%',
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

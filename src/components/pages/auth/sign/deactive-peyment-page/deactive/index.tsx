@@ -13,8 +13,6 @@ const DeactivePage = ({ setCounter }: Props) => {
 	const theme = useTheme();
 	const router = useRouter();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 

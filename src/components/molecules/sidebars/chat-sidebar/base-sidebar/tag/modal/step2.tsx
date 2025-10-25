@@ -14,7 +14,6 @@ interface Props {
 }
 
 const Step2 = ({ setCounter }: Props) => {
-	// ------------------------------- tools
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -24,10 +23,8 @@ const Step2 = ({ setCounter }: Props) => {
 		businessId: Number(BusinessId),
 	});
 
-	// add category
 	const { mutate: addCategory } = useCategory_AddMutation();
 
-	// -------------------------------form
 	const defaultValues = {
 		business: Business?.business_getByBusinessId?.result?.name,
 		category: '',
@@ -105,7 +102,6 @@ const Step2 = ({ setCounter }: Props) => {
 
 export default Step2;
 
-// -------------------------------schema
 const AddTagSchema = Yup.object().shape({
 	business: Yup.string().required('Enter Your Business'),
 	category: Yup.string().required('Enter Your Category'),

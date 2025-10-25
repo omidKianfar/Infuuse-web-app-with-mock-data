@@ -13,14 +13,12 @@ const AddNote = lazy(() => import('./left-items/add-note'));
 const AddTwilioVideoCall = lazy(() => import('./left-items/add-video-call'));
 
 const ChatHeader = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const contactId = router.query.contactId;
 	const conversationId = router.query.conversationId;
 
-	// -------------------------------state management
 
 	const { data: Conversation } = useConversationMessage_GetByConversationIdQuery(
 		{
@@ -33,7 +31,6 @@ const ChatHeader = () => {
 
 	const conversationData = Conversation?.conversationMessage_getByConversationId?.result;
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 	const [modalCounter, setModalCounter] = React.useState(0);
 

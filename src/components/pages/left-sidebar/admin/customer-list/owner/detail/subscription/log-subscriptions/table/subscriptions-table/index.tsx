@@ -13,11 +13,8 @@ const SubscriptionTable = () => {
 	const router = useRouter()
 	const OwnerId = router?.query?.ownerId
 
-	// ------------------------------- table
 	const { page, rowsPerPage, ...tableRest } = useTable();
 
-	// ------------------------------- query
-	// subscription history query
 	const { data: paymentHistory } = usePaymentHistory_GetListQuery({
 		skip: page * rowsPerPage,
 		take: rowsPerPage,
@@ -35,7 +32,6 @@ const SubscriptionTable = () => {
 	return (
 		<Stack width={'100%'} height={'100%'}>
 			<TableWrapper>
-				{/* -------------------------------------header */}
 				<TableContainer
 					tableHead={
 						<>
@@ -81,7 +77,6 @@ const SubscriptionTable = () => {
 
 export default SubscriptionTable;
 
-// ------------------------------------- table header
 const AdminListItems = [
 	{ id: 'subscription Owner', name: 'subscription Owner' },
 	{ id: 'Role', name: 'Role' },

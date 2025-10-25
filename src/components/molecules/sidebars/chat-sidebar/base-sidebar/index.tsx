@@ -11,7 +11,6 @@ import PhoneSidebar from './phone';
 import HubspotSidebar from './hubspot';
 
 const BaseSidebar = () => {
-	// -------------------------------sidebar items
 	const [sidebars, setSidebars] = useState({
 		contact: false,
 		assign: false,
@@ -27,32 +26,30 @@ const BaseSidebar = () => {
 		<Stack width={'100%'} height={'100%'}>
 			<BaseSidebarContext.Provider value={{ sidebars, setSidebars }}>
 				{
-					//  -------------------------------contact
 					sidebars?.contact ? (
 						<ContactSidebar />
-					) : // -------------------------------assign
+					) : 
 						sidebars?.assign ? (
 							<AssignSidebar />
-						) : // -------------------------------ticket
+						) :
 							sidebars?.ticket ? (
 								<TicketSidebar />
-							) : // -------------------------------exist contact
+							) :
 								sidebars?.existContact ? (
 									<ExistContactSidebar />
-								) : // -------------------------------tag
+								) : 
 									sidebars?.tag ? (
 										<TagSidebar />
-									) : // -------------------------------phone
+									) :
 										sidebars?.phone ? (
 											<PhoneSidebar />
-										) : // -------------------------------calendar
+										) :
 											sidebars?.calendar ? (
 												<CalendarSidebar />
-											) : // -------------------------------hubspot
+											) : 
 												sidebars?.hubspot ? (
 													<HubspotSidebar />
 												) : (
-													// -------------------------------setting
 													<SettingSidebar />
 												)
 				}
@@ -63,7 +60,6 @@ const BaseSidebar = () => {
 
 export default BaseSidebar;
 
-// -------------------------------export type
 type BaseSidebarType = {
 	sidebars: {
 		contact: boolean;
@@ -90,5 +86,4 @@ type BaseSidebarType = {
 	>;
 };
 
-// -------------------------------context
 export const BaseSidebarContext = createContext({} as BaseSidebarType);

@@ -11,17 +11,13 @@ interface Props {
 const SearchModal = ({ handleClose }: Partial<Props>) => {
 	const theme = useTheme();
 
-	// -------------------------------states
 	const [businessId, setBusinessId] = useState<number | null>(null);
 	const [choosenContactId, setChoosenContactId] = useState<number | null>(null);
 	const [choosenContactName, setChoosenContactName] = useState<string | null>(null);
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// ------------------------------- functions
 	useEffect(() => {
 		if (businessId === null)
 			setBusinessId(

@@ -7,7 +7,6 @@ import React, { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 const WhatsappSidebar = () => {
-	// -------------------------------query
 
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
@@ -36,7 +35,6 @@ const WhatsappSidebar = () => {
 		},
 	};
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {
@@ -59,7 +57,6 @@ const WhatsappSidebar = () => {
 		<WhatsappSidebarContainer>
 			{ConversationData?.items?.map((conversation) => (
 				<Stack key={conversation?.id}>
-					{/* -------------------------------message box */}
 					<MessageCart conversation={conversation} />
 				</Stack>
 			))}
@@ -69,7 +66,6 @@ const WhatsappSidebar = () => {
 
 export default WhatsappSidebar;
 
-//  -------------------------------style
 export const WhatsappSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

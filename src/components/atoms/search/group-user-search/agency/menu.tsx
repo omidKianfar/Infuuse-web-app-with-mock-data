@@ -23,18 +23,14 @@ interface Props {
 const SearchMenuBody = ({ setSearchMenu, choosenGroupUser, setChoosenGroupUser, setSearchData }: Props) => {
 	const theme = useTheme();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// agency member query
 	const { data: AgencyTeams } = useAgency_GetMemberTeamQuery({
 		permissionType: PermissionType?.None,
 	});
 	const AgencyMemberList = AgencyTeams?.agency_getMemberTeam?.result;
 
-	// user agency choose
 	const choosenConatctHandler = (user: AgencyMember) => {
 		if (!choosenGroupUser.includes(user)) {
 			setChoosenGroupUser([...choosenGroupUser, user]);

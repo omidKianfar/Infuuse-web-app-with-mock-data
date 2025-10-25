@@ -15,7 +15,6 @@ import AddCallBusinessNumberModal from '@/components/pages/settings/social-chann
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const Body = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -23,19 +22,15 @@ const Body = () => {
 
 	const { setSignupStepCounter } = useAuth();
 
-	// ------------------------------- query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// ------------------------------- query
 	const { data: CurrentBusiness } = useBusiness_GetByBusinessIdQuery({
 		businessId: Number(CurrentUser?.businessAccesses[0]?.business?.id),
 	});
 
 	const businessNumber = CurrentBusiness?.business_getByBusinessId?.result?.twilioPhoneNumber?.phoneNumber;
 
-	// -------------------------------state
 	const [choosenItem, setChoosenItem] = useState({
 		phone: false,
 		meta: false,
@@ -43,7 +38,6 @@ const Body = () => {
 		gmail: false,
 	});
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);

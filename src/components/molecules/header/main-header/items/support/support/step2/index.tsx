@@ -17,12 +17,9 @@ const Step2 = ({ setCounter }:Partial<SupportProps>) => {
 	const [valueRate, setValueRate] = useState<number>(0);
 	const [valueNote, setValueNote] = useState<string>('');
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUserId = User?.user_getCurrentUser?.result?.user?.id
 
-	// get agency conversations
 	const { data: supportChat } = useSupportChat_GetListQuery({
 		skip: 0,
 		take: 1,
@@ -138,19 +135,16 @@ export const CustomDescription = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 			height: '100px',
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 			height: '100px',
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,

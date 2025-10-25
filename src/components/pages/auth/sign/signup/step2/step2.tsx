@@ -25,11 +25,9 @@ const Step2 = () => {
 	const { userType } = useSnapshot(userTypeStore);
 	const { enqueueSnackbar } = useSnackbar();
 
-	// -------------------------------state
 	const [visible, setVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	// -------------------------------form
 	const defaultValues = {
 		name: '',
 		email: '',
@@ -53,7 +51,6 @@ const Step2 = () => {
 		setLoading(true)
 	};
 
-	// -------------------------------functions
 	const onGoogleClick = () => {
 		// signInWithGoogle({ type: userType });
 		enqueueSnackbar('Signup with google not available', { variant: 'warning' });
@@ -238,7 +235,6 @@ const Step2 = () => {
 
 export default Step2;
 
-// -------------------------------schema
 const SigninSchema = Yup.object().shape({
 	name: Yup.string().required('Enter Your Name').trim(),
 	email: Yup.string().email().required('Enter Your Email').trim(),

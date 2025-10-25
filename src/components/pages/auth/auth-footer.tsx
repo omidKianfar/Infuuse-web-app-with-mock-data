@@ -6,10 +6,8 @@ import Image from '@/components/atoms/Image';
 
 const AuthFooter = () => {
 	const theme = useTheme();
-	// -------------------------------tools
 	const router = useRouter();
 
-	// -------------------------------functions
 	const routeHandler = () => {
 		if (router.pathname.includes('/signup')) {
 			router.push('/signin');
@@ -22,7 +20,6 @@ const AuthFooter = () => {
 		<Stack position={'relative'}>
 			<FooterSection direction={'row'}>
 				<Stack direction="row" justifyContent="center" alignItems="center" width={'100%'}>
-					{/* -------------------------------switch sign  */}
 					<Box>
 						<Typography mr={2} sx={{ wordBreak: 'keep-all' }}>
 							{router.pathname.includes('/signup') ? 'Already have an account?' : 'New to INFUUSE?'}

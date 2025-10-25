@@ -11,8 +11,6 @@ const Footer = ({ message }: Props) => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUserId = User?.user_getCurrentUser?.result?.user?.id
 

@@ -27,7 +27,6 @@ export default function ({ item }: Props) {
 
 	const onRejectCall = async () => {
 		await rejectCallMutation({ callSid: item.twilioHistoryCall?.callSid });
-		// activeConnection?.disconnect();
 	};
 
 	return (

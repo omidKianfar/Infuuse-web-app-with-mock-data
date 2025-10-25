@@ -11,15 +11,11 @@ import React from 'react';
 const HeaderSettingSidebar = () => {
 	const theme = useTheme();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// update profile
 	const { mutate: updateProfile } = useUser_EditProfileMutation();
 
-	// ------------------------------- functions
 	const activeHandler = () => {
 		updateProfile(
 			{

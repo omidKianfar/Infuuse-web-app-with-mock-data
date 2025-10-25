@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const MainHeader = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -15,7 +14,6 @@ const MainHeader = () => {
 
 	const { logout } = useAuth();
 
-	// -----------------------------------functions
 	const handleLogout = async () => {
 		try {
 			await logout();
@@ -61,7 +59,6 @@ const MainHeader = () => {
 
 export default MainHeader;
 
-// -------------------------------style
 const Header = styled(Stack)({
 	width: '100%',
 	height: '80px',

@@ -5,8 +5,6 @@ import { Stack, styled } from '@mui/material';
 import React, { useState } from 'react';
 
 const VideoCallSidebar = () => {
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
@@ -15,7 +13,6 @@ const VideoCallSidebar = () => {
 
 
 			<Stack>
-				{/* -------------------------------message box */}
 
 				{CurrentUser?.businessAccesses?.map((business) => <Stack key={business?.business?.id}>
 					<VideoCallHistoryMessageBox business={business} />
@@ -28,7 +25,6 @@ const VideoCallSidebar = () => {
 
 export default VideoCallSidebar;
 
-//  -------------------------------style
 export const WhatsappSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

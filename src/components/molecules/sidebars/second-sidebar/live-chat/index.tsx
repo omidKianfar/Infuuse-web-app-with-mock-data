@@ -7,7 +7,6 @@ import React, { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 const LiveChatSidebar = () => {
-	// -------------------------------query
 
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
@@ -36,7 +35,6 @@ const LiveChatSidebar = () => {
 		},
 	};
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {
@@ -59,7 +57,6 @@ const LiveChatSidebar = () => {
 		<LiveChatSidebarContainer>
 			{ConversationData?.items?.map((conversation) => (
 				<Stack key={conversation?.id}>
-					{/* -------------------------------message box */}
 					<MessageCart conversation={conversation} />
 				</Stack>
 			))}
@@ -69,7 +66,6 @@ const LiveChatSidebar = () => {
 
 export default LiveChatSidebar;
 
-//  -------------------------------style
 export const LiveChatSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

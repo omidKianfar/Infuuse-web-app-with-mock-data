@@ -12,7 +12,6 @@ type RHFTextFieldType = TextFieldProps & {
 export default function RHFTextField({ name, type, ...other }: RHFTextFieldType) {
 	const { control } = useFormContext();
 
-	// ? States
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	const onChangePasswordVisibility = useCallback(() => {
@@ -27,7 +26,6 @@ export default function RHFTextField({ name, type, ...other }: RHFTextFieldType)
 				<CustomTextField
 					{...field}
 					fullWidth
-					// variant="filled"
 					sx={{ mb: 2 }}
 					error={!!error}
 					value={type === 'number' && field.value === 0 ? '' : field.value}
@@ -56,15 +54,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

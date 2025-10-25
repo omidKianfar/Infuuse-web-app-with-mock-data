@@ -14,7 +14,6 @@ const Header = () => {
 
 	const ContactId = router?.query?.contactId;
 
-	// --------------------------------query
 	const { data: contactTagList } = useContactTagCategory_GetListByContactIdQuery({
 		contactId: Number(ContactId),
 		skip: 0,
@@ -31,7 +30,6 @@ const Header = () => {
 
 	const contactTagListData = contactTagList?.contactTagCategory_getListByContactId?.result;
 
-	// --------------------------------filter
 	const { chatSidebar } = useSnapshot(chatStore);
 	const [filterItem, setFilterItem] = useState('All Message');
 
@@ -106,19 +104,16 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray200,
 			height: '35px',
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray200,
 			height: '35px',
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray200,

@@ -35,32 +35,26 @@ interface DefaultValuesType {
 }
 
 const ContactSidebar = () => {
-	// ------------------------------- tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const contactId = router?.query?.contactId;
 	const businessId = router?.query?.businessId;
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// -------------------------------query
-	// contact data
 	const { data: contacts } = useContact_GetByContactIdQuery({
 		contactId: Number(contactId),
 	});
 
 	const ContactsData = contacts?.contact_getByContactId?.result;
 
-	// business data
 	const { data: business } = useBusiness_GetByBusinessIdQuery({
 		businessId: Number(businessId),
 	});
 
 	const BusinessData = business?.business_getByBusinessId?.result;
 
-	// network emails
 	const NetworkEmails = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -77,7 +71,6 @@ const ContactSidebar = () => {
 		value: item?.value,
 	}));
 
-	// network phones
 	const NetworkPhones = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -94,7 +87,6 @@ const ContactSidebar = () => {
 		value: item?.value,
 	}));
 
-	// network addresses
 	const NetworkAddressess = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -110,13 +102,10 @@ const ContactSidebar = () => {
 		(item) => ({ id: item?.id, value: item?.value })
 	);
 
-	// edit contact
 	const { mutate: EditContact } = useContact_EditMutation();
 
-	// -------------------------------state
 	const [photoUrl, setPhotoUrl] = useState(ContactsData?.photoUrl);
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		firstName: ContactsData?.firstName || '',
 		lasttName: ContactsData?.lastName || '',
@@ -136,7 +125,6 @@ const ContactSidebar = () => {
 	const { handleSubmit } = methods;
 
 	const onSubmit = (values: any) => {
-		// emails map
 		const EmailArr = values?.emails.map((email) => ({
 			id: email?.id,
 			url: '',
@@ -144,7 +132,6 @@ const ContactSidebar = () => {
 			typeContactNetwork: TypeContactNetwork?.Email,
 		}));
 
-		// phones map
 		const phoneArr = values?.phones.map((phone) => ({
 			id: phone?.id,
 			url: '',
@@ -152,7 +139,6 @@ const ContactSidebar = () => {
 			typeContactNetwork: TypeContactNetwork?.PhoneNumber,
 		}));
 
-		// addresses map
 		const addressArr = values?.addresses.map((address) => ({
 			id: address?.id,
 			url: '',
@@ -170,7 +156,6 @@ const ContactSidebar = () => {
 					photoUrl: photoUrl,
 					jobTitle: values?.JobTitle,
 					company: values?.companyName,
-					// isHubSpot: ContactsData?.isHubSpot,
 					contactNetworks: [...EmailArr, ...phoneArr, ...addressArr],
 				},
 			},
@@ -194,8 +179,6 @@ const ContactSidebar = () => {
 		);
 	};
 
-	// -------------------------------functions
-	// upload photo
 	const inputRef = useRef<HTMLInputElement>();
 
 	const { uploadFile, progress, reset, url } = useFileUpload();
@@ -334,13 +317,11 @@ const ContactSidebar = () => {
 
 export default ContactSidebar;
 
-// -------------------------------schema
 const ContactSchema = Yup.object().shape({
 	firstName: Yup.string().required('Enter Your First Name').trim(),
 	lasttName: Yup.string().required('Enter Your Last Name').trim(),
 });
 
-// ------------------------------------styles
 export const Label = styled(Typography)(({ theme }) => ({
 	fontSize: '14px',
 	color: theme?.palette?.infuuse.blueLight500,

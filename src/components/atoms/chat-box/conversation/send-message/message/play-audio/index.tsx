@@ -45,7 +45,6 @@ const AudioPlayer = ({ audioFile }: Props) => {
 			setPlaying(false);
 		});
 
-		// Cleanup function
 
 		return () => {
 			if (wavesurfer.current) {

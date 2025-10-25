@@ -13,14 +13,12 @@ interface Props {
 }
 
 const LogoutModal = ({ handleClose }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 	const queryClient = useQueryClient()
 
 	const { logout, setSignupStepCounter } = useAuth();
 
-	// -----------------------------------functions
 	const handleLogout = async () => {
 		try {
 			await logout();

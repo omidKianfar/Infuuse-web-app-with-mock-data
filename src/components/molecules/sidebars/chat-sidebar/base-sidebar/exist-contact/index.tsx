@@ -11,18 +11,14 @@ import ModalContainer from '@/components/atoms/Modal';
 import AddExistContactModal from './modal/add-to-exist-contact-modal';
 
 const ExistContactSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// -------------------------------states
 	const [BusinessId, setBusinessId] = useState<number>(Number(CurrentUser?.businessAccesses[0]?.business?.id));
 
 	const [choosenContactId, setChoosenContactId] = useState<number | null>(null);
@@ -32,7 +28,6 @@ const ExistContactSidebar = () => {
 		handelModal();
 	};
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -112,9 +107,7 @@ export const Label = styled(Typography)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
 
-	// },
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -123,15 +116,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

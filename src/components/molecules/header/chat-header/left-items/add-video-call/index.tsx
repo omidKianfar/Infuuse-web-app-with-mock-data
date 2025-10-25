@@ -246,7 +246,6 @@ const AddTwilioVideoCall = ({ handleClose }: Partial<Props>) => {
 
 export default AddTwilioVideoCall;
 
-// -------------------------------schema
 const noteSchema = Yup.object().shape({
 	note: Yup.string().notRequired(),
 });
@@ -259,15 +258,12 @@ export const CustomDescription = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

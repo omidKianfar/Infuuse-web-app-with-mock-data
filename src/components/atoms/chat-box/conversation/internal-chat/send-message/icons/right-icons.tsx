@@ -13,8 +13,6 @@ const RightIcons = ({ message }: Props) => {
 	const theme = useTheme();
 	const router = useRouter();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUserId = User?.user_getCurrentUser?.result?.user?.id
 

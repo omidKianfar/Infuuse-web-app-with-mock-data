@@ -12,7 +12,6 @@ const CallSidebar = () => {
 	const theme = useTheme();
 	const [dilar, setDilar] = useState<boolean>(false);
 
-	// -------------------------------query
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
 	const variables = {
@@ -42,7 +41,6 @@ const CallSidebar = () => {
 		},
 	};
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {

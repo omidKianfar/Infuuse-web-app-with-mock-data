@@ -5,13 +5,11 @@ import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 
 const NoResponsive = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [modalCounter, setModalCounter] = React.useState(0);
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);

@@ -16,10 +16,8 @@ interface Props {
 const AddGroup = ({ handleClose }: Props) => {
 	const theme = useTheme();
 
-	// -------------------------------states
 	const [choosenGroupUser, setChoosenGroupUser] = useState([]);
 
-	// -------------------------------form
 	const defaultValues = {
 		name: '',
 		description: '',
@@ -33,34 +31,7 @@ const AddGroup = ({ handleClose }: Props) => {
 	const { handleSubmit } = methods;
 
 	const onSubmit = (values: typeof defaultValues) => {
-		// addTicket(
-		// 	{
-		// 		businessId: Number(BusinessId),
-		// 		input: {
-		// 			contactId: choosenContactId ? Number(choosenContactId) : null,
-		// 			assignUserId: choosenAssignUserId !== null ? Number(choosenAssignUserId) : null,
-		// 			status: TicketStatus?.Unresolved,
-		// 			startDate: values?.startDate,
-		// 			endDate: values?.endDate,
-		// 			estimate: values?.estimate,
-		// 			summary: values?.summery,
-		// 			description: values?.description,
-		// 			isAppointment: false,
-		// 		},
-		// 	},
-		// 	{
-		// 		onSuccess: (data) => {
-		// 			const { status } = responseDestructure(data);
-		// 			if (status.code == 1) {
-		// 				enqueueSnackbar(status.description, { variant: 'success' });
-		// 				reset();
-		// 				queryClient.refetchQueries(['ticket_getListByBusinessId']);
-		// 			} else {
-		// 				enqueueSnackbar(status.description, { variant: 'error' });
-		// 			}
-		// 		},
-		// 	}
-		// );
+		
 	};
 
 	const groupUserDelete = (userId) => {
@@ -146,7 +117,6 @@ const AddGroup = ({ handleClose }: Props) => {
 					))}
 				</Stack>
 
-				{/* ------------------------------- footer */}
 				<Stack width={'100%'} direction={'row'} alignItems={'center'} justifyContent={'center'} mt={4}>
 					<NextButton type="submit" sx={{ width: '200px', fontSize: '16px', fontWeight: 600 }}>
 						Add
@@ -159,7 +129,6 @@ const AddGroup = ({ handleClose }: Props) => {
 
 export default AddGroup;
 
-// -------------------------------schema
 const GroupSchema = Yup.object().shape({
 	name: Yup.string().required('Enter Your Group Name'),
 	description: Yup.string().required('Enter Your Description'),

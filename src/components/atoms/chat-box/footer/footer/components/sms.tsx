@@ -34,7 +34,6 @@ const SMSComponent = ({ uploadedFile, setUploadedFile, setProgressbar, SMSeditor
             ) : uploadedFile?.type === 'photo' ||
                 uploadedFile?.type === 'video' ||
                 uploadedFile?.type === 'file' ? (
-                // -------------------------------text
                 <Stack mb={1}>
                     <ShowUploadedBox
                         uploadedFile={uploadedFile}

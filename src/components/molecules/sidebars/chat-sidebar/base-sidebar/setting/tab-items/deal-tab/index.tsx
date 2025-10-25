@@ -11,15 +11,12 @@ interface Props {
 	scrollToTab: () => void;
 }
 const DealTab = ({ scrollToTab }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 	const contactId = router?.query?.contactId;
 
-	// -------------------------------state management
 	const { dealSidebar } = useSnapshot(chatStore);
 
-	// -------------------------------query
 	const { data: Deals } = useDeal_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -31,7 +28,6 @@ const DealTab = ({ scrollToTab }: Props) => {
 
 	const DealsData = Deals?.deal_getListByContactId?.result;
 
-	// -------------------------------functions
 	const editDealHandelr = (dealId: number) => {
 		chatStore.dealSidebar = true;
 		chatStore.dealId = Number(dealId);

@@ -3,7 +3,6 @@ import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 
 const Header = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	return (

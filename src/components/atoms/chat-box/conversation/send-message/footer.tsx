@@ -17,12 +17,8 @@ const Footer = ({ message }: Props) => {
 
 	const ContactId = router?.query?.contactId;
 
-	// -------------------------------state management
 	const { contactEmail } = useSnapshot(settingLiveChatStore);
 
-	// -------------------------------query
-
-	// network emails
 	const NetworkEmails = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(ContactId),
 		skip: 0,

@@ -1,4 +1,4 @@
-import { Stack, useTheme } from '@mui/material';
+import { Stack } from '@mui/material';
 import React from 'react';
 import AudioPlayer from '../../../send-message/message/play-audio';
 
@@ -7,8 +7,6 @@ interface Props {
 }
 
 const Message = ({ message }: Props) => {
-	// -------------------------------tools
-	const theme = useTheme();
 
 	return (
 		<Stack borderRadius={2} p={1} boxShadow={2} position={'relative'}>

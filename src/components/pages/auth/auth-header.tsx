@@ -3,7 +3,6 @@ import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 
 const AuthHeader = () => {
-  // -------------------------------tools
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 

@@ -21,14 +21,11 @@ const HeaderContactInfo = () => {
 
 	const contactId = router?.query?.contactId;
 
-	// ------------------------------- query
-	// contact detail for deal status
 	const { data: CurrentContact } = useContact_GetByContactIdQuery({
 		contactId: Number(contactId),
 	});
 	const CurrentContactData = CurrentContact?.contact_getByContactId?.result;
 
-	// network emails
 	const NetworkEmails = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -42,7 +39,6 @@ const HeaderContactInfo = () => {
 
 	const contactEmail = NetworkEmails?.data?.contactNetwork_getListByContactId?.result?.items[0]?.value;
 
-	// network phones
 	const NetworkPhones = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -56,7 +52,6 @@ const HeaderContactInfo = () => {
 
 	const contactPhones = NetworkPhones?.data?.contactNetwork_getListByContactId?.result?.items[0]?.value;
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 	return (
 		<Stack>

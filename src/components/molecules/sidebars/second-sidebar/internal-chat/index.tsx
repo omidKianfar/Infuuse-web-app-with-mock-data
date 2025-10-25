@@ -11,10 +11,8 @@ import { ConversationType, SortEnumType,  useConversation_GetListQuery } from '@
 import { queryKeyManager } from '@/utils/queryKeys';
 
 const InternalChatSidebar = () => {
-	//  -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------query
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
 	const variables = {
@@ -30,7 +28,6 @@ const InternalChatSidebar = () => {
 		},
 	}
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {
@@ -49,7 +46,6 @@ const InternalChatSidebar = () => {
 		}
 	}, [ConversationData]);
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -81,7 +77,6 @@ const InternalChatSidebar = () => {
 			<InternalChatSidebarContainer>
 				{ConversationData?.items?.map((conversation) => (
 					<Stack key={conversation?.id}>
-						{/* -------------------------------message box */}
 						<InternalChatMessageBox conversation={conversation} />
 					</Stack>
 				))}
@@ -97,7 +92,6 @@ const InternalChatSidebar = () => {
 
 export default InternalChatSidebar;
 
-//  -------------------------------style
 export const InternalChatSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

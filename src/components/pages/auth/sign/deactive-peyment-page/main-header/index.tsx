@@ -5,12 +5,10 @@ import Support from '@/components/molecules/header/main-header/items/support/sup
 import Image from '@/components/atoms/Image';
 
 const MainHeader = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [SupportState, setSupportState] = useState(false);
 
-	// -----------------------------------functions
 	const supportHandler = () => {
 		setSupportState(!SupportState);
 	};
@@ -24,7 +22,6 @@ const MainHeader = () => {
 		>
 			<>
 				<Image src={'/images/infuuse-logo.svg'} />
-				{/* -------------------------------support */}
 				<Tooltip title="Support">
 					<Box onClick={supportHandler} sx={{ cursor: 'pointer' }}>
 						<SupportIcon
@@ -33,7 +30,6 @@ const MainHeader = () => {
 					</Box>
 				</Tooltip>
 
-				{/* {SupportState ? <Support supportHandler={supportHandler} SupportChatData={SupportChatData} userId={userId} /> : null} */}
 			</>
 		</Header>
 	);
@@ -41,7 +37,6 @@ const MainHeader = () => {
 
 export default MainHeader;
 
-// -------------------------------style
 const Header = styled(Stack)({
 	width: '100%',
 	height: '80px',

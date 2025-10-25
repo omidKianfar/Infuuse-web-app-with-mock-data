@@ -83,18 +83,15 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 			color: theme?.palette?.infuuse.blue500,
 			borderWidth: '1px',
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue500,
 			borderWidth: '1px',
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue500,
 			borderWidth: '1px',
 
-			// borderRadius: "16px",
 		},
 	},
 

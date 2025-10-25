@@ -16,7 +16,6 @@ interface Props {
 }
 
 const Header = ({ agencyDetailData }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -45,7 +44,6 @@ const Header = ({ agencyDetailData }: Props) => {
 		})
 	}
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);

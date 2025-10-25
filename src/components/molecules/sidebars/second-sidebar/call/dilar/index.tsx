@@ -9,14 +9,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useSnapshot } from 'valtio';
 
 const Dilar = () => {
-	//  -------------------------------tools
 	const theme = useTheme();
 	const { businessInfo, setBusinessInfo, handleDial } = useTwilio();
 
-	//  -------------------------------state managment
 	const { twilioBusinessId } = useSnapshot(callBusinessStore);
 
-	//  -------------------------------states
 	const [myPhoneNumber, setMyPhoneNumber] = useState({
 		businessId: '',
 		phoneNumber: '',
@@ -26,15 +23,11 @@ const Dilar = () => {
 
 	const [callItem, setCallItem] = useState<boolean>(false);
 
-	// -------------------------------ref
 	const inputRef = useRef();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// -------------------------------func
 	useEffect(() => {
 		if (CurrentUser?.user?.userType === UserType?.BusinessMember) {
 			if (twilioBusinessId === null) {
@@ -47,10 +40,7 @@ const Dilar = () => {
 		}
 	}, [CurrentUser, twilioBusinessId]);
 
-	//  -------------------------------functions
-	//
 
-	// add number to input
 	const handleClickNumber = (index: number) => {
 		if (customerPhoneNumber.length >= 13) return;
 
@@ -62,12 +52,10 @@ const Dilar = () => {
 		setCustomerPhoneNumber((prevState) => prevState + index);
 	};
 
-	// remove number
 	const handleRemoveEndNumber = () => {
 		setCustomerPhoneNumber((prevState) => prevState.slice(0, prevState.length - 1));
 	};
 
-	// call
 	const callHndler = () => {
 		console.log('CurrentUser?.user?.userType', CurrentUser?.user?.userType);
 
@@ -293,19 +281,16 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 			color: theme?.palette?.common?.black,
 			height: '40px',
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 			height: '40px',
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 			height: '40px',
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,

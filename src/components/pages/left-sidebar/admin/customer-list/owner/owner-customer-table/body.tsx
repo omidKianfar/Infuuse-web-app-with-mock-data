@@ -17,11 +17,9 @@ interface Props {
 }
 
 const Body = ({ business }: Props) => {
-	// -------------------------------tools
 	const router = useRouter();
 	const theme = useTheme();
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);

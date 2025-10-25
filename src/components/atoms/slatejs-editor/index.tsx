@@ -12,7 +12,6 @@ import Picker from '@emoji-mart/react';
 import { useSnapshot } from 'valtio';
 import chatStore from '@/store/chat.store';
 
-// ------------------------------------------ import icons
 import {
 	FormatBoldIcon,
 	FormatItalicIcon,
@@ -29,16 +28,13 @@ import {
 	TitleIcon,
 } from './icons';
 
-// ------------------------------------------ import styles
 import { CustomTextField, CustomEditable, CustomButton } from './styles';
 
-// ------------------------------------------ import data
 import { ColorItems, fontFamilyOptions, HOTKEYS, LIST_TYPES, TEXT_ALIGN_TYPES } from './data';
 import EmojiHappyIcon from '@/assets/emoji-happy-icon';
 import resetStore from '@/store/reset.store';
 import { useRouter } from 'next/router';
 
-// ----------------------------------------------------- editor imports
 type CustomElement = { type: 'paragraph'; children: CustomText[] };
 
 type CustomText = { text: string };
@@ -51,31 +47,24 @@ declare module 'slate' {
 	}
 }
 
-// ------------------------------ imports
 interface Props {
 	editorOutput?: string;
 	setEditorOutput?: React.Dispatch<React.SetStateAction<string>>;
 	editorKey?: number;
 }
 
-// ------------------------------ slate.js
 const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
-	// -------------------------------state management
 	const { chatSidebar, dealSidebar } = useSnapshot(chatStore);
 
-	// -------------------------------editor
 	const renderElement = useCallback((props) => <Element {...props} />, []);
 	const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
 	const editor = useMemo(() => withHtml(withReact(withHistory(createEditor()))), []);
 
 	const document = new DOMParser().parseFromString(editorOutput, 'text/html');
 
-	// -------------------------------functions
-	// font color
 	const [fontColorState, setFontColorState] = useState(null);
 
 	const changeColor = (color) => {
@@ -83,7 +72,6 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 		Transforms.setNodes(editor, { color }, { match: (n) => Text.isText(n), split: true });
 	};
 
-	// font bg color
 	const [fontBgColorState, setFontBgColorState] = useState(null);
 
 	const changeBackgroundColor = (color) => {
@@ -91,7 +79,6 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 		Transforms.setNodes(editor, { backgroundColor: color }, { match: (n) => Text.isText(n), split: true });
 	};
 
-	// font family
 	const [fontFamilyState, setFontFamilyState] = useState('"Times New Roman", Times, serif');
 
 	const changeFontFamily = (fontFamily) => {
@@ -99,7 +86,6 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 		Transforms.setNodes(editor, { fontFamily }, { match: (n) => Text.isText(n), split: true });
 	};
 
-	// emoji
 	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
 	const insertEmoji = (emoji) => {
@@ -110,18 +96,16 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 
 	const removeSecondLine = useCallback(() => {
 		if (editor.children.length > 1) {
-			Transforms.delete(editor, { at: [1] }); // Removes the second line
+			Transforms.delete(editor, { at: [1] });
 		}
 	}, [editor]);
 
 	useEffect(() => {
 		resetStore.reset = () => {
-			// loop delete all
 			editor.children.map((item) => {
 				Transforms.delete(editor, { at: [0] });
 			});
 
-			// reset init
 			editor.children = [
 				{
 					type: 'paragraph',
@@ -136,11 +120,10 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 	}, []);
 
 	useEffect(() => {
-		removeSecondLine(); // Remove the second line on component mount
+		removeSecondLine();
 	}, [removeSecondLine]);
 
 	return (
-		// -------------------------------------------- editor
 		<Slate
 			key={editorKey}
 			editor={editor}
@@ -150,7 +133,6 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 				setEditorOutput(html);
 			}}
 		>
-			{/* ------------------------------------------- toolbar */}
 			<Toolbar>
 				<Stack
 					bgcolor={theme?.palette?.infuuse?.gray400}
@@ -412,21 +394,18 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 				</Stack>
 			</Toolbar>
 
-			{/* ------------------------------------------- editor text rich editable */}
 			<CustomEditable
 				renderElement={renderElement}
 				renderLeaf={renderLeaf}
 				placeholder=""
 				spellCheck
 				autoFocus
-				// readOnly={ScenarioData?.status === ScenarioStatus?.Draft ? false : true}
 				onKeyDown={(event) => {
-					if (isHotkey('mod+enter', event)) {  // mod represents Ctrl on Windows/Linux and Command on macOS
+					if (isHotkey('mod+enter', event)) { 
 						event.preventDefault();
-						editor.insertText('\n'); // Insert a new line when Ctrl+Enter is pressed
+						editor.insertText('\n');
 					} else if (isHotkey('enter', event)) {
 						event.preventDefault();
-						// Handle the case when just Enter is pressed (you might want to submit the form or do nothing)
 					} else {
 						for (const hotkey in HOTKEYS) {
 							if (isHotkey(hotkey, event as any)) {
@@ -442,7 +421,6 @@ const SlateEditor = ({ editorOutput, setEditorOutput, editorKey }: Props) => {
 	);
 };
 
-// ----------------------------------- initial value slate.js
 const initialValue: Descendant[] = [
 	{
 		type: 'paragraph',
@@ -454,9 +432,7 @@ const initialValue: Descendant[] = [
 	},
 ];
 
-// -----------------------------------serialize
 const serialize = (node) => {
-	// tags for marking text
 	if (Text.isText(node)) {
 		let string = escapeHTML(node.text);
 
@@ -492,7 +468,6 @@ const serialize = (node) => {
 		style = ` style="text-align: ${node.align};"`;
 	}
 
-	// tags element
 	switch (node.type) {
 		case 'paragraph':
 			return `<P ${style}>${children}</P>`;
@@ -521,7 +496,6 @@ const serialize = (node) => {
 	}
 };
 
-// -----------------------------------leaf
 const Leaf = ({ attributes, children, leaf }) => {
 	if (leaf.paragraph) {
 		children = <p {...attributes}>{children}</p>;
@@ -607,7 +581,6 @@ const Leaf = ({ attributes, children, leaf }) => {
 	);
 };
 
-// -----------------------------------importing element
 const Element = (props) => {
 	const { attributes, children, element } = props;
 
@@ -711,7 +684,6 @@ const Element = (props) => {
 	}
 };
 
-// ---------------------------------- convert to html
 const withHtml = (editor) => {
 	const { insertData, isInline, isVoid } = editor;
 
@@ -735,16 +707,13 @@ const withHtml = (editor) => {
 	return editor;
 };
 
-// -------------------------------------------------- export tag
 export const deserialize: any = (el, markAttributes = {}) => {
-	// node
 	if (el.nodeType === Node.TEXT_NODE) {
 		return jsx('text', markAttributes, el.textContent);
 	} else if (el.nodeType !== Node.ELEMENT_NODE) {
 		return null;
 	}
 
-	// styles
 	const nodeAttributes = { ...markAttributes };
 
 	const style = el.getAttribute('style');
@@ -771,7 +740,6 @@ export const deserialize: any = (el, markAttributes = {}) => {
 		}
 	}
 
-	// define attributes for text nodes
 	switch (el.nodeName) {
 		case 'STRONG':
 			nodeAttributes.bold = true;
@@ -832,8 +800,6 @@ export const deserialize: any = (el, markAttributes = {}) => {
 	}
 };
 
-// ------------------------------------------------------ func
-// activing for block tags
 const isBlockActive = (editor, format, blockType = 'type') => {
 	const { selection } = editor;
 	if (!selection) return false;
@@ -848,13 +814,11 @@ const isBlockActive = (editor, format, blockType = 'type') => {
 	return !!match;
 };
 
-// activing for mark tags
 const isMarkActive = (editor, format) => {
 	const marks = Editor.marks(editor);
 	return marks ? marks[format] === true : false;
 };
 
-// block tags
 const toggleBlock = (editor, format) => {
 	const isActive = isBlockActive(editor, format, TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type');
 	const isList = LIST_TYPES.includes(format);
@@ -887,7 +851,6 @@ const toggleBlock = (editor, format) => {
 	}
 };
 
-// marking tags
 const toggleMark = (editor, format) => {
 	const isActive = isMarkActive(editor, format);
 
@@ -898,8 +861,6 @@ const toggleMark = (editor, format) => {
 	}
 };
 
-// ----------------------------------------- button
-// toolbar block button
 const BlockButton = ({ format, icon }) => {
 	const editor = useSlate();
 	return (
@@ -915,7 +876,6 @@ const BlockButton = ({ format, icon }) => {
 	);
 };
 
-// toolbar mark button
 const MarkButton = ({ format, icon }) => {
 	const editor = useSlate();
 	return (

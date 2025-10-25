@@ -48,7 +48,6 @@ export default function RHFSelectInput({ name, label, children, onChanged, ...ot
 				<>
 					<SelectInput
 						fullWidth
-						// variant="filled"
 						{...field}
 						error={!!error}
 						onChange={(e) => {

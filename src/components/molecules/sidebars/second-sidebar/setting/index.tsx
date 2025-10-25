@@ -9,10 +9,8 @@ import LogoutModal from './modal/logout-modal';
 import CallNow from '../call-now';
 
 const SettingSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -27,12 +25,9 @@ const SettingSidebar = () => {
 			
 
 			<Sidebar>
-				{/* -------------------------------header */}
 				<HeaderSettingSidebar />
 
-				{/* -------------------------------body */}
 				<BodySettingSidebar />
-				{/* -------------------------------logout */}
 				<Stack position={'absolute'} bottom={'24px'} left={'24px'} width={'100px'}>
 					<Stack
 						onClick={handelModal}

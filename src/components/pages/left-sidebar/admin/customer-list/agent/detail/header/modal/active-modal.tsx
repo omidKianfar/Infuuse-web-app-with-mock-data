@@ -16,15 +16,11 @@ interface Props {
 }
 
 const ActiveModal = ({ handleClose, agency }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const querClient = useQueryClient();
 
-	// -------------------------------query
-	// edit mutation
 	const { mutate: UpdateBusiness } = useAgency_EditByAdminMutation();
 
-	// active
 	const ActiveHandler = () => {
 		UpdateBusiness(
 			{

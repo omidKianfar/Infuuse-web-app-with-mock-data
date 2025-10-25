@@ -21,7 +21,6 @@ const AdminSupportFooter = () => {
     const router = useRouter();
 
     const ConversationId = router?.query?.conversationId;
-    // -------------------------------state
     const [editorOutput, setEditorOutput] = useState<string>('');
 
     const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -38,16 +37,12 @@ const AdminSupportFooter = () => {
         type: 'text',
     });
 
-    // -------------------------------state management
     const { mediaBlob } = useSnapshot(RecorderStore);
 
     const { reset } = useSnapshot(resetStore);
 
-    // -------------------------------query
     const { mutate: sendSupportChatMessage, isLoading: senSupportLoading } = useSupportChat_AddSupportMessageByAdminMutation();
 
-    // -------------------------------functions
-    // send
     const sendHandler = () => {
         if (uploadedFile?.type === 'text') {
             if (editorOutput !== '' && editorOutput !== '<P ></P>' && editorOutput !== '<P ></P><P ></P>') {
@@ -133,15 +128,12 @@ const AdminSupportFooter = () => {
         }
     };
 
-    // -----------------------------------------functions
-    // refetch queries
     const refetchQueries = async () => {
         await queryClient.invalidateQueries(['conversationMessage_getByConversationId'])
         await queryClient.invalidateQueries(['supportChat_getList'])
         await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
     }
 
-    // reset fields
     const resetFields = () => {
         setEditorOutput('');
         setUploadedFile({
@@ -157,7 +149,6 @@ const AdminSupportFooter = () => {
         setShowMenu(false);
     }
 
-    // press enter
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Enter' && !event.ctrlKey && !senSupportLoading) {
@@ -238,17 +229,14 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
         '& .MuiInputBase-input': {
             color: theme?.palette?.common?.black,
 
-            // borderRadius: "16px",
         },
         '& fieldset': {
             borderColor: theme?.palette?.infuuse?.gray100,
 
-            // borderRadius: "16px",
         },
         '&.Mui-focused fieldset': {
             borderColor: theme?.palette?.infuuse?.gray100,
 
-            // borderRadius: "16px",
         },
         '&:hover fieldset': {
             borderColor: theme?.palette?.infuuse?.gray100,

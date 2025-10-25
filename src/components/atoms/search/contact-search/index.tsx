@@ -20,13 +20,11 @@ const ContactSearch = ({
 	choosenContactName,
 	setChoosenContactName,
 }: props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [searchData, setSearchData] = useState<string>('');
 	const [SearchMenu, setSearchMenu] = useState<boolean>(false);
 
-	// -------------------------------menu handler
 	React.useEffect(() => {
 		if (searchData) {
 			setSearchMenu(true);
@@ -35,7 +33,6 @@ const ContactSearch = ({
 		}
 	}, [searchData]);
 
-	// -------------------------------search query
 
 	const { data: Contacs } = useContact_GetListByBusinessIdQuery({
 		businessId: Number(BusinessId),
@@ -59,9 +56,7 @@ const ContactSearch = ({
 
 	return (
 		<Stack>
-			{/* -------------------------------saerch */}
 			<Stack position={'relative'} mb={2}>
-				{/* -------------------------------search field */}
 				{choosenContactId === null ? (
 					<CustomTextField
 						fullWidth
@@ -140,9 +135,7 @@ export const Label = styled(Typography)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
 
-	// },
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -151,15 +144,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

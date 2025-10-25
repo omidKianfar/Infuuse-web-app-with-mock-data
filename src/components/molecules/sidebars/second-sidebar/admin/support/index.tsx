@@ -8,10 +8,8 @@ import { useSnapshot } from 'valtio';
 
 const AdminSupportSidebar = () => {
 
-	//  -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------query
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
 	const variables = {
@@ -24,7 +22,6 @@ const AdminSupportSidebar = () => {
 		},
 	}
 
-	// get agency conversations
 	const { data: supportChat } = useSupportChat_GetListQuery(variables);
 
 	useEffect(() => {
@@ -47,7 +44,6 @@ const AdminSupportSidebar = () => {
 		<AdminSupportSidebarContainer>
 			{SupportChatData?.items?.map((conversation) => (
 				<Stack key={conversation?.id}>
-					{/* -------------------------------message box */}
 					<AdminSupportMessageBox conversation={conversation} />
 				</Stack>
 			))}
@@ -57,7 +53,6 @@ const AdminSupportSidebar = () => {
 
 export default AdminSupportSidebar;
 
-//  -------------------------------style
 export const AdminSupportSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

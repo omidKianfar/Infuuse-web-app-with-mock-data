@@ -21,7 +21,6 @@ const InternalChatFooter = () => {
     const router = useRouter();
 
     const ConversationId = router?.query?.conversationId;
-    // -------------------------------state
     const [editorOutput, setEditorOutput] = useState<string>('');
 
     const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -38,16 +37,12 @@ const InternalChatFooter = () => {
         type: 'text',
     });
 
-    // -------------------------------state management
     const { mediaBlob } = useSnapshot(RecorderStore);
 
     const { reset } = useSnapshot(resetStore);
 
-    // -------------------------------query
     const { mutate: sendInternalChatMessage, isLoading: sendInternalChatLoading } = useInternalChat_AddInternalMessageMutation();
 
-    // -------------------------------functions
-    // send
     const sendHandler = () => {
         if (uploadedFile?.type === 'text') {
             if (editorOutput !== '' && editorOutput !== '<P ></P>' && editorOutput !== '<P ></P><P ></P>') {
@@ -142,15 +137,12 @@ const InternalChatFooter = () => {
 
 
 
-    // -----------------------------------------functions
-    // refetch queries
     const refetchQueries = async () => {
         await queryClient.invalidateQueries(['conversationMessage_getByConversationId'])
         await queryClient.invalidateQueries(['conversation_getList'])
         await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
     }
 
-    // reset fields
     const resetFields = () => {
         setEditorOutput('');
         setUploadedFile({
@@ -166,12 +158,11 @@ const InternalChatFooter = () => {
         setShowMenu(false);
     }
 
-    // press enter
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Enter' && !event.ctrlKey && !sendInternalChatLoading) {
-                event.preventDefault(); // Prevent the default "Enter" key behavior
-                sendHandler(); // Call the sendHandler function
+                event.preventDefault();
+                sendHandler();
             }
         };
 
@@ -180,7 +171,7 @@ const InternalChatFooter = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [editorOutput, uploadedFile]); // Dependencies ensure the latest state is used
+    }, [editorOutput, uploadedFile]); 
 
     return (
         <Stack position={'absolute'} left={'1%'} bottom={'8px'} width={'98%'}>
@@ -249,17 +240,14 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
         '& .MuiInputBase-input': {
             color: theme?.palette?.common?.black,
 
-            // borderRadius: "16px",
         },
         '& fieldset': {
             borderColor: theme?.palette?.infuuse?.gray100,
 
-            // borderRadius: "16px",
         },
         '&.Mui-focused fieldset': {
             borderColor: theme?.palette?.infuuse?.gray100,
 
-            // borderRadius: "16px",
         },
         '&:hover fieldset': {
             borderColor: theme?.palette?.infuuse?.gray100,

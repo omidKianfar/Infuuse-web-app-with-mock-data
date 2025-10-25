@@ -30,7 +30,6 @@ const InternalChatComponent = ({ uploadedFile, setUploadedFile, editorOutput, se
             {uploadedFile?.type === 'voice' ? (
                 <VoiceChat setUploadedFile={setUploadedFile} />
             ) : uploadedFile?.type === 'text' ? (
-                // -------------------------------text
 
                 <SlateEditor
                     editorOutput={editorOutput}

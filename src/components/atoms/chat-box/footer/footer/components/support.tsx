@@ -31,7 +31,6 @@ const SupportChatComponent = ({ uploadedFile, setUploadedFile, editorOutput, set
             {uploadedFile?.type === 'voice' ? (
                 <VoiceChat setUploadedFile={setUploadedFile} />
             ) : uploadedFile?.type === 'text' ? (
-                // -------------------------------text
 
                 <SMSEditor editorOutput={editorOutput} setEditorOutput={setEditorOutput} />
 

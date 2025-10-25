@@ -27,15 +27,12 @@ import { enqueueSnackbar } from 'notistack';
 import { Title } from 'chart.js';
 
 const BodyStandard = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-	// -------------------------------states
 	const [numberOfUsers, setNumberOfUsers] = useState<number | null>(null);
 	const [planType, setPlanType] = useState<PlanType | null>(null);
 
-	// -------------------------------query
 	const { data: calcPayment } = usePayment_CalculateSubscriptionQuery({
 		input: {
 			operatorCount: Number(numberOfUsers),
@@ -47,11 +44,9 @@ const BodyStandard = () => {
 
 	const { mutate: createPayment } = usePayment_CreateSubscriptionMutation();
 
-	// ---------------------------- direct page
 	const successPageUrl = `${window.location.origin}/subscriptions/success?signup=true`;
 	const failedPageUrl = `${window.location.origin}/subscriptions/failed?signup=true`;
 
-	// -------------------------------function
 	const AddSubscription = () => {
 		if (numberOfUsers && planType) {
 			createPayment(
@@ -235,15 +230,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

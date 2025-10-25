@@ -12,7 +12,6 @@ interface Props {
 }
 
 const SendMessage = ({ message }: Props) => {
-	// -------------------------------tools
 	const router = useRouter();
 
 	return (

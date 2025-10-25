@@ -19,7 +19,6 @@ interface Props {
 }
 
 const FromAllMessage = ({ message }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [openImage, setOpenIamage] = useState(false);

@@ -11,8 +11,6 @@ interface props {
 const GroupUserSearch = ({
 	choosenGroupUser, setChoosenGroupUser
 }: props) => {
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 

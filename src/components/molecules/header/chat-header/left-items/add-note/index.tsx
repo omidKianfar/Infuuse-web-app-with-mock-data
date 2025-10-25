@@ -10,15 +10,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import { DefaultValuesType, Props } from '../../types';
 
 const AddNote = ({ handleClose, contactId }: Partial<Props>) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const queryClient = useQueryClient();
 
-	// -------------------------------query
 
 	const { mutate: addNote } = useNote_AddMutation();
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		note: '',
 	};
@@ -98,7 +95,6 @@ const AddNote = ({ handleClose, contactId }: Partial<Props>) => {
 
 export default AddNote;
 
-// -------------------------------schema
 const noteSchema = Yup.object().shape({
 	note: Yup.string().required('Enter Your Note').min(2),
 });
@@ -111,15 +107,12 @@ export const CustomDescription = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

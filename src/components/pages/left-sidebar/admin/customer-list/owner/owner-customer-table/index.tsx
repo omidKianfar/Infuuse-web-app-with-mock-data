@@ -17,11 +17,8 @@ const OwnerCustomerTable = () => {
 		setPaymentFilter('Annual/Monthly');
 	};
 
-	// ------------------------------- table
 	const { page, rowsPerPage, ...tableRest } = useTable();
 
-	// ------------------------------- query
-	// business member query
 	const { data: BusinessOwners } = useBusiness_GetListByAdminQuery({
 		skip: page * rowsPerPage,
 		take: rowsPerPage,
@@ -151,7 +148,6 @@ const OwnerCustomerTable = () => {
 
 export default OwnerCustomerTable;
 
-// ------------------------------------- table header
 const AdminListItems = [
 	{ id: 'Company/Agency', name: 'Company/Agency' },
 	{ id: 'Email', name: 'Email' },
@@ -174,21 +170,18 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		width: '100%',
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			backgroundColor: 'transparent',
 			height: '48px',
 			border: `2px solid ${theme?.palette?.infuuse?.gray500}`,
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			backgroundColor: 'transparent',
 			height: '48px',
 			border: `2px solid ${theme?.palette?.infuuse?.gray500}`,
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray500,

@@ -12,7 +12,6 @@ interface props {
 }
 
 const TemplatesSearch = ({ setChoosenTemplateContent, setTemplateMenu }: props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -21,7 +20,6 @@ const TemplatesSearch = ({ setChoosenTemplateContent, setTemplateMenu }: props) 
 	const [searchData, setSearchData] = useState<string>('');
 	const [SearchMenu, setSearchMenu] = useState<boolean>(false);
 
-	// -------------------------------menu handler
 	React.useEffect(() => {
 		if (searchData) {
 			setSearchMenu(true);
@@ -30,7 +28,6 @@ const TemplatesSearch = ({ setChoosenTemplateContent, setTemplateMenu }: props) 
 		}
 	}, [searchData]);
 
-	// -------------------------------search query
 
 	const { data: Templates } = useTemplate_GetListByBusinessIdQuery({
 		businessId: Number(BusinessId),
@@ -102,9 +99,7 @@ export const Label = styled(Typography)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
 
-	// },
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -113,15 +108,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

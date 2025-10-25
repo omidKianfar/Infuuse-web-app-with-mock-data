@@ -14,7 +14,6 @@ interface Props {
 }
 
 const NoteTab = ({ scrollToTab }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -22,7 +21,6 @@ const NoteTab = ({ scrollToTab }: Props) => {
 
 	const [noteId, setNoteId] = useState<null | number>(null);
 
-	// ------------------------------- query
 	const { data: Notes } = useNote_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -34,7 +32,6 @@ const NoteTab = ({ scrollToTab }: Props) => {
 
 	const NotesData = Notes?.note_getListByContactId?.result;
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 	const [counter, setCounter] = React.useState(0);
 

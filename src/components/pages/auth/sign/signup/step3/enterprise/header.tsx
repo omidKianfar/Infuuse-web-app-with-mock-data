@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 
 const HeaderEnterprise = () => {
 	const theme = useTheme();
-	// -------------------------------context
 
 	return (
 		<Stack

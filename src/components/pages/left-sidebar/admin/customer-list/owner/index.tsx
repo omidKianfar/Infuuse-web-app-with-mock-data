@@ -5,7 +5,6 @@ import { NextButton } from '@/components/atoms/Button';
 import OwnerCustomerTable from './owner-customer-table';
 
 const OwnerCustomerList = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [searchData, setSearchData] = useState('');
@@ -21,11 +20,9 @@ const OwnerCustomerList = () => {
 				<Typography mb={2} fontSize={'18px'} fontWeight={'bold'} color={theme?.palette?.infuuse?.blue100}>
 					Customers List
 				</Typography>
-				{/* ----------------------------filters */}
 
 				<Stack direction={'row'} justifyContent={'start'} alignItems={'start'}>
 					<Stack mr={2} width={'300px'}>
-						{/* ----------------------------search */}
 
 						<CustomTextField
 							fullWidth
@@ -96,21 +93,18 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		width: '100%',
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			backgroundColor: 'transparent',
 			height: '48px',
 			border: `2px solid ${theme?.palette?.infuuse?.gray500}`,
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			backgroundColor: 'transparent',
 			height: '48px',
 			border: `2px solid ${theme?.palette?.infuuse?.gray500}`,
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray500,

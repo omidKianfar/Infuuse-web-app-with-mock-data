@@ -22,13 +22,10 @@ const CallNowMessageBox = ({ item }: Props) => {
 
 	const theme = useTheme()
 
-	// --------------------------------------  context
-	// chat context
 	const {
 		handleChangeCallStatus
 	} = useChatContext();
 
-	// usehook use call handler
 	const {
 
 		startCallHandler,
@@ -40,17 +37,13 @@ const CallNowMessageBox = ({ item }: Props) => {
 	} = useCallHandler();
 
 
-	// --------------------------state managment
 	const { isLoading, callSid } = useSnapshot(callStatusStore)
 
 
-	// --------------------------states
 	const [mute, setMute] = useState(false);
 
 	let loading = callSid === item?.callSid && isLoading
 
-	// --------------------------functions
-	//  answer call
 	const answerCall = () => {
 		console.log('call messagebox connection', item?.connection);
 
@@ -65,7 +58,6 @@ const CallNowMessageBox = ({ item }: Props) => {
 		}
 	}
 
-	// hold call
 	const handleToggleOnHoldCall = () => {
 		if (item?.callStatus === 'on-hold') {
 			handleUnHold(item?.callSid as string);
@@ -76,7 +68,6 @@ const CallNowMessageBox = ({ item }: Props) => {
 	}
 
 
-	// mute call
 	const handleToggleOnMuteCall = () => {
 		setMute(!mute)
 		if (item?.connection) {
@@ -98,7 +89,6 @@ const CallNowMessageBox = ({ item }: Props) => {
 
 
 
-	// reject call
 	const rejectCall = () => {
 		item?.connection?.disconnect();
 		rejectCallHandler(item?.callSid as string)

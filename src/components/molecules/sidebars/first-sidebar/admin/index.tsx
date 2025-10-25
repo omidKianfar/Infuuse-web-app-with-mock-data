@@ -15,14 +15,11 @@ interface Props {
 }
 
 const AdminSidebarIcon = ({ CurrentUser }: Props) => {
-	// -------------------------------tools
 	const router = useRouter();
 	const theme = useTheme();
 
-	// --------------------------------context
 	const { lastMessageSubscription } = useContext(SubscriptionLayoutContext);
 
-	// --------------------------------query
 	const { data: supportConversationListList } = useSupportChat_GetListQuery({
 		take: 10000,
 		skip: 0,
@@ -42,17 +39,13 @@ const AdminSidebarIcon = ({ CurrentUser }: Props) => {
 	})
 	const supportConversationListListData = supportConversationListList?.supportChat_getList?.result
 
-	// --------------------------------functions
-	// update last message data
 	useEffect(() => {
 		if (lastMessageSubscription) {
 			refetchQueries()
 		}
 	}, [lastMessageSubscription])
-	// unseen call 
 
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['supportChat_getList'])
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId'])
@@ -63,10 +56,8 @@ const AdminSidebarIcon = ({ CurrentUser }: Props) => {
 
 	return (
 		<>
-			{/* -------------------------------reports */}
 			<IconComponent
 				pathname="/admin/customer-list"
-				// unSeen={1}
 				hover={'Customer List'}
 				active={router?.pathname.includes('/admin/customer-list') ? true : false}
 				icon={
@@ -82,21 +73,7 @@ const AdminSidebarIcon = ({ CurrentUser }: Props) => {
 				}
 			/>
 
-			{/* <IconComponent
-				pathname="/admin/internal-chat"
-				// unSeen={1}
-				hover={'internal chat'}
-				active={router?.pathname.includes('/admin/internal-chat') ? true : false}
-				icon={
-					<InternalChatIcon
-						fill={
-							router?.pathname.includes('/admin/internal-chat')
-								? theme?.palette?.infuuse.porple200
-								: theme?.palette?.infuuse.gray500
-						}
-					/>
-				}
-			/> */}
+			
 
 			<IconComponent
 				pathname="/admin/support"
@@ -116,7 +93,6 @@ const AdminSidebarIcon = ({ CurrentUser }: Props) => {
 
 			<IconComponent
 				pathname="/admin/feedback"
-				// unSeen={1}
 				hover={'Feedbacks'}
 				active={router?.pathname.includes('/admin/feedback') ? true : false}
 				icon={
@@ -134,7 +110,6 @@ const AdminSidebarIcon = ({ CurrentUser }: Props) => {
 
 			<IconComponent
 				pathname="/admin/subscription"
-				// unSeen={}
 				hover={'Subscriptions'}
 				active={router?.pathname.includes('/admin/subscription') ? true : false}
 				icon={

@@ -9,7 +9,6 @@ const Step3 = lazy(() => import('./step3/step3'));
 const Step4 = lazy(() => import('./step4/step4'));
 
 const Signup = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const { signupStepCounter } = useAuth();

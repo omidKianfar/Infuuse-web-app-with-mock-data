@@ -19,11 +19,9 @@ interface Props {
 const AddGroup = ({ handleClose }: Props) => {
 	const theme = useTheme();
 
-	// -------------------------------states
 	const [choosenGroupUser, setChoosenGroupUser] = useState([]);
 
 
-	// -------------------------------form
 	const defaultValues = {
 		name: '',
 	};
@@ -160,7 +158,6 @@ const AddGroup = ({ handleClose }: Props) => {
 
 export default AddGroup;
 
-// -------------------------------schema
 const GroupSchema = Yup.object().shape({
 	name: Yup.string().required('Enter Your Group Name'),
 });

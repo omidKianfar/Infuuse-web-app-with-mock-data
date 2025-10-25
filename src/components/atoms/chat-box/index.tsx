@@ -12,35 +12,25 @@ import ConversationInternalChat from './conversation/internal-chat';
 import ConversationSupport from './conversation/support';
 
 const ChatBox = () => {
-	// --------------------------------tools
 	const router = useRouter();
 
-	// current conversation id
 	const ConversationId = router?.query?.conversationId;
 
-	// --------------------------------context
 	const { ConversationLastMessageData, lastMessageSubscription } = useContext(SubscriptionLayoutContext);
 
-	// --------------------------------states
-	// unread message
 	const [MessagesUnSeenIds, setMessagesUnSeenIds] = useState([]);
 
-	// --------------------------------function
 	useEffect(() => {
 		if (lastMessageSubscription) {
 			refetchQueries()
 		}
 	}, [lastMessageSubscription])
 
-	// --------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// seen message query
 	const { mutate: seenMessages } = useConversationMessage_SetSeenStatusMutation()
 
-	// get unseen message
 	const { data: conversationMessagesUnSeen } = useConversationMessage_GetByConversationIdQuery({
 		conversationId: Number(ConversationId),
 		skip: 0,
@@ -54,7 +44,6 @@ const ChatBox = () => {
 
 	const conversationMessageDataUnSeen = conversationMessagesUnSeen?.conversationMessage_getByConversationId?.result;
 
-	// --------------------------------functions
 	useEffect(() => {
 		if (conversationMessageDataUnSeen) {
 			conversationMessageDataUnSeen.items?.map((message) => {
@@ -63,7 +52,6 @@ const ChatBox = () => {
 		}
 	}, [conversationMessageDataUnSeen]);
 
-	// all message seen
 	useEffect(() => {
 		if (MessagesUnSeenIds) {
 			SeenMessageHandler()
@@ -90,7 +78,6 @@ const ChatBox = () => {
 
 	}
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['conversation_getList'])
 		await queryClient.invalidateQueries(['supportChat_getList'])
@@ -98,7 +85,6 @@ const ChatBox = () => {
 		await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
 	}
 
-	// accsess operator
 	const userCanSendMessage = CurrentUser?.isBusinessOwner ||
 		CurrentUser?.user?.userType === UserType?.AgencyMember ||
 		(CurrentUser?.user?.userType === UserType?.BusinessMember &&
@@ -106,10 +92,8 @@ const ChatBox = () => {
 
 	return (
 		<ChatPage>
-			{/* --------------------------------header section */}
 			{CurrentUser?.user?.userType === UserType?.Administrator || router?.pathname.includes('/internal-chat') ? null : <Header />}
 
-			{/* --------------------------------main section */}
 
 			{router?.pathname.includes('/call') ? (
 				<Conversation conversationChat={ConversationLastMessageData} userCanSendMessage={userCanSendMessage} />
@@ -121,7 +105,6 @@ const ChatBox = () => {
 				<Conversation conversationChat={ConversationLastMessageData} userCanSendMessage={userCanSendMessage} />
 			)}
 
-			{/* --------------------------------footer section */}
 			{router?.pathname.includes('/internal-chat') || router?.pathname.includes('/admin/support') ? <Footer lastMessageSubscription={lastMessageSubscription} /> : userCanSendMessage ? (<Footer lastMessageSubscription={lastMessageSubscription} />) : null}
 		</ChatPage>
 	);

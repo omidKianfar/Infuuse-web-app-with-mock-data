@@ -1,11 +1,8 @@
-// mocks/conversationMock.ts
 import { AccountStatus, ConversationMember, TypeContactNetwork, TypeSocialNetwork } from '@/graphql/generated';
 import dayjs from 'dayjs';
 
-// Mock user
 export const mockUserId = 1;
 
-// Mock conversation data
 export const mockConversations = [
   {
     id: 101,
@@ -67,7 +64,6 @@ export const mockConversations = [
   },
 ];
 
-// Mock network emails
 export const mockNetworkEmails = [
   { id: 701, value: 'john@example.com', typeContactNetwork: TypeContactNetwork.Email },
   { id: 702, value: 'jane@example.com', typeContactNetwork: TypeContactNetwork.Email },

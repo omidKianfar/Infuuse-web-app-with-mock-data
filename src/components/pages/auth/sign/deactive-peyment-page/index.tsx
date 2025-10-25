@@ -6,7 +6,6 @@ import AddSubscription from './add-subscription';
 import MainHeader from './main-header';
 
 const DeactivePayment = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [counter, setCounter] = useState(0);

@@ -5,14 +5,11 @@ import OwnerCustomerTable from './owner/owner-customer-table';
 import AgentCustomerTable from './agent/agent-customer-table';
 
 const CustomerList = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------states
 
 	const [value, setValue] = React.useState('1');
 
-	// -------------------------------functions
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue);
 	};
@@ -26,9 +23,7 @@ const CustomerList = () => {
 			<Tabs sx={{ width: '100%' }}>
 				<Box sx={{ width: '100%' }}>
 					<TabContext value={value}>
-						{/* ------------------------------- tabs container*/}
 						<Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-							{/* ------------------------------- tabs list*/}
 							<TabList
 								textColor={theme?.palette?.infuuse.blue200}
 								width={'100%'}
@@ -83,7 +78,6 @@ const CustomerList = () => {
 
 export default CustomerList;
 
-// -------------------------------tabs
 const tabs = [
 	{ title: 'Owners', value: '1' },
 	{ title: 'Agents', value: '2' },

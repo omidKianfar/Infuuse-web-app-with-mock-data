@@ -26,13 +26,11 @@ interface Props {
 }
 
 const EditNote = ({ handleClose, noteId }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const contactId = router?.query?.contactId;
 
-	// -------------------------------query
 
 	const { data: Notes } = useNote_GetListByContactIdQuery({
 		contactId: Number(contactId),
@@ -49,7 +47,6 @@ const EditNote = ({ handleClose, noteId }: Props) => {
 
 	const { mutate: editNote } = useNote_EditMutation();
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		note: NotesData?.items[0]?.content || '',
 	};
@@ -128,7 +125,6 @@ const EditNote = ({ handleClose, noteId }: Props) => {
 
 export default EditNote;
 
-// -------------------------------schema
 const noteSchema = Yup.object().shape({
 	note: Yup.string().required('Enter Your Note').min(2),
 });
@@ -141,15 +137,12 @@ export const CustomDescription = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

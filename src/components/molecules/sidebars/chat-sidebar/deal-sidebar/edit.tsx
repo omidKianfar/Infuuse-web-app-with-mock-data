@@ -26,16 +26,12 @@ interface DefaultValuesType {
 }
 
 const EditDealSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 	const contactId = router?.query?.contactId;
 
-	// -------------------------------state management
 	const { dealSidebar, dealId } = useSnapshot(chatStore);
 
-	// -------------------------------query
-	// deals
 	const { data: Deals } = useDeal_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -49,10 +45,8 @@ const EditDealSidebar = () => {
 
 	const DealsData = Deals?.deal_getListByContactId?.result;
 
-	// edit deal
 	const { mutate: editDeal } = useDeal_EditMutation();
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		name: DealsData?.items[0]?.title || '',
 		stage: DealsData?.items[0]?.dealStatus || '',
@@ -93,7 +87,6 @@ const EditDealSidebar = () => {
 		);
 	};
 
-	// -------------------------------functions
 
 	const ExitDealhandeler = () => {
 		chatStore.dealSidebar = false;
@@ -164,7 +157,6 @@ const EditDealSidebar = () => {
 
 export default EditDealSidebar;
 
-// -------------------------------schema
 const DealSchema = Yup.object().shape({
 	name: Yup.string().required('Enter Your Name'),
 	stage: Yup.string().required('Enter Your Stage'),

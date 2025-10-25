@@ -14,13 +14,11 @@ import { queryClient } from 'pages/_app';
 import { useRouter } from 'next/router';
 
 const TagSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const ContactId = router?.query?.contactId;
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
 	const [choosenTagId, setChoosenTagId] = useState<null | number>(null);
@@ -28,7 +26,6 @@ const TagSidebar = () => {
 
 	const { mutate: addContactTag } = useContactTagCategory_AddMutation();
 
-	// ------------------------------- modal
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -138,15 +135,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

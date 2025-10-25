@@ -10,7 +10,6 @@ interface Props {
 }
 
 const SendMessageCall = ({ message }: Props) => {
-	// -------------------------------tools
 	const router = useRouter();
 
 	return (

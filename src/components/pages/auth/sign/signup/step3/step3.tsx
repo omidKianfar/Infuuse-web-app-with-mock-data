@@ -9,7 +9,6 @@ import HeaderEnterprise from './enterprise/header';
 import BodyEnterprise from './enterprise/body';
 
 const Step3 = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -19,7 +18,6 @@ const Step3 = () => {
 
 			<Stack mt={'100px'}>
 				<Grid container xs={12}>
-					{/* ------------------------------------------Basic  */}
 					<Grid item xs={12} sm={12} md={12} lg={4} xl={4} p={isMobile ? 0 : '0 8px'}>
 						{' '}
 						<Stack

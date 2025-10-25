@@ -8,7 +8,6 @@ interface Props {
 }
 
 const SearchMenuBody = ({ setSearchMenu }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	return (
@@ -23,7 +22,6 @@ const SearchMenuBody = ({ setSearchMenu }: Props) => {
 			left={0}
 			bgcolor={theme?.palette?.common?.white}
 		>
-			{/* ------------------------------- close menu */}
 			<Stack direction={'row'} justifyContent={'end'} alignItems={'center'}>
 				<Stack onClick={() => setSearchMenu(false)} sx={{ cursor: 'pointer' }}>
 					<CloseIcon
@@ -36,7 +34,6 @@ const SearchMenuBody = ({ setSearchMenu }: Props) => {
 				</Stack>
 			</Stack>
 
-			{/* ------------------------------- search items (query) */}
 			<Stack>
 				<SearchItem direction={'row'}>
 					<Stack mr={2}>

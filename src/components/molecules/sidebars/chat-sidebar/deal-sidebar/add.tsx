@@ -19,19 +19,15 @@ interface DefaultValuesType {
 }
 
 const AddDealSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const contactId = router?.query?.contactId;
 
-	// -------------------------------state management
 	const { dealSidebar, dealId } = useSnapshot(chatStore);
 
-	// -------------------------------query
 	const { mutate: addDeal } = useDeal_AddMutation();
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		name: '',
 		stage: '',
@@ -72,7 +68,6 @@ const AddDealSidebar = () => {
 		);
 	};
 
-	// -------------------------------functions
 
 	const ExitDealhandeler = () => {
 		chatStore.dealSidebar = false;
@@ -82,7 +77,6 @@ const AddDealSidebar = () => {
 	return (
 		<Stack width={'360px'} height={'100%'} bgcolor={theme?.palette?.infuuse?.gray200} p={2} borderRadius={2}>
 			<Stack>
-				{/* -------------------------------header */}
 				<Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
 					<DealIcon />
 					<Box onClick={ExitDealhandeler} sx={{ cursor: 'pointer' }}>
@@ -143,7 +137,6 @@ const AddDealSidebar = () => {
 
 export default AddDealSidebar;
 
-// -------------------------------schema
 const DealSchema = Yup.object().shape({
 	name: Yup.string().required('Enter Your Name'),
 	stage: Yup.string().required('Enter Your Stage'),

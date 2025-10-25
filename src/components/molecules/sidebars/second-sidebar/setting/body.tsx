@@ -4,13 +4,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 const BodySettingSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const router = useRouter();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
@@ -19,7 +16,6 @@ const BodySettingSidebar = () => {
 			<>
 				{CurrentUser?.user?.userType === UserType?.Administrator ? (
 					<>
-						{/* -------------------------------profile */}
 						<Box onClick={() => router?.push('/admin/profile')} sx={{ cursor: 'pointer', mb: 2 }}>
 							<Typography
 								color={
@@ -34,7 +30,6 @@ const BodySettingSidebar = () => {
 							</Typography>
 						</Box>
 
-						{/* -------------------------------infuuse administrators */}
 						<Box
 							onClick={() => router?.push('/admin/infuuse-administrators')}
 							sx={{ cursor: 'pointer', mb: 2 }}

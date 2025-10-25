@@ -28,19 +28,16 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray200,
 			height: '25px',
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray200,
 			height: '25px',
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray200,

@@ -14,12 +14,10 @@ import { responseDestructure } from '@/utils';
 
 
 const AddSubscription = () => {
-	// -------------------------------states
 	const [numberOfUsers, setNumberOfUsers] = useState<string>('')
 	const [planType, setPlanType] = useState<PlanType | null>(null)
 
 
-	// -------------------------------query
 	const { data: calcPayment } = usePayment_CalculateSubscriptionQuery({
 		input: {
 			operatorCount: Number(numberOfUsers),
@@ -31,11 +29,9 @@ const AddSubscription = () => {
 
 	const { mutate: createPayment } = usePayment_CreateSubscriptionMutation()
 
-	// ---------------------------- direct page
 	const successPageUrl = `${window.location.origin}/subscriptions/success`
 	const failedPageUrl = `${window.location.origin}/subscriptions/failed?deactivePage=true`
 
-	// -------------------------------function 
 	const AddSubscription = () => {
 		if (numberOfUsers && planType) {
 			createPayment(
@@ -169,15 +165,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

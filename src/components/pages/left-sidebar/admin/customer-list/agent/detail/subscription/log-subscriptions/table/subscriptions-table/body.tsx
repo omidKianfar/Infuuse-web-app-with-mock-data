@@ -14,7 +14,6 @@ interface Props {
 const Body = ({ payment }: Props) => {
 	console.log('payment', payment);
 
-	// -------------------------------tools
 	const theme = useTheme();
 
 	return (

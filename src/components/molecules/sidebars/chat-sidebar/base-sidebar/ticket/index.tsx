@@ -38,18 +38,14 @@ import dayjs from 'dayjs';
 import ContactHaveNumberSearch from '@/components/atoms/search/cantact-have-number-search';
 
 const TicketSidebar = () => {
-	// ------------------------------- tools
 	const theme = useTheme();
 	const queryClient = useQueryClient();
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
-	// -------------------------------states
 	const [BusinessId, setBusinessId] = useState<number>(Number(CurrentUser?.businessAccesses[0]?.business?.id));
 	const [choosenContactId, setChoosenContactId] = useState<number | null>(null);
 	const [choosenContactName, setChoosenContactName] = useState<string | null>(null);
@@ -64,8 +60,6 @@ const TicketSidebar = () => {
 		value: null,
 	});
 
-	// -------------------------------query
-	// get businesses
 	const { data: businessRequests } = useBusiness_GetListAgencyRequestsQuery({
 		skip: 0,
 		take: 10000,
@@ -78,7 +72,6 @@ const TicketSidebar = () => {
 
 	const BusinessRequestsData = businessRequests?.business_getListAgencyRequests?.result;
 
-	// get team member data
 	const { data: TeamMembers } = useBusiness_GetTeamByBusinessIdQuery({
 		businessId: Number(BusinessId),
 		permissionType: null,
@@ -92,13 +85,11 @@ const TicketSidebar = () => {
 	});
 	const TeamMembersData = TeamMembers?.business_getTeamByBusinessId?.result;
 
-	// get Contact conversation
 	const { data: ContactConverastion } = useConversation_GetConversationByContactIdQuery({
 		contactId: Number(choosenContactId)
 	});
 	const ContactConverastionData = ContactConverastion?.conversation_getConversationByContactId?.result;
 
-	// contact networks
 	const Network = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(choosenContactId),
 		skip: 0,
@@ -120,12 +111,9 @@ const TicketSidebar = () => {
 	const { mutate: twilioLinkGenerate } = useTwilio_GenerateVideoRoomMutation();
 
 
-	// --------------------------------------states
 	const MyLocation = (location.origin);
 	const url = `${MyLocation}/video-call?code=${room}`;
 
-	// --------------------------------------function
-	// video url link generater
 	const linkGeneration = () => {
 		twilioLinkGenerate(
 			{},
@@ -142,7 +130,6 @@ const TicketSidebar = () => {
 		);
 	};
 
-	// -------------------------------form
 	const defaultValues = {
 		summery: '',
 		description: '',
@@ -160,7 +147,6 @@ const TicketSidebar = () => {
 
 	const onSubmit = (values: typeof defaultValues) => {
 		if (checkedSMS) {
-			// sms
 			if (choosenContactId) {
 				const TicketData = `Summery: ${values?.summery}\nDescription: ${values?.description}\nEstimate: ${values?.estimate}\nStart: ${values?.startDate}\nEnd: ${values?.endDate}\n${room ? url : ''}`
 
@@ -275,7 +261,6 @@ const TicketSidebar = () => {
 		}
 	};
 
-	// -------------------------------functions
 	const CheckSMSHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setCheckedSMS(event.target.checked);
 	};
@@ -490,7 +475,6 @@ const TicketSidebar = () => {
 
 export default TicketSidebar;
 
-// -------------------------------schema
 const TicketSchema = Yup.object().shape({
 	summery: Yup.string().required('Enter Your Summery'),
 	description: Yup.string().required('Enter Your Description'),
@@ -526,15 +510,12 @@ export const CustomDescription = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));
@@ -547,17 +528,14 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.common?.white,
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.common?.white,
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.common?.white,

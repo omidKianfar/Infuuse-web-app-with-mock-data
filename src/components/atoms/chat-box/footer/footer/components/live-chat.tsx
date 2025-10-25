@@ -31,7 +31,6 @@ const LiveChatComponent = ({ uploadedFile, setUploadedFile, editorOutput, setEdi
             {uploadedFile?.type === 'voice' ? (
                 <VoiceChat setUploadedFile={setUploadedFile} />
             ) : uploadedFile?.type === 'text' ? (
-                // -------------------------------text
 
                 <SlateEditor
                     editorOutput={editorOutput}

@@ -18,14 +18,11 @@ const BusinessEmailSearch = ({
 	choosenBusinessEmail,
 	setChoosenBusinessEmail,
 }: props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	const [searchData, setSearchData] = useState<string>('');
 	const [SearchMenu, setSearchMenu] = useState<boolean>(false);
 
-	// -------------------------------search query
-	// all businesses
 	const { data: Businesses } = useBusiness_GetListQuery({
 		skip: 0,
 		take: 10000,
@@ -179,9 +176,7 @@ export const Label = styled(Typography)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
-
-	// },
+	
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -190,15 +185,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

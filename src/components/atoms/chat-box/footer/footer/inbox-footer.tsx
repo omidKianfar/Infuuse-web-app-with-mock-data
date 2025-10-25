@@ -38,7 +38,6 @@ const FooterInbox = ({ lastMessageSubscription }: Props) => {
 	const ConversationId = router?.query?.conversationId;
 	const ContactId = router?.query?.contactId;
 
-	// -------------------------------state
 	const [editorOutput, setEditorOutput] = useState<string>('');
 	const [EmailTitle, setEmailTitle] = useState<string>('');
 	const [SMSeditorOutput, setSMSEditorOutput] = useState<string>('');
@@ -61,14 +60,12 @@ const FooterInbox = ({ lastMessageSubscription }: Props) => {
 		type: 'text',
 	});
 
-	// -------------------------------state management
 	const { mediaBlob } = useSnapshot(RecorderStore);
 
 	const { reset } = useSnapshot(resetStore);
 	const { netWorkType } = useSnapshot(chatBoxTypeNetworkStore);
 	const { replyId, replyMessage } = useSnapshot(replyStore);
 
-	// ------------------------------functions
 	useEffect(() => {
 		if (choosenTemplateContent) {
 			setUploadedFile({ photoUrl: '', videoUrl: '', fileUrl: '', voiceUrl: '', type: 'text' });
@@ -77,15 +74,12 @@ const FooterInbox = ({ lastMessageSubscription }: Props) => {
 		}
 	}, [choosenTemplateContent]);
 
-	// -------------------------------query
 	const { mutate: MemberSendMessage, isLoading: SendMessageMemberLoading } =
 		useLiveChat_SendMessageByMemberMutation();
 	const { mutate: sendSMS, isLoading: SendSMSLoading } = useTwilio_SendSmsMutation();
 	const { mutate: sendGmailMessage, isLoading: sendGmailLoading } =
 		useConversationMessage_SendMessageToGmailMutation();
 
-	// -------------------------------functions
-	// send
 	const sendHandler = () => {
 		if (!Boolean(SendVia?.id)) {
 			enqueueSnackbar('Please select the `Send Via` field', { variant: 'error' });
@@ -273,8 +267,6 @@ const FooterInbox = ({ lastMessageSubscription }: Props) => {
 		}
 	};
 
-	// -----------------------------------------query
-	// contact networks
 	const Network = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(ContactId),
 		skip: 0,
@@ -291,15 +283,12 @@ const FooterInbox = ({ lastMessageSubscription }: Props) => {
 
 	const NetworkData = Network?.data?.contactNetwork_getListByContactId?.result;
 
-	// -----------------------------------------functions
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId']);
 		await queryClient.invalidateQueries(['conversation_getList']);
 		await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
 	};
 
-	// reset fields
 	const resetFields = () => {
 		setEditorOutput('');
 		setSMSEditorOutput('');
@@ -317,7 +306,6 @@ const FooterInbox = ({ lastMessageSubscription }: Props) => {
 		setShowMenu(false);
 	};
 
-	// press enter
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (
@@ -527,17 +515,14 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,

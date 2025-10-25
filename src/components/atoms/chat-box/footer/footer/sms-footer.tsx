@@ -32,8 +32,6 @@ const SMSFooter = ({ lastMessageSubscription }: Props) => {
 
 	const { netWorkType } = useSnapshot(chatBoxTypeNetworkStore);
 
-	// -------------------------------------query
-	// contact networks
 	const Network = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(ContactId),
 		skip: 0,
@@ -50,7 +48,6 @@ const SMSFooter = ({ lastMessageSubscription }: Props) => {
 
 	const NetworkData = Network?.data?.contactNetwork_getListByContactId?.result;
 
-	// -------------------------------state
 	const [editorOutput, setEditorOutput] = useState<string>('');
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [SendVia, setSendVia] = useState({
@@ -70,16 +67,12 @@ const SMSFooter = ({ lastMessageSubscription }: Props) => {
 		type: 'text',
 	});
 
-	// -------------------------------state management
 	const { mediaBlob } = useSnapshot(RecorderStore);
 
 	const { reset } = useSnapshot(resetStore);
 
-	// -------------------------------query
 	const { mutate: sendSMS, isLoading: SendSMSLoading } = useTwilio_SendSmsMutation();
 
-	// -------------------------------functions
-	// send
 	const sendHandler = () => {
 		if (!Boolean(SendVia?.id)) {
 			enqueueSnackbar('Please select the `Send Via` field', { variant: 'error' });
@@ -148,14 +141,12 @@ const SMSFooter = ({ lastMessageSubscription }: Props) => {
 		}
 	};
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId']);
 		await queryClient.invalidateQueries(['conversation_getList']);
 		await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
 	};
 
-	// reset fields
 	const resetFields = () => {
 		setEditorOutput('');
 		setUploadedFile({
@@ -171,12 +162,11 @@ const SMSFooter = ({ lastMessageSubscription }: Props) => {
 		setShowMenu(false);
 	};
 
-	// press enter
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Enter' && !event.ctrlKey && !SendSMSLoading) {
-				event.preventDefault(); // Prevent the default "Enter" key behavior
-				sendHandler(); // Call the sendHandler function
+				event.preventDefault();
+				sendHandler();
 			}
 		};
 
@@ -185,7 +175,7 @@ const SMSFooter = ({ lastMessageSubscription }: Props) => {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 		};
-	}, [editorOutput, uploadedFile, SendVia]); // Dependencies ensure the latest state is used
+	}, [editorOutput, uploadedFile, SendVia]);
 
 	return (
 		<Stack position={'absolute'} left={'1%'} bottom={'8px'} width={'98%'}>
@@ -293,17 +283,14 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray100,

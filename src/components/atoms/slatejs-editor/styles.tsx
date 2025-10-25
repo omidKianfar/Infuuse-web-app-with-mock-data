@@ -1,7 +1,6 @@
 import { Box, styled, TextField } from '@mui/material';
 import { Editable } from 'slate-react';
 
-// button style
 export const CustomButton = styled(Box)(({ theme, active }) => ({
 	cursor: 'pointer',
 	display: 'flex',
@@ -11,7 +10,6 @@ export const CustomButton = styled(Box)(({ theme, active }) => ({
 	marginRight: '8px',
 }));
 
-// editable style
 export const CustomEditable = styled(Editable)(({ theme }) => ({
 	background: theme?.palette?.infuuse?.gray200,
 	color: '#000',
@@ -26,7 +24,6 @@ export const CustomEditable = styled(Editable)(({ theme }) => ({
 	borderRadius: '0 0 8px 8px',
 }));
 
-// text fileld style
 export const CustomTextField = styled(TextField)(({ theme }) => ({
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -35,15 +32,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		marginRight: '8px',
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

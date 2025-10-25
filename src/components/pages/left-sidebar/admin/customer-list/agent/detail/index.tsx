@@ -7,7 +7,6 @@ import Header from './header';
 import { useAgency_GetDetailsByAdminQuery } from '@/graphql/generated';
 
 const AgencyCustomerListDetail = () => {
-	// -------------------------------tools
 	const router = useRouter();
 
 	const [searchData, setSearchData] = useState('');

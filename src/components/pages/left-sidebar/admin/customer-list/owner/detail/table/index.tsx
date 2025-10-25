@@ -29,7 +29,6 @@ const CustomerTableDetail = ({ businessDetailData }: Props) => {
 				>
 					<TableBody>
 						<>
-							{/* -------------------------------------row */}
 
 							{businessDetailData?.business?.businessMembers?.map((member) => (
 								<Body member={member} />
@@ -44,7 +43,6 @@ const CustomerTableDetail = ({ businessDetailData }: Props) => {
 
 export default CustomerTableDetail;
 
-// ------------------------------------- table header
 const AdminListItems = [
 	{ id: 'Name', name: 'Name' },
 	{ id: 'Email', name: 'Email' },

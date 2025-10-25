@@ -8,7 +8,6 @@ import React, { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 const InstagramSidebar = () => {
-	// -------------------------------query
 
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
@@ -38,7 +37,6 @@ const InstagramSidebar = () => {
 		},
 	};
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {
@@ -72,7 +70,6 @@ const InstagramSidebar = () => {
 
 export default InstagramSidebar;
 
-//  -------------------------------style
 export const InstagramSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

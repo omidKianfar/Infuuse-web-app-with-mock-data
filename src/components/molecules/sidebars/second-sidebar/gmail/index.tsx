@@ -7,7 +7,6 @@ import React, { useEffect } from 'react';
 import { useSnapshot } from 'valtio';
 
 const GmailSidebar = () => {
-	// -------------------------------query
 
 	const { conversationIds } = useSnapshot(userSubscriptionStore);
 
@@ -39,7 +38,6 @@ const GmailSidebar = () => {
 		},
 	};
 
-	// get agency conversations
 	const { data: Conversation } = useConversation_GetListQuery(variables);
 
 	useEffect(() => {
@@ -72,7 +70,6 @@ const GmailSidebar = () => {
 
 export default GmailSidebar;
 
-//  -------------------------------style
 export const GmailSidebarContainer = styled(Stack)({
 	width: '100%',
 	height: '100%',

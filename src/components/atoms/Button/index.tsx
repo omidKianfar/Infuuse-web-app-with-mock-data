@@ -3,7 +3,6 @@ import { MouseEventHandler, ReactNode, useState } from 'react';
 import LoadingProgress from '../ProgressBar/CircularProgress';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-// ------------------------------- Props
 interface ButtonPropsCustom {
 	onClick?: MouseEventHandler<HTMLButtonElement>;
 	children?: ReactNode;
@@ -21,7 +20,6 @@ interface CustomNextButtonProps extends ButtonProps {
 	loading?: boolean;
 }
 
-// ------------------------------- NextButton
 export const NextButton = ({
 	onClick,
 	children,
@@ -52,7 +50,6 @@ export const NextButton = ({
 	);
 };
 
-// ------------------------------- SplitButton
 export const SplitButton = ({ text, icon, children, sx, disabled = false }: ButtonPropsCustom) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
@@ -90,7 +87,6 @@ export const SplitButton = ({ text, icon, children, sx, disabled = false }: Butt
 	);
 };
 
-// ------------------------------- CustomNextButton
 
 const CustomNextButton = styled(Button)<CustomNextButtonProps>(({ theme }) => ({
 	height: '48px',
@@ -111,7 +107,6 @@ const CustomNextButton = styled(Button)<CustomNextButtonProps>(({ theme }) => ({
 	},
 }));
 
-// ------------------------------- StyledMenu
 const StyledMenu = styled((props: MenuProps) => (
 	<Menu
 		elevation={0}

@@ -24,10 +24,8 @@ const AddSubscriptionBusiness = () => {
 
 	const BusinessId = router?.query?.businessId
 
-	// -------------------------------query
 	const { mutate: createPayment } = usePayment_CreateCustomPackageMutation()
 
-	// -------------------------------form
 	const defaultValues: DefaultValuesType = {
 		numberOfUsers: '',
 		planType: '',
@@ -145,7 +143,6 @@ const PaymentData = [
 	{ name: 'Life Time', value: PackageDuration?.LifeTime },
 ];
 
-// -------------------------------schema
 const adminSubscriptionSchema = Yup.object().shape({
 	price: Yup.string().required('Enter Your Price'),
 	numberOfUsers: Yup.string().required('Enter Your Number Of Users'),

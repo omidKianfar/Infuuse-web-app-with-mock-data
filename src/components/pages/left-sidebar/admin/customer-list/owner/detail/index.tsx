@@ -7,7 +7,6 @@ import Header from './header';
 import { useBusiness_GetDetailsByAdminQuery } from '@/graphql/generated';
 
 const OwnerCustomerListDetail = () => {
-	// -------------------------------tools
 	const router = useRouter();
 
 	const [searchData, setSearchData] = useState('');

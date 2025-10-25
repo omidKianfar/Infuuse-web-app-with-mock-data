@@ -27,13 +27,10 @@ interface Props {
 const SearchMenuBody = ({ setSearchMenu, choosenGroupUser, setChoosenGroupUser, setSearchData }: Props) => {
 	const theme = useTheme();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
 
-	// business member team query
 	const { data: BusinessMembersTeam } = useBusiness_GetTeamByBusinessIdQuery({
 		businessId: Number(CurrentUser?.businessAccesses[0]?.business?.id),
 		skip: 0,
@@ -47,7 +44,6 @@ const SearchMenuBody = ({ setSearchMenu, choosenGroupUser, setChoosenGroupUser, 
 	const BusinessMemberTeamList = BusinessMembersTeam?.business_getTeamByBusinessId?.result;
 
 
-	// user business choose
 	const choosenUserBusinessHandler = (user: BusinessMember) => {
 		if (!choosenGroupUser.includes(user)) {
 			setChoosenGroupUser([...choosenGroupUser, user]);

@@ -18,7 +18,6 @@ import Dilar from './dilar';
 import twilioCallTokenStore from '@/store/twilio-call-token.store';
 
 const PhoneSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
@@ -29,24 +28,19 @@ const PhoneSidebar = () => {
 	console.log(businessInfo);
 
 
-	//  -------------------------------state managment
 	const { twilioBusinessId } = useSnapshot(callBusinessStore);
 
-	// -------------------------------state
 	const [dilar, setDilar] = useState<boolean>(false);
 	const [callItem, setCallItem] = useState<boolean>(false);
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// -------------------------------query
 	const { data: CurrentBusiness } = useBusiness_GetByBusinessIdQuery({
 		businessId: Number(BusinessId),
 	});
 
 	const businessNumber = CurrentBusiness?.business_getByBusinessId?.result?.twilioPhoneNumber?.phoneNumber;
 
-	// network phone Number
 	const NetworkPhoneNumber = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(ContactId),
 		skip: 0,
@@ -60,12 +54,10 @@ const PhoneSidebar = () => {
 
 	const NetworkPhoneNumberData = NetworkPhoneNumber?.data?.contactNetwork_getListByContactId?.result;
 
-	// -------------------------------func
 	useEffect(() => {
 		callBusinessStore.twilioBusinessId = Number(BusinessId);
 	}, [twilioBusinessId]);
 
-	// -------------------------------form
 	const defaultValues = {
 		phone: '',
 	};
@@ -79,7 +71,6 @@ const PhoneSidebar = () => {
 
 	const onSubmit = (values: typeof defaultValues) => { };
 
-	// call
 	const callHndler = () => {
 		if (businessNumber && getValues('phone')) {
 			handleDial(businessNumber as string, getValues('phone'));
@@ -87,7 +78,6 @@ const PhoneSidebar = () => {
 	};
 
 	const endCallHandler = () => {
-		// disconnectCall();
 		setCallItem(false);
 	};
 
@@ -208,8 +198,6 @@ const PhoneSidebar = () => {
 							>
 								<DilarButton
 									boxShadow={2}
-									// onMouseOver={() => setCallItem(true)}
-									// onMouseLeave={() => setCallItem(false)}
 									onClick={endCallHandler}
 									sx={{
 										background: theme?.palette?.infuuse.red300,
@@ -228,7 +216,6 @@ const PhoneSidebar = () => {
 
 export default PhoneSidebar;
 
-// -------------------------------schema
 const PhoneSchema = Yup.object().shape({
 	phone: Yup.string().required('Enter Your Phone'),
 });
@@ -264,9 +251,7 @@ export const DilarButton = styled(Box)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
 
-	// },
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -275,15 +260,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

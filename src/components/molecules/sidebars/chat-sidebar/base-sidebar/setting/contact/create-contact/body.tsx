@@ -13,23 +13,18 @@ import {
 import { useRouter } from 'next/router';
 
 const BodyCreateContact = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const contactId = router?.query?.contactId;
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// ------------------------------- query
-	// contact detail for deal status
 	const { data: CurrentContact } = useContact_GetByContactIdQuery({
 		contactId: Number(contactId),
 	});
 	const CurrentContactData = CurrentContact?.contact_getByContactId?.result;
 
-	// network emails
 	const NetworkEmails = useContactNetwork_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,

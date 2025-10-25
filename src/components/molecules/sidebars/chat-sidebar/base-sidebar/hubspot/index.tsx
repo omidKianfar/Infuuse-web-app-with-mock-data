@@ -11,18 +11,15 @@ import { queryClient } from 'pages/_app';
 import SyncIcon from '@mui/icons-material/Sync';
 
 const HubspotSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const ContactId = router?.query?.contactId
 	const BusinessId = router?.query?.businessId
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
 
-	// -------------------------------query
 	const { data: Contact } = useContact_GetByContactIdQuery({
 		contactId: Number(ContactId)
 	})
@@ -31,7 +28,6 @@ const HubspotSidebar = () => {
 
 	const { mutate: SyncContactHubSpot } = useHubSpot_SyncSingleContactWithHubSpotMutation()
 
-	// ------------------------------------------functions
 	const hubspotSync = () => {
 		SyncContactHubSpot(
 			{

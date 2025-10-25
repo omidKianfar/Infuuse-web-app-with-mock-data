@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Message = ({ message }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	return (

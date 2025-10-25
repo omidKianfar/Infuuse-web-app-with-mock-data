@@ -13,7 +13,6 @@ import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-
 import { UserType } from '@/providers/Auth/without-graphql/type';
 
 const Step1 = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 	const { userType } = useSnapshot(userTypeStore);

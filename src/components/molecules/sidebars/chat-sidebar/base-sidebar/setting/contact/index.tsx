@@ -3,7 +3,6 @@ import React from 'react';
 import HeaderContactInfo from './contact-info';
 
 const ContactInfo = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	return (

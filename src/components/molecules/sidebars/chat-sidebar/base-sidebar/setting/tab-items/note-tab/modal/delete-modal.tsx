@@ -21,13 +21,11 @@ interface Props {
 }
 
 const DeleteModal = ({ noteId, handleClose }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const contactId = router?.query?.contactId;
 
-	// -------------------------------query
 	const { data: Notes } = useNote_GetListByContactIdQuery({
 		contactId: Number(contactId),
 		skip: 0,
@@ -41,10 +39,8 @@ const DeleteModal = ({ noteId, handleClose }: Props) => {
 
 	const NotesData = Notes?.note_getListByContactId?.result;
 
-	// delete note
 	const { mutate: deleteNote } = useNote_DeleteMutation();
 
-	// cancel
 	const DeleteHhandler = () => {
 		deleteNote(
 			{

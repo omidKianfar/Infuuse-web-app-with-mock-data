@@ -12,12 +12,9 @@ import { queryClient } from 'pages/_app';
 import { SubscriptionLayoutContext } from '@/providers/socialMessageProvider';
 
 const FirstSidebar = () => {
-	// -------------------------------tools
 	const router = useRouter();
 	const theme = useTheme();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 

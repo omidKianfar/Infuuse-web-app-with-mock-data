@@ -9,17 +9,13 @@ interface Props {
 }
 
 const Dilar = ({ businessNumber }: Props) => {
-	//  -------------------------------tools
 	const theme = useTheme();
 
 	const { handleDial, activeConnection, handleDisconnect } = useTwilio();
 
-	//  -------------------------------states
 	const [PhoneNumber, setPhoneNumber] = useState<string>('');
 	const [callItem, setCallItem] = useState<boolean>(false);
 
-	//  -------------------------------functions
-	// add number to input
 	const handleClickNumber = (index: number) => {
 		if (PhoneNumber.length >= 13) return;
 
@@ -31,14 +27,12 @@ const Dilar = ({ businessNumber }: Props) => {
 		setPhoneNumber((prevState) => prevState + index);
 	};
 
-	// remove number
 	const handleRemoveEndNumber = () => {
 		setPhoneNumber((prevState) => prevState.slice(0, prevState.length - 1));
 	};
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	// call
 	const callHndler = () => {
 		if (businessNumber && PhoneNumber) {
 			handleDial(businessNumber as string, PhoneNumber);
@@ -190,8 +184,6 @@ const Dilar = ({ businessNumber }: Props) => {
 						<Stack direction={'row'} justifyContent={'center'} alignItems={'center'} mt={2}>
 							<DilarButton
 								boxShadow={2}
-								// onMouseOver={() => setCallItem(true)}
-								// onMouseLeave={() => setCallItem(false)}
 								onClick={endCallHandler}
 								sx={{
 									background: theme?.palette?.infuuse.red300,

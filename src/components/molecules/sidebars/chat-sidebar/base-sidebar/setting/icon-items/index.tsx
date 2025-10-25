@@ -9,16 +9,13 @@ import { useContact_GetByContactIdQuery, useUser_GetCurrentUserQuery } from '@/g
 import { useRouter } from 'next/router';
 
 const IconItems = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const ContactId = router?.query?.contactId
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
@@ -37,7 +34,6 @@ const IconItems = () => {
 
 	return (
 		<Stack direction={'row'} justifyContent={'space-around'} alignItems={'center'} mb={1}>
-			{/* -------------------------------tag */}
 			<Tooltip title="Tag">
 				<IconBox
 					onClick={() =>

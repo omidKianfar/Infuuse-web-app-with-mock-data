@@ -125,7 +125,6 @@ const Login = () => {
 
 export default Login;
 
-// -------------------------------schema
 const SigninSchema = Yup.object().shape({
 	email: Yup.string().email().required('Enter Your Email').trim(),
 	password: Yup.string().required('Enter Your Password').trim(),

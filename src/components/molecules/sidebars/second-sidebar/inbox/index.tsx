@@ -14,23 +14,18 @@ const InboxSidebar = () => {
 	const theme = useTheme();
 	const router = useRouter();
 
-	// -------------------------------states
 	const [value, setValue] = useState(router?.pathname?.includes('/assign-chats') ? 2 : 1);
 
 	const [notifIds, setNotifIds] = React.useState(null);
 
-	// -------------------------------functions
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 	const userId = User?.user_getCurrentUser?.result?.user?.id;
 
-	// -------------------------------query options
 	const queryOptions = {
 		skip: 0,
 		take: 10000,
@@ -58,17 +53,13 @@ const InboxSidebar = () => {
 		},
 	};
 
-	// -------------------------------query key
 	const queryKey = ['notification_getList', queryOptions];
 
-	// -------------------------------query
-	// notifications
 	const { data: notification } = useNotification_GetListQuery(queryOptions);
 	const NotificationData = notification?.notification_getList?.result;
 
 	const { mutate: ReadNotifications } = useNotification_SetReadStatusMutation();
 
-	// ------------------------------notification subscription
 	React.useEffect(() => {
 		if (typeof userId !== 'number') return;
 		const unSubscribe = subscribe(NotificationDocument, { userId }, subscriptionUnSendMessageListener);
@@ -92,8 +83,6 @@ const InboxSidebar = () => {
 	}
 
 
-	// ------------------------------ functions
-	// get un read notifications ids
 	React.useEffect(() => {
 		const ids = [];
 		if (notification) {
@@ -102,7 +91,6 @@ const InboxSidebar = () => {
 		setNotifIds(ids);
 	}, [notification]);
 
-	// read notifications
 	const notificationsRead = () => {
 		if (NotificationData?.items?.length > 0) {
 			ReadNotifications(
@@ -114,7 +102,6 @@ const InboxSidebar = () => {
 						const { status } = responseDestructure(data);
 						if (status.code == 1) {
 							setNotifIds(null)
-							// queryClient.invalidateQueries(queryKey);
 							queryClient.invalidateQueries(['notification_getList'])
 						} else {
 							enqueueSnackbar(status.description, { variant: 'error' });

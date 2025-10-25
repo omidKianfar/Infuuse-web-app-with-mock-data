@@ -1,4 +1,3 @@
-//  --------------------------- types
 export const HOTKEYS = {
 	'mod+b': 'bold',
 	'mod+i': 'italic',
@@ -10,7 +9,6 @@ export const LIST_TYPES = ['numberedList', 'bulletedList'];
 
 export const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 
-// color items
 export const ColorItems = [
 	{ name: 'White', value: '#fff' },
 	{ name: 'Black', value: '#000' },
@@ -24,7 +22,6 @@ export const ColorItems = [
 	{ name: 'Purple', value: '#800080' },
 ];
 
-// font items
 export const fontFamilyOptions = [
 	{ name: 'Arial', value: 'Arial, sans-serif' },
 	{ name: 'Georgia', value: 'Georgia, serif' },

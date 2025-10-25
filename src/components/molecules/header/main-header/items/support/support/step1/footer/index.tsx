@@ -116,14 +116,12 @@ const Footer = () => {
 		}
 	};
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['supportChat_getList'])
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId'])
 		await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
 	}
 
-	// reset fields
 	const resetFields = () => {
 		setValue('');
 		setUploadedFile({
@@ -138,7 +136,6 @@ const Footer = () => {
 		setShowMenu(false);
 	}
 
-	// press enter
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Enter' && !event.ctrlKey && !sendSupportLoading) {
@@ -239,19 +236,16 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
 
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray400,
 			height: '40px',
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray400,
 			height: '40px',
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray400,

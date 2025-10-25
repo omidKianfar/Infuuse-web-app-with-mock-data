@@ -7,7 +7,6 @@ import { NextButton } from '@/components/atoms/Button';
 import { useRouter } from 'next/router';
 
 const Step4 = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 

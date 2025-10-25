@@ -14,15 +14,12 @@ const CustomeDateTimePicker = styled(DateTimePicker)<{ light?: boolean; height?:
 
 			'& .MuiInputBase-input': {
 				color: theme?.palette?.infuuse.blueLight400,
-				// borderRadius: "16px",
 			},
 			'& fieldset': {
 				borderColor: theme?.palette?.infuuse.blue100,
-				// borderRadius: "16px",
 			},
 			'&.Mui-focused fieldset': {
 				borderColor: theme?.palette?.infuuse.blue100,
-				// borderRadius: "16px",
 			},
 		},
 	}));

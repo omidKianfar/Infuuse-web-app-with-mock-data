@@ -21,15 +21,11 @@ interface Props {
 }
 
 const UserSidebarIcon = ({ CurrentUser }: Props) => {
-	// -------------------------------tools
 	const router = useRouter();
 	const theme = useTheme();
 
-	// --------------------------------context
 	const { lastMessageSubscription } = useContext(SubscriptionLayoutContext);
 
-	// -------------------------------query
-	// list of conversations have unseen  message
 
 	const variables = {
 		take: 10000,
@@ -39,22 +35,18 @@ const UserSidebarIcon = ({ CurrentUser }: Props) => {
 	const { data: UnSeenConversationsMessages } = useConversation_GetUnseenMessagesByTypeQuery(variables);
 	const UnSeenConversationsMessagesData = UnSeenConversationsMessages?.conversation_getUnseenMessagesByType?.result;
 
-	// --------------------------------functions
-	// update last message data
 	useEffect(() => {
 		if (lastMessageSubscription) {
 			refetchQueries()
 		}
 	}, [lastMessageSubscription])
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['conversation_getList'])
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId'])
 		await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
 	}
 
-	// unseen inbox
 	const unSeenInboxMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork !== TypeSocialNetwork?.InternalChat &&
 		unseenMessages?.typeSocialNetwork !== TypeSocialNetwork?.SupportChat &&
@@ -67,39 +59,33 @@ const UserSidebarIcon = ({ CurrentUser }: Props) => {
 
 
 
-	// unseen call 
 	const unSeenCallMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.TwilioVoiceCall
 	)?.map((unseenMessages) =>
 		unseenMessages?.countUnseenMessages
 	)
 
-	// unseen facebook
 	const unSeenFacbookMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.Facebook
 	)?.map((unseenMessages) =>
 		unseenMessages?.countUnseenMessages
 	)
 
-	// unseen instagram 
 	const unSeenInstagramMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.Instagram
 	)?.map((unseenMessages) => unseenMessages?.countUnseenMessages
 	)
 
-	// unseen whatsapp
 	const unSeenWhatsappMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.WhatsApp
 	)?.map((unseenMessages) => unseenMessages?.countUnseenMessages
 	)
 
-	// unseen gmail
 	const unSeenGmailMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.Email
 	)?.map((unseenMessages) => unseenMessages?.countUnseenMessages
 	)
 
-	// unseen sms and mms
 	const unSeenSMSMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.Sms ||
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.Mms
@@ -107,7 +93,6 @@ const UserSidebarIcon = ({ CurrentUser }: Props) => {
 		unseenMessages?.countUnseenMessages
 	)?.reduce((a, b) => a += b, 0)
 
-	// unseen live chat 
 	const unSeenLiveChatMessage = UnSeenConversationsMessagesData?.items?.filter((unseenMessages) =>
 		unseenMessages?.typeSocialNetwork === TypeSocialNetwork?.LiveChat
 	)?.map((unseenMessages) =>
@@ -292,10 +277,8 @@ const UserSidebarIcon = ({ CurrentUser }: Props) => {
 					}
 				/>
 
-				{/* -------------------------------video call */}
 				<IconComponent
 					pathname="/video-call/history"
-					// unSeen={}
 					hover={'Video Call'}
 					active={router?.pathname.includes('/video-call/history') ? true : false}
 					icon={

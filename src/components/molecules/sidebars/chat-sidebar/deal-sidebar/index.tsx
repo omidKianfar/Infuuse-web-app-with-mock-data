@@ -4,7 +4,6 @@ import AddDealSidebar from './add';
 import EditDealSidebar from './edit';
 
 const DealSidebar = () => {
-	// -------------------------------state management
 	const { dealId } = useSnapshot(chatStore);
 
 	console.log('dealId', dealId);

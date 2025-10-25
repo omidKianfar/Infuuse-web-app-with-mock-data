@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
 const BodyBasic = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));

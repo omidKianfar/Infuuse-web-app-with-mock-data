@@ -13,17 +13,13 @@ interface Props {
 }
 
 const AddExistContactModal = ({ handleClose, choosenContactId }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const ContactId = router?.query?.contactId;
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// -------------------------------query
-	// add to exist contact mutation
 	const { mutate: mergContact } = useContact_MergeContactMutation();
 
 	const ActiveHandler = () => {

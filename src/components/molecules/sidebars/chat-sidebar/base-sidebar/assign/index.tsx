@@ -11,25 +11,20 @@ import { enqueueSnackbar } from 'notistack';
 import { responseDestructure } from '@/utils';
 
 const AssignSidebar = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const BusinessId = router?.query?.businessId
 	const ConversationId = router?.query?.conversationId
 
-	// -------------------------------context
 	const { sidebars, setSidebars } = useContext(BaseSidebarContext);
 
-	// -------------------------------query
 	const { mutate: assignUsers } = useConversationMember_AddListMutation()
 
-	// -------------------------------states
 	const [choosenAssignUserId, setChoosenAssignUserId] = useState<number | null>(null);
 	const [choosenAssignUserName, setChoosenAssignUserName] = useState<string | null>(null);
 
 
-	// -------------------------------functions
 	const assignMemberHandler = () => {
 		assignUsers(
 			{
@@ -116,9 +111,7 @@ export const Label = styled(Typography)(({ theme }) => ({
 }));
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
-	// ["@media (max-width:600px)"]: {
 
-	// },
 
 	'& .MuiOutlinedInput-root': {
 		backgroundColor: theme?.palette?.common?.white,
@@ -127,15 +120,12 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.infuuse.blueLight400,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			borderColor: theme?.palette?.infuuse.blue100,
-			// borderRadius: "16px",
 		},
 	},
 }));

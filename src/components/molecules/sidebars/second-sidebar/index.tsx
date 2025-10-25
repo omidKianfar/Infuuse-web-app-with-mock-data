@@ -19,66 +19,48 @@ import CallNow from './call-now';
 import VideoCallSidebar from './video-call';
 
 const SecondSidebar = () => {
-	// tools
 	const router = useRouter();
 
-	// -------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUser = User?.user_getCurrentUser?.result;
 
 	return (
 		<CustomSidebarLayout direction={'column'} justifyContent={'start'} alignItems={'center'} position={'relative'}>
-			{/* ------------------------------admin sidebar */}
 			<Sidebar>
 				<Stack mb={4}>
 					<Image src={'/images/infuuse-logo.svg'} style={{ width: '120px' }} />
 				</Stack>
 
-				{/* -------------------------------sidebars */}
 				{CurrentUser?.user?.userType === UserType?.Administrator ? (
 					<Stack>
 						{router?.pathname.includes('/admin/internal-chat') ? (
-							//  -------------------------------internal chat
 							<AdminInternalChatSidebar />
 						) : router?.pathname.includes('/admin/support') ? (
-							//  -------------------------------support
 							<AdminSupportSidebar />
 						) : null}
 					</Stack>
 				) : (
 					<Stack>
-						{/* ------------------------------user sidebar */}
 
 						{router?.pathname.includes('/inbox') ? (
-							//  -------------------------------inbox
 							<InboxSidebar />
 						) : router?.pathname.includes('/call') ? (
-							//  -------------------------------call
 							<CallSidebar />
 						) : router?.pathname.includes('/facebook') ? (
-							//  -------------------------------facebook
 							<FacebookSidebar />
 						) : router?.pathname.includes('/instagram') ? (
-							//  -------------------------------instagram
 							<InstagramSidebar />
 						) : router?.pathname.includes('/whatsapp') ? (
-							//  -------------------------------whatsapp
 							<WhatsappSidebar />
 						) : router?.pathname.includes('/gmail') ? (
-							//  -------------------------------gmail
 							<GmailSidebar />
 						) : router?.pathname.includes('/message') ? (
-							//  -------------------------------message
 							<MessageSidebar />
 						) : router?.pathname.includes('/live-chat') ? (
-							//  -------------------------------live chat
 							<LiveChatSidebar />
 						) : router?.pathname.includes('/internal-chat') ? (
-							//  -------------------------------live chat
 							<InternalChatSidebar />
 						) : router?.pathname.includes('/video-call/history') ? (
-							//  -------------------------------live chat
 							<VideoCallSidebar />
 						) : null}
 					</Stack>

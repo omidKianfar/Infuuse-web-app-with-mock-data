@@ -31,7 +31,6 @@ const GmailFooter = ({ lastMessageSubscription, Networks }: Props) => {
 
 	const ConversationId = router?.query?.conversationId;
 
-	// -------------------------------state
 	const [editorOutput, setEditorOutput] = useState<string>('');
 	const [EmailTitle, setEmailTitle] = useState<string>('');
 	const [SMSeditorOutput, setSMSEditorOutput] = useState<string>('');
@@ -61,7 +60,6 @@ const GmailFooter = ({ lastMessageSubscription, Networks }: Props) => {
 		type: 'text',
 	});
 
-	// -------------------------------state management
 	const { mediaBlob } = useSnapshot(RecorderStore);
 
 	const { reset } = useSnapshot(resetStore);
@@ -76,11 +74,8 @@ const GmailFooter = ({ lastMessageSubscription, Networks }: Props) => {
 		}
 	}, [choosenTemplateContent]);
 
-	// -------------------------------query
 	const { mutate: sendGmailMessage, isLoading: sendGmailLoading } = useConversationMessage_SendMessageToGmailMutation();
 
-	// -------------------------------functions
-	// send
 	const sendHandler = () => {
 		if (!Boolean(SendVia?.id)) {
 			enqueueSnackbar('Please select the `Send Via` field', { variant: 'error' });
@@ -121,14 +116,12 @@ const GmailFooter = ({ lastMessageSubscription, Networks }: Props) => {
 		);
 	};
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId'])
 		await queryClient.invalidateQueries(['conversation_getList'])
 		await queryClient.invalidateQueries(['conversation_getUnseenMessagesByType']);
 	}
 
-	// resetFields
 	const resetFields = () => {
 		setEditorOutput('');
 		setSMSEditorOutput('');
@@ -146,12 +139,11 @@ const GmailFooter = ({ lastMessageSubscription, Networks }: Props) => {
 		setShowMenu(false);
 	};
 
-	// press enter
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === 'Enter' && !event.ctrlKey && !sendGmailLoading) {
-				event.preventDefault(); // Prevent the default "Enter" key behavior
-				sendHandler(); // Call the sendHandler function
+				event.preventDefault(); 
+				sendHandler();
 			}
 		};
 

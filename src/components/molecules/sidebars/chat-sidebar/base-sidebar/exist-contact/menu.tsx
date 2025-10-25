@@ -8,7 +8,6 @@ interface Props {
 }
 
 const SearchMenuBody = ({ setSearchMenu }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
 	return (

@@ -50,13 +50,11 @@ const GmailComponent = ({
 			{uploadedFile?.type === 'voice' ? (
 				<VoiceChat setUploadedFile={setUploadedFile} />
 			) : (
-				// -------------------------------text
 
 				<Stack>
 					{uploadedFile?.type === 'photo' ||
 					uploadedFile?.type === 'video' ||
 					uploadedFile?.type === 'file' ? (
-						// -------------------------------text
 						<Stack mb={1}>
 							<ShowUploadedBox
 								uploadedFile={uploadedFile}

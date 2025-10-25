@@ -49,7 +49,6 @@ const UploadMenu = ({
 
 	const { uploadFile, progress, reset, url, isUploading } = useFileUpload();
 
-	// ------------------ helpers ------------------
 	const triggerInput = (ref: React.RefObject<HTMLInputElement>) => {
 		ref.current?.click();
 	};
@@ -63,7 +62,6 @@ const UploadMenu = ({
 		setShowMenu?.(false);
 	};
 
-	// ------------------ effects ------------------
 	useEffect(() => {
 		setIsUploading?.(isUploading && !url);
 	}, [isUploading, url, setIsUploading]);
@@ -72,7 +70,6 @@ const UploadMenu = ({
 		setProgressbar?.(progress || 0);
 	}, [progress, setProgressbar]);
 
-	// ------------------ upload handler ------------------
 	const UploadHandler = async (event: ChangeEvent<HTMLInputElement>, type: 'image' | 'video' | 'file') => {
 		const files = event.target.files;
 		setShowMenu?.(false);

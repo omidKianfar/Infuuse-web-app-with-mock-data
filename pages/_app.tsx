@@ -11,7 +11,6 @@ import { createEmotionCache } from 'src/utils/createEmotionCache';
 import '../public/global.css';
 import { AuthProviderWithoutGraphQL } from '@/providers/Auth/without-graphql/auth-provider-without-graphql';
 
-// Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 interface ApiError {

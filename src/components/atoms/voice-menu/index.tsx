@@ -37,7 +37,6 @@ const VoiceChat = React.memo(({ setUploadedFile }: Props) => {
 	const element = useRef<HTMLDivElement>(null);
 	const { uploadFile } = useFileUpload();
 
-	// Initialize wavesurfer once
 	useEffect(() => {
 		if (!wavesurfer && element.current) {
 			wavesurfer = WaveSurfer.create({
@@ -66,7 +65,6 @@ const VoiceChat = React.memo(({ setUploadedFile }: Props) => {
 		};
 	}, []);
 
-	// Add record-end listener once
 	useEffect(() => {
 		if (!record) return;
 
@@ -84,7 +82,6 @@ const VoiceChat = React.memo(({ setUploadedFile }: Props) => {
 		};
 	}, [record]);
 
-	// Handle recording
 	useEffect(() => {
 		if (!isRecording || !record) return;
 		timer.start();
@@ -120,7 +117,6 @@ const VoiceChat = React.memo(({ setUploadedFile }: Props) => {
 	const onPause = () => wavesurfer?.pause();
 	const onPlay = () => wavesurfer?.play();
 
-	// Upload recorded audio
 	useEffect(() => {
 		if (!RecorderStore.mediaBlob) return;
 

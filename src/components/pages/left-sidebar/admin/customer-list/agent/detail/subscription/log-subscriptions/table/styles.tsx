@@ -85,7 +85,6 @@ export const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	'&:nth-of-type(even)': {
 		backgroundColor: theme.palette.action.hover,
 	},
-	// hide last border
 	'&:last-child td, &:last-child th': {
 		border: 0,
 	},
@@ -110,21 +109,18 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
 		width: '100%',
 		'& .MuiInputBase-input': {
 			color: theme?.palette?.common?.black,
-			// borderRadius: "16px",
 		},
 		'& fieldset': {
 			backgroundColor: 'transparent',
 			height: '48px',
 			border: `2px solid ${theme?.palette?.infuuse?.gray500}`,
 
-			// borderRadius: "16px",
 		},
 		'&.Mui-focused fieldset': {
 			backgroundColor: 'transparent',
 			height: '48px',
 			border: `2px solid ${theme?.palette?.infuuse?.gray500}`,
 
-			// borderRadius: "16px",
 		},
 		'&:hover fieldset': {
 			borderColor: theme?.palette?.infuuse?.gray500,

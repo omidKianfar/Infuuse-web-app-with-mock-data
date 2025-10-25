@@ -9,7 +9,6 @@ interface Props {
 }
 export default function TableContainer({ tableHead, children }: Props) {
 	return (
-		// <Scrollbar>
 		<MuiTableContainer sx={{ minWidth: 800 }}>
 			<Table stickyHeader>
 				<TableHead>
@@ -18,6 +17,5 @@ export default function TableContainer({ tableHead, children }: Props) {
 				{children}
 			</Table>
 		</MuiTableContainer>
-		// </Scrollbar>
 	);
 }

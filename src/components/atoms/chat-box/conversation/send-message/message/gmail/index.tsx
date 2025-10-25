@@ -28,10 +28,8 @@ interface Props {
 }
 
 const GmailMessage = ({ message }: Props) => {
-	// -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------state management
 	const { replyId } = useSnapshot(replyStore);
 
 	const [openImage, setOpenIamage] = useState(false);

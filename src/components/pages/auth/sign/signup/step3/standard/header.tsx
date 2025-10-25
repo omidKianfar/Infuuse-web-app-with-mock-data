@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 
 const HeaderStandard = () => {
 	const theme = useTheme();
-	// -------------------------------context
 
 	return (
 		<Stack

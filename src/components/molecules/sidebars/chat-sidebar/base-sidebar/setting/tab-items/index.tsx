@@ -6,13 +6,10 @@ import TagTab from './tag-tab';
 import DealTab from './deal-tab';
 import NoteTab from './note-tab';
 const TabItems = () => {
-	// -------------------------------tools
 	const theme = useTheme();
 
-	// -------------------------------states
 	const [value, setValue] = React.useState('1');
 
-	// -------------------------------functions
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue);
 	};

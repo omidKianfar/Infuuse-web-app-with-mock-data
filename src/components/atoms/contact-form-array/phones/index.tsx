@@ -57,7 +57,6 @@ const PhonesInput = ({ name }: Props) => {
 
 export default PhonesInput;
 
-// ------------------------------------styles
 export const Label = styled(Typography)(({ theme }) => ({
 	fontSize: '14px',
 	color: theme?.palette?.infuuse.blueLight500,

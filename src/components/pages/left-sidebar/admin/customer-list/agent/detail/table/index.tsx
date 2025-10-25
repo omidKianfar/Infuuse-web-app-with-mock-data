@@ -44,7 +44,6 @@ const CustomerTableDetail = ({ agencyDetailData }: Props) => {
 
 export default CustomerTableDetail;
 
-// ------------------------------------- table header
 const AdminListItems = [
 	{ id: 'Name', name: 'Name' },
 	{ id: 'Email', name: 'Email' },
