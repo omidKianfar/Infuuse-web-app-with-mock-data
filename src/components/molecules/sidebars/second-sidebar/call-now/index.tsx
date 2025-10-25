@@ -3,6 +3,7 @@ import settingStore from '@/store/setting.store';
 import { Stack, styled } from '@mui/material';
 import { useEffect } from 'react';
 import CallCard from './call-card';
+import { CallSidebarContainer } from '../styles';
 
 const CallNow = () => {
 	const { callHistory } = useTwilio();
@@ -24,13 +25,4 @@ const CallNow = () => {
 
 export default CallNow;
 
-export const CallSidebarContainer = styled(Stack)({
-	width: '100%',
-	maxHeight: '100vh',
-	padding: '16px',
-	overflow: 'auto',
-	position: 'absolute',
-	top: 0,
-	left: 0,
-	zIndex: 10000,
-});
+

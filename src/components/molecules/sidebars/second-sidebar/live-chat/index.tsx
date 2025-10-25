@@ -1,80 +1,24 @@
 import MessageCart from '@/components/pages/left-sidebar/message-card';
-import { ConversationType, SortEnumType, TypeSocialNetwork, useConversation_GetListQuery } from '@/graphql/generated';
-import userSubscriptionStore from '@/store/user-subscription.store';
-import { queryKeyManager } from '@/utils/queryKeys';
-import { Stack, styled } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useSnapshot } from 'valtio';
+import { Conversation } from '@/graphql/generated';
+import { Stack } from '@mui/material';
+import React from 'react';
+
+import { SidebarContainer } from '../styles';
+import { useConversationMessage } from '@/hooks/cache-conversations/use-conversation-message-cache';
+import { liveChatVariables } from '../sidebar-variables';
 
 const LiveChatSidebar = () => {
-
-	const { conversationIds } = useSnapshot(userSubscriptionStore);
-
-	const variables = {
-		skip: 0,
-		take: 10000,
-		where: {
-			and: [
-				{
-					type: {
-						eq: ConversationType?.SocialNetworkChat
-					}
-				},
-				{
-					conversationMessages: {
-						some: {
-							typeSocialNetwork: {
-								eq: TypeSocialNetwork?.LiveChat,
-							},
-						},
-					},
-				}]
-		},
-		order: {
-			lastModifiedDate: SortEnumType?.Desc,
-		},
-	};
-
-	const { data: Conversation } = useConversation_GetListQuery(variables);
-
-	useEffect(() => {
-		queryKeyManager.addKey('conversationList', ['conversation_getList', variables]);
-	}, []);
-
-	const ConversationData = Conversation?.conversation_getList?.result;
-
-	useEffect(() => {
-		const ConversationIds = [];
-		if (ConversationData) {
-			ConversationData?.items?.map((conversation) => {
-				ConversationIds.push(conversation?.id);
-			});
-			userSubscriptionStore.conversationIds = ConversationIds;
-		}
-	}, [ConversationData]);
+	const { conversations } = useConversationMessage(liveChatVariables);
 
 	return (
-		<LiveChatSidebarContainer>
-			{ConversationData?.items?.map((conversation) => (
+		<SidebarContainer>
+			{conversations?.map((conversation) => (
 				<Stack key={conversation?.id}>
-					<MessageCart conversation={conversation} />
+					<MessageCart conversation={conversation as Conversation} />
 				</Stack>
 			))}
-		</LiveChatSidebarContainer>
+		</SidebarContainer>
 	);
 };
 
 export default LiveChatSidebar;
-
-export const LiveChatSidebarContainer = styled(Stack)({
-	width: '100%',
-	height: '100%',
-	maxHeight: '80vh',
-	overflowY: 'auto',
-	paddingTop: '16px',
-	'&::-webkit-scrollbar': {
-		display: 'none',
-	},
-	scrollbarWidth: 'none',
-	scrollbarColor: 'transparent transparent',
-});

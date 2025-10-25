@@ -10,7 +10,9 @@ import {
 	AccountStatus,
 	Conversation,
 	SortEnumType,
+	TypeContactNetwork,
 	TypeSocialNetwork,
+	useContactNetwork_GetListByContactIdQuery,
 	useConversationMessage_GetByConversationIdQuery,
 	useConversationMessage_SetSeenStatusMutation,
 	useUser_GetCurrentUserQuery,
@@ -31,38 +33,19 @@ interface Props {
 }
 
 const MessageCart = ({ conversation }: Props) => {
-	// --------------------------------tools
 	const theme = useTheme();
 	const router = useRouter();
 
 	const ConversationId = router?.query?.conversationId;
 
-	// --------------------------------states
-	// unread message
-	const [MessagesUnSeenIds, setMessagesUnSeenIds] = useState([]);
+	const [MessagesUnSeenIds, setMessagesUnSeenIds] = useState<number[]>([]);
 
-	// --------------------------------context
 	const { lastMessageSubscription } = useContext(SubscriptionLayoutContext);
 
-	// --------------------------------query
-	// current user
 	const { data: User } = useUser_GetCurrentUserQuery();
 	const CurrentUserId = User?.user_getCurrentUser?.result?.user?.id;
 
-	// network emails
-	// const NetworkEmails = useContactNetwork_GetListByContactIdQuery({
-	// 	contactId: Number(conversation?.contact?.id),
-	// 	skip: 0,
-	// 	take: 1000,
-	// 	where: {
-	// 		typeContactNetwork: {
-	// 			eq: TypeContactNetwork?.Email,
-	// 		},
-	// 	},
-	// });
-	// const NetworkEmailsData = NetworkEmails?.data?.contactNetwork_getListByContactId?.result;
 
-	// get last message
 	const { data: conversationLastMessage } = useConversationMessage_GetByConversationIdQuery(
 		{
 			conversationId: Number(conversation?.id),
@@ -78,10 +61,8 @@ const MessageCart = ({ conversation }: Props) => {
 	);
 	const conversationLastMessageData = conversationLastMessage?.conversationMessage_getByConversationId?.result;
 
-	// set seen message
 	const { mutate: seenMessages } = useConversationMessage_SetSeenStatusMutation();
 
-	// ------------------------------get unseen message
 	const { data: conversationMessagesUnSeen } = useConversationMessage_GetByConversationIdQuery(
 		{
 			conversationId: Number(conversation?.id),
@@ -99,35 +80,26 @@ const MessageCart = ({ conversation }: Props) => {
 	);
 	const conversationMessageDataUnSeen = conversationMessagesUnSeen?.conversationMessage_getByConversationId?.result;
 
-	// --------------------------------functions
-	// update last message data
+	const NetworkEmails = useContactNetwork_GetListByContactIdQuery({
+		contactId: Number(conversation?.contact?.id),
+		skip: 0,
+		take: 1000,
+		where: {
+			typeContactNetwork: {
+				eq: TypeContactNetwork?.Email,
+			},
+		},
+	});
+	const NetworkEmailsData = NetworkEmails?.data?.contactNetwork_getListByContactId?.result;
+
+
 	useEffect(() => {
 		if (lastMessageSubscription) {
 			refetchQueries();
 		}
 	}, [lastMessageSubscription]);
 
-	// change conversationId set seen for all conversation message
-	// useEffect(() => {
-	// 	if (ConversationId) {
-	// 		seenMessages(
-	// 			{
-	// 				ints: MessagesUnSeenIds,
-	// 			},
-	// 			{
-	// 				onSuccess: async (data) => {
-	// 					const { status, result } = responseDestructure(data);
-	// 					if (status.code == 1) {
-	// 						await setMessagesUnSeenIds([])
-	// 						await refetchQueries()
-	// 					}
-	// 				},
-	// 			}
-	// 		);
-	// 	}
-	// }, [ConversationId]);
-
-	// set messages ids to state
+	
 	useEffect(() => {
 		if (conversationMessageDataUnSeen) {
 			conversationMessageDataUnSeen.items?.map((message) => {
@@ -136,7 +108,6 @@ const MessageCart = ({ conversation }: Props) => {
 		}
 	}, [conversationMessageDataUnSeen]);
 
-	// send chat page
 	const routeChatDetail = async () => {
 		if (conversation?.business?.status === AccountStatus?.Active) {
 			if (
@@ -151,8 +122,6 @@ const MessageCart = ({ conversation }: Props) => {
 						onSuccess: async (data) => {
 							const { status, result } = responseDestructure(data);
 							if (status.code == 1) {
-							} else {
-								// enqueueSnackbar(status.description, { variant: 'error' });
 							}
 						},
 					}
@@ -166,7 +135,6 @@ const MessageCart = ({ conversation }: Props) => {
 		}
 	};
 
-	// route to chat
 	const handelRouter = async () => {
 		await router.push({
 			pathname: router.pathname.includes('inbox')
@@ -188,14 +156,13 @@ const MessageCart = ({ conversation }: Props) => {
 				conversationId: conversation?.id,
 				businessId: conversation?.business?.id,
 				contactId: conversation?.contact?.id,
-				memberId: conversationLastMessageData?.items[0]?.conversation?.conversationMembers[0]?.userId,
+				memberId: conversationLastMessageData?.items?.[0]?.conversation?.conversationMembers?.[0]?.userId,
 			},
 		});
 		await setMessagesUnSeenIds([]);
 		await refetchQueries();
 	};
 
-	// refetch queries
 	const refetchQueries = async () => {
 		await queryClient.refetchQueries(['conversation_getList']);
 		await queryClient.invalidateQueries(['conversationMessage_getByConversationId']);
@@ -240,7 +207,7 @@ const MessageCart = ({ conversation }: Props) => {
 									bgcolor={theme?.palette?.infuuse?.red300}
 									borderRadius={'8px 8px 0 8px'}
 								>
-									<UnSeenMessageCalc date={conversationMessageDataUnSeen?.items[0]?.createdDate} />
+									<UnSeenMessageCalc date={conversationMessageDataUnSeen?.items?.[0]?.createdDate} />
 								</Box>
 							</Stack>
 						)}
@@ -298,7 +265,7 @@ const MessageCart = ({ conversation }: Props) => {
 						{stringSlicer(
 							conversation?.contact?.fullName
 								? conversation?.contact?.fullName
-								: NetworkEmailsData?.items[0]?.value,
+								: NetworkEmailsData?.items?.[0]?.value,
 							18
 						)}
 					</Typography>
@@ -306,10 +273,10 @@ const MessageCart = ({ conversation }: Props) => {
 					<Stack direction={'row'} justifyContent={'start'} alignItems={'center'} mb={2}>
 						{/* ---------------------------icons */}
 						<Box>
-							{conversationLastMessageData?.items[0]?.typeSocialNetwork ===
+							{conversationLastMessageData?.items?.[0]?.typeSocialNetwork ===
 							TypeSocialNetwork?.LiveChat ? (
 								<LiveChatIcon fill={theme?.palette?.infuuse?.green300} />
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork ===
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork ===
 							  TypeSocialNetwork?.Email ? (
 								<GmailIcon
 									fill={{
@@ -320,22 +287,22 @@ const MessageCart = ({ conversation }: Props) => {
 										fill5: '#4285F4',
 									}}
 								/>
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork ===
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork ===
 							  TypeSocialNetwork?.Facebook ? (
 								<FacebookIcon fill={theme?.palette?.infuuse.blueDark400} />
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork ===
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork ===
 							  TypeSocialNetwork?.Instagram ? (
 								<InstagramIcon
 									sx={{ width: '32px', height: '32px', fill: theme?.palette?.infuuse.porple200 }}
 								/>
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork ===
-							  TypeSocialNetwork?.PhoneNumber ? (
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork ===
+							  TypeSocialNetwork?.TwilioVoiceCall ? (
 								<PhoneIcon fill={theme?.palette?.infuuse?.green300} />
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork === TypeSocialNetwork?.Sms ? (
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork === TypeSocialNetwork?.Sms ? (
 								<SmsIcon fill={theme?.palette?.infuuse.porple200} />
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork === TypeSocialNetwork?.Mms ? (
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork === TypeSocialNetwork?.Mms ? (
 								<SmsIcon fill={theme?.palette?.infuuse.porple200} />
-							) : conversationLastMessageData?.items[0]?.typeSocialNetwork ===
+							) : conversationLastMessageData?.items?.[0]?.typeSocialNetwork ===
 							  TypeSocialNetwork?.WhatsApp ? (
 								<WhatsAppIcon
 									sx={{ width: '32px', height: '32px', fill: theme?.palette?.infuuse.green300 }}
@@ -343,7 +310,7 @@ const MessageCart = ({ conversation }: Props) => {
 							) : null}
 						</Box>
 
-						{conversationLastMessageData?.items[0]?.conversationAttachments?.length > 0 ? (
+						{(conversationLastMessageData?.items?.[0]?.conversationAttachments?.length || 0) > 0 ? (
 							<Typography
 								sx={{
 									lineBreak: 'anywhere',
@@ -372,8 +339,7 @@ const MessageCart = ({ conversation }: Props) => {
 									textOverflow: 'ellipsis',
 								}}
 								dangerouslySetInnerHTML={{
-									__html: conversationLastMessageData?.items[0]?.message,
-									// __html: stringSlicer(conversationLastMessageData?.items[0]?.message, 25),
+									__html: stringSlicer(conversationLastMessageData?.items?.[0]?.message, 25),
 								}}
 							></Typography>
 						)}
@@ -389,7 +355,7 @@ const MessageCart = ({ conversation }: Props) => {
 						</Box>
 
 						<Typography>
-							{dayjs(conversationLastMessageData?.items[0]?.createdDate).format('MM/DD/YYYY')}
+							{dayjs(conversationLastMessageData?.items?.[0]?.createdDate).format('MM/DD/YYYY')}
 						</Typography>
 					</Stack>
 				</Stack>

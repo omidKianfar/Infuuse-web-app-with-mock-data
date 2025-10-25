@@ -1,51 +1,17 @@
 import AddIcon from '@/assets/add-icon';
 import ModalContainer from '@/components/atoms/Modal';
 import AdminInternalChatMessageBox from '@/components/pages/left-sidebar/admin/internal-chat/internal-chat-message-box.tsx';
-import { Box, Stack, styled, Typography, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
+import React from 'react';
 import AddGroup from './modal/add-group';
-import { useSnapshot } from 'valtio';
-import userSubscriptionStore from '@/store/user-subscription.store';
-import { ConversationType, SortEnumType, useConversation_GetListQuery } from '@/graphql/generated';
-import { queryKeyManager } from '@/utils/queryKeys';
+import { useConversationMessage } from '@/hooks/cache-conversations/use-conversation-message-cache';
+import { adminInternalChatVariables } from '../../sidebar-variables';
+import { AdminInternalChatSidebarContainer } from '../../styles';
 
 const AdminInternalChatSidebar = () => {
 	const theme = useTheme();
 
-	const { conversationIds } = useSnapshot(userSubscriptionStore);
-
-	const variables = {
-		skip: 0,
-		take: 10000,
-		where: {
-			type: {
-				eq: ConversationType?.InternalChat
-			}
-		},
-		order: {
-			lastMessage: {
-				createdDate: SortEnumType?.Desc
-			}
-		},
-	}
-
-	const { data: Conversation } = useConversation_GetListQuery(variables);
-
-	useEffect(() => {
-		queryKeyManager.addKey('conversationList', ['conversation_getList', variables]);
-	}, []);
-
-	const ConversationData = Conversation?.conversation_getList?.result;
-
-	useEffect(() => {
-		const ConversationIds = [];
-		if (ConversationData) {
-			ConversationData?.items?.map((conversation) => {
-				ConversationIds.push(conversation?.id);
-			});
-			userSubscriptionStore.conversationIds = ConversationIds;
-		}
-	}, [ConversationData]);
+	const { conversations } = useConversationMessage(adminInternalChatVariables);
 
 	const [open, setOpen] = React.useState(false);
 
@@ -74,7 +40,7 @@ const AdminInternalChatSidebar = () => {
 				</Box>
 			</Stack>
 
-			{ConversationData?.items?.map((conversation) => (
+			{conversations?.map((conversation) => (
 				<Stack key={conversation?.id}>
 					{/* -------------------------------message box */}
 					<AdminInternalChatMessageBox conversation={conversation} />
@@ -89,15 +55,3 @@ const AdminInternalChatSidebar = () => {
 };
 
 export default AdminInternalChatSidebar;
-
-export const AdminInternalChatSidebarContainer = styled(Stack)({
-	width: '100%',
-	height: '100%',
-	maxHeight: '68vh',
-	overflowY: 'auto',
-	'&::-webkit-scrollbar': {
-		display: 'none',
-	},
-	scrollbarWidth: 'none',
-	scrollbarColor: 'transparent transparent',
-});

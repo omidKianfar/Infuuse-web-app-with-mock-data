@@ -3,7 +3,15 @@ import React, { useState } from 'react';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import AllChannelTab from '@/components/pages/left-sidebar/inbox/all-channel/allchannel-tab';
 import AssignTab from '@/components/pages/left-sidebar/inbox/assign/assign-tab';
-import { NotificationDocument, NotificationSubscription, NotificationType, SortEnumType, useNotification_GetListQuery, useNotification_SetReadStatusMutation, useUser_GetCurrentUserQuery } from '@/graphql/generated';
+import {
+	NotificationDocument,
+	NotificationSubscription,
+	NotificationType,
+	SortEnumType,
+	useNotification_GetListQuery,
+	useNotification_SetReadStatusMutation,
+	useUser_GetCurrentUserQuery,
+} from '@/graphql/generated';
 import { subscribe } from '@/utils/subscription';
 import { queryClient } from 'pages/_app';
 import { responseDestructure } from '@/utils';
@@ -14,16 +22,15 @@ const InboxSidebar = () => {
 	const theme = useTheme();
 	const router = useRouter();
 
-	const [value, setValue] = useState(router?.pathname?.includes('/assign-chats') ? 2 : 1);
+	const [value, setValue] = useState(router?.pathname?.includes('/assign-chats') ? '2' : '1');
 
-	const [notifIds, setNotifIds] = React.useState(null);
+	const [notifIds, setNotifIds] = React.useState<number[] | null>(null);
 
-	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue);
 	};
 
 	const { data: User } = useUser_GetCurrentUserQuery();
-	const CurrentUser = User?.user_getCurrentUser?.result;
 	const userId = User?.user_getCurrentUser?.result?.user?.id;
 
 	const queryOptions = {
@@ -38,12 +45,12 @@ const InboxSidebar = () => {
 				},
 				{
 					type: {
-						eq: NotificationType?.AssignMemberToConversation
-					}
+						eq: NotificationType?.AssignMemberToConversation,
+					},
 				},
 				{
 					userId: {
-						eq: Number(CurrentUser?.user?.id),
+						eq: Number(userId),
 					},
 				},
 			],
@@ -71,7 +78,7 @@ const InboxSidebar = () => {
 		};
 	}, [userId]);
 
-	function subscriptionUnSendMessageListener(event) {
+	function subscriptionUnSendMessageListener(event: MessageEvent) {
 		const data = JSON.parse(event.data);
 
 		if (data.type === 'ka') return;
@@ -82,17 +89,18 @@ const InboxSidebar = () => {
 		queryClient.invalidateQueries(queryKey);
 	}
 
-
 	React.useEffect(() => {
-		const ids = [];
+		const ids: number[] = [];
 		if (notification) {
-			NotificationData?.items?.map((notif) => ids?.push(notif?.id));
+			NotificationData?.items?.map((notif) => ids?.push(notif?.id as number));
 		}
 		setNotifIds(ids);
 	}, [notification]);
 
+	const notificationLength = NotificationData?.items?.length || 0;
+
 	const notificationsRead = () => {
-		if (NotificationData?.items?.length > 0) {
+		if (notificationLength > 0) {
 			ReadNotifications(
 				{
 					ids: notifIds,
@@ -101,8 +109,8 @@ const InboxSidebar = () => {
 					onSuccess: (data) => {
 						const { status } = responseDestructure(data);
 						if (status.code == 1) {
-							setNotifIds(null)
-							queryClient.invalidateQueries(['notification_getList'])
+							setNotifIds(null);
+							queryClient.invalidateQueries(['notification_getList']);
 						} else {
 							enqueueSnackbar(status.description, { variant: 'error' });
 						}
@@ -114,90 +122,74 @@ const InboxSidebar = () => {
 
 	return (
 		<Stack>
-			<Tabs sx={{ width: '100%' }}>
-				<Box sx={{ width: '100%' }}>
-					<TabContext value={value}>
-						{/* -------------------------------tab container */}
-						<Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width={'100%'}>
-							{/* -------------------------------tabs */}
-							<TabList
-								textColor={theme?.palette?.infuuse.blue200}
-								width={'100%'}
-								TabIndicatorProps={{
-									sx: {
-										backgroundColor: theme?.palette?.infuuse.blue200,
-										height: '3px',
-									},
-								}}
-								onChange={handleChange}
-								aria-label="lab API tabs example"
-								sx={{ width: '100%' }}
-							>
-								{/* ------------------------------- tab */}
-								<Tab
-									sx={{ mr: '40px' }}
-									label={
-										<Typography
-											sx={{
-												textTransform: 'none',
-												fontSize: value === 1 ? '16px' : '16px',
-												fontWeight: value === 1 ? 600 : 400,
-												position: 'relative',
-												color: theme?.palette?.infuuse.blue200,
-											}}
-										>
-											All Channels
-										</Typography>
-									}
-									value={1}
+			<TabContext value={value}>
+				<Stack width="100%">
+					<TabList
+						onChange={handleChange}
+						aria-label="inbox tabs"
+						TabIndicatorProps={{
+							sx: {
+								backgroundColor: theme?.palette?.infuuse.blue200,
+								height: '3px',
+							},
+						}}
+					>
+						<Tab
+							value="1"
+							label={
+								<Typography
+									sx={{
+										fontWeight: value === '1' ? 600 : 400,
+										color: theme?.palette?.infuuse.blue200,
+										textTransform: 'none',
+									}}
 								>
-								</Tab>
+									All Channels
+								</Typography>
+							}
+						/>
 
-								{/* -------------------------------tab */}
-								<Tab
-									onClick={notificationsRead}
-									label={
-										<Stack position={'relative'}>
-											{NotificationData?.items?.length > 0 &&
-												<Box
-													bgcolor={theme?.palette?.infuuse?.orange200}
-													borderRadius={'360px'}
-													p={'2px 8px'}
-													display={'flex'}
-													justifyContent={'center'}
-													alignItems={'center'} position={'absolute'} top={'14px'} right={'-10px'} zIndex={10000}>
-													{NotificationData?.items?.length}
-												</Box>}
+						<Tab
+							value="2"
+							onClick={notificationsRead}
+							label={
+								<Stack position="relative">
+									{notificationLength > 0 && (
+										<Box
+											bgcolor={theme?.palette?.infuuse.orange200}
+											borderRadius="360px"
+											p="2px 8px"
+											position="absolute"
+											top="14px"
+											right="-10px"
+										>
+											{notificationLength}
+										</Box>
+									)}
 
-											<Typography
-												sx={{
-													textTransform: 'none',
-													fontSize: value === 2 ? '16px' : '16px',
-													fontWeight: value === 2 ? 600 : 400,
-													color: theme?.palette?.infuuse.blue200,
-												}}
-											>
-												Assigned
-											</Typography>
-										</Stack>
+									<Typography
+										sx={{
+											fontWeight: value === '2' ? 600 : 400,
+											color: theme?.palette?.infuuse.blue200,
+											textTransform: 'none',
+										}}
+									>
+										Assigned
+									</Typography>
+								</Stack>
+							}
+						/>
+					</TabList>
 
-									}
-									value={2}
-								/>
-							</TabList>
-						</Stack>
+					<TabPanel value="1" sx={{ p: 0 }}>
+						<AllChannelTab />
+					</TabPanel>
 
-						{/* ------------------------------- tabs compnents*/}
-						<TabPanel value={1} sx={{ px: 0 }}>
-							<AllChannelTab />{' '}
-						</TabPanel>
-
-						<TabPanel value={2} sx={{ px: 0 }}>
-							<AssignTab />
-						</TabPanel>
-					</TabContext>
-				</Box>
-			</Tabs>
+					<TabPanel value="2" sx={{ p: 0 }}>
+						<AssignTab />
+					</TabPanel>
+				</Stack>
+			</TabContext>
 		</Stack>
 	);
 };

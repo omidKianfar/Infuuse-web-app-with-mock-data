@@ -1,66 +1,21 @@
-import { Box, Stack, styled, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Box, Stack, useTheme } from '@mui/material';
+import React, { useState } from 'react';
 import DilarIcon from '@/assets/dilar-icon';
 import Dilar from './dilar';
-import { useSnapshot } from 'valtio';
-import userSubscriptionStore from '@/store/user-subscription.store';
-import { ConversationType, SortEnumType, TypeSocialNetwork, useConversation_GetListQuery } from '@/graphql/generated';
-import { queryKeyManager } from '@/utils/queryKeys';
+
 import MessageCart from '@/components/pages/left-sidebar/message-card';
+import { callVariables } from '../sidebar-variables';
+import { useConversationMessage } from '@/hooks/cache-conversations/use-conversation-message-cache';
+import { SidebarContainer } from '../styles';
 
 const CallSidebar = () => {
 	const theme = useTheme();
 	const [dilar, setDilar] = useState<boolean>(false);
 
-	const { conversationIds } = useSnapshot(userSubscriptionStore);
-
-	const variables = {
-		skip: 0,
-		take: 10000,
-		where: {
-			and: [
-				{
-					type: {
-						eq: ConversationType?.SocialNetworkChat
-					}
-				},
-				{
-					conversationMessages: {
-						some: {
-							typeSocialNetwork: {
-								eq: TypeSocialNetwork?.TwilioVoiceCall,
-							},
-						},
-					},
-				}]
-		},
-		order: {
-			lastMessage: {
-				createdDate: SortEnumType?.Desc
-			}
-		},
-	};
-
-	const { data: Conversation } = useConversation_GetListQuery(variables);
-
-	useEffect(() => {
-		queryKeyManager.addKey('conversationList', ['conversation_getList', variables]);
-	}, []);
-
-	const ConversationData = Conversation?.conversation_getList?.result;
-
-	useEffect(() => {
-		const ConversationIds = [];
-		if (ConversationData) {
-			ConversationData?.items?.map((conversation) => {
-				ConversationIds.push(conversation?.id);
-			});
-			userSubscriptionStore.conversationIds = ConversationIds;
-		}
-	}, [ConversationData]);
+	const { conversations } = useConversationMessage(callVariables);
 
 	return (
-		<CallSidebarContainer>
+		<SidebarContainer>
 			<Stack direction={'row'} justifyContent={'end'} alignItems={'center'} mb={1} p={'4px'}>
 				<Box
 					display={'flex'}
@@ -93,7 +48,7 @@ const CallSidebar = () => {
 							scrollbarColor: 'transparent transparent',
 						}}
 					>
-						{ConversationData?.items?.map((conversation) => (
+						{conversations?.map((conversation) => (
 							<Stack key={conversation?.id}>
 								<MessageCart conversation={conversation} />
 							</Stack>
@@ -101,20 +56,8 @@ const CallSidebar = () => {
 					</Stack>
 				)}
 			</Stack>
-		</CallSidebarContainer>
+		</SidebarContainer>
 	);
 };
 
 export default CallSidebar;
-
-export const CallSidebarContainer = styled(Stack)({
-	width: '100%',
-	height: '100%',
-	maxHeight: '80vh',
-	overflowY: 'auto',
-	'&::-webkit-scrollbar': {
-		display: 'none',
-	},
-	scrollbarWidth: 'none',
-	scrollbarColor: 'transparent transparent',
-});

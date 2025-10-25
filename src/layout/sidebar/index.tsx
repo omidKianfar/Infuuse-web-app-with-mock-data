@@ -10,24 +10,19 @@ interface Props {
 }
 
 const SidebarSecond = ({ baselayout }: Props) => {
-	
-	// -------------------------------state managment
+
 	const { setting } = useSnapshot(settingStore);
 
 	return (
 		<Stack position={'relative'} height={'100%'}>
-			{/* --------------------- call now to user sidebar*/}
 			<CallNow />
 
-			{/* --------------------- sidebars */}
 			{baselayout ? (
 				<>
-					{/* --------------------- base layout */}
 					{setting ? <SettingSidebar /> : null}
 				</>
 			) : (
 				<>
-					{/* --------------------- main layout and chat layout */}
 					{setting ? <SettingSidebar /> : <SecondSidebar />}
 				</>
 			)}

@@ -1,67 +1,23 @@
 import AdminSupportMessageBox from '@/components/pages/left-sidebar/admin/support/support-message-box.tsx';
-import { SortEnumType, useSupportChat_GetListQuery } from '@/graphql/generated';
-import userSubscriptionStore from '@/store/user-subscription.store';
-import { queryKeyManager } from '@/utils/queryKeys';
-import { Stack, styled, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useSnapshot } from 'valtio';
+import { useSupportMessage } from '@/hooks/cache-conversations/use-support-conversation-message-cache';
+import { Stack } from '@mui/material';
+import React from 'react';
+import { adminSupportChatVariables } from '../../sidebar-variables';
+import { SidebarContainer } from '../../styles';
 
 const AdminSupportSidebar = () => {
-
-	const theme = useTheme();
-
-	const { conversationIds } = useSnapshot(userSubscriptionStore);
-
-	const variables = {
-		skip: 0,
-		take: 10000,
-		order: {
-			lastMessage: {
-				createdDate: SortEnumType?.Desc
-			}
-		},
-	}
-
-	const { data: supportChat } = useSupportChat_GetListQuery(variables);
-
-	useEffect(() => {
-		queryKeyManager.addKey('supportChatList', ['supportChat_getList', variables]);
-	}, []);
-
-	const SupportChatData = supportChat?.supportChat_getList?.result;
-
-	useEffect(() => {
-		const ConversationIds = [];
-		if (SupportChatData) {
-			SupportChatData?.items?.map((conversation) => {
-				ConversationIds.push(conversation?.id);
-			});
-			userSubscriptionStore.conversationIds = ConversationIds;
-		}
-	}, [SupportChatData]);
+	const { SupportChatData } = useSupportMessage(adminSupportChatVariables);
 
 	return (
-		<AdminSupportSidebarContainer>
-			{SupportChatData?.items?.map((conversation) => (
+		<SidebarContainer>
+			{SupportChatData?.map((conversation) => (
 				<Stack key={conversation?.id}>
 					<AdminSupportMessageBox conversation={conversation} />
 				</Stack>
 			))}
-		</AdminSupportSidebarContainer>
+		</SidebarContainer>
 	);
 };
 
 export default AdminSupportSidebar;
 
-export const AdminSupportSidebarContainer = styled(Stack)({
-	width: '100%',
-	height: '100%',
-	maxHeight: '80vh',
-	overflowY: 'auto',
-	paddingTop: '16px',
-	'&::-webkit-scrollbar': {
-		display: 'none',
-	},
-	scrollbarWidth: 'none',
-	scrollbarColor: 'transparent transparent',
-});
